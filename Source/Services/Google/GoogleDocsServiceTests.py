@@ -1,6 +1,7 @@
 from GoogleDocsService import readDocument
 
-doc = readDocument("1j80Lx1Rlu3w1gOh6FHZeF3TftA4vyV9VNEyskpF6wO4")
+id = "1j80Lx1Rlu3w1gOh6FHZeF3TftA4vyV9VNEyskpF6wO4"
+doc = readDocument(id)
 title = doc["title"]
 text = doc["text"]
 print("The title of the document is: " + title)

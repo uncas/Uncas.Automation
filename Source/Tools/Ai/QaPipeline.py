@@ -12,8 +12,8 @@ from haystack.nodes import FARMReader
 from haystack.pipelines import ExtractiveQAPipeline
 
 def questionDocuments(documentDirectory, question):
-    logging.basicConfig(format="%(levelname)s - %(name)s -  %(message)s", level=logging.WARNING)
-    logging.getLogger("haystack").setLevel(logging.WARN)
+    logging.basicConfig(format = "%(levelname)s - %(name)s -  %(message)s", level = logging.ERROR)
+    logging.getLogger("haystack").setLevel(logging.ERROR)
     document_store = InMemoryDocumentStore(use_bm25=True)
     files_to_index = [documentDirectory + "/" + f for f in os.listdir(documentDirectory)]
     indexing_pipeline = TextIndexingPipeline(document_store)

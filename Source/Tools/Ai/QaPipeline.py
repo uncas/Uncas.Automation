@@ -6,14 +6,15 @@
 import os
 import ssl
 import logging
-from haystack.telemetry import tutorial_running
 from haystack.document_stores import InMemoryDocumentStore
 from haystack.pipelines.standard_pipelines import TextIndexingPipeline
+from haystack.nodes import BM25Retriever
+from haystack.nodes import FARMReader
+from haystack.pipelines import ExtractiveQAPipeline
 
 def questionDocuments(documentDirectory, question):
-    tutorial_running(1)
     logging.basicConfig(format="%(levelname)s - %(name)s -  %(message)s", level=logging.WARNING)
-    logging.getLogger("haystack").setLevel(logging.INFO)
+    logging.getLogger("haystack").setLevel(logging.WARN)
 
     document_store = InMemoryDocumentStore(use_bm25=True)
 
@@ -27,43 +28,26 @@ def questionDocuments(documentDirectory, question):
     files_to_index = [documentDirectory + "/" + f for f in os.listdir(documentDirectory)]
     indexing_pipeline = TextIndexingPipeline(document_store)
     indexing_pipeline.run_batch(file_paths=files_to_index)
-
-    from haystack.nodes import BM25Retriever
     retriever = BM25Retriever(document_store=document_store)
-
-    from haystack.nodes import FARMReader
-    reader = FARMReader(model_name_or_path="deepset/roberta-base-squad2", use_gpu=True)
-
-    from haystack.pipelines import ExtractiveQAPipeline
+    reader = FARMReader(model_name_or_path = "deepset/roberta-base-squad2", use_gpu = True)
     pipe = ExtractiveQAPipeline(reader, retriever)
+    params = { "Retriever": {"top_k": 10}, "Reader": {"top_k": 5} }
+    prediction = pipe.run(query = question, params = params)
+    return mapAnswers(document_store, prediction)
 
-    prediction = pipe.run(
-        query=question,
-        params={
-            "Retriever": {"top_k": 10},
-            "Reader": {"top_k": 5}
-        }
-    )
-
-    from pprint import pprint
-    pprint(prediction)
-
-    from haystack.utils import print_answers
-    print_answers(
-        prediction,
-        details="medium" ## Choose from `minimum`, `medium`, and `all`
-    )
-
-    print(prediction["query"])
-    print(prediction["answers"][0])
-
-    p0 = prediction["answers"][0].to_dict()
-    print(p0)
-    print(p0["answer"])
-    print(p0["score"])
-    print(p0["context"])
-    documentId = p0["document_ids"][0]
-    print(documentId)
-
-    document = document_store.get_document_by_id(documentId)
-    print(document.to_dict())
+def mapAnswers(document_store, prediction):
+    answers = []
+    for answer in prediction["answers"]:
+        answerDict = answer.to_dict()
+        docIds = answerDict["document_ids"]
+        backgroundContent = []
+        for docId in docIds:
+            content = document_store.get_document_by_id(docId)
+            backgroundContent.append(content.to_dict()["content"])
+        answers.append({
+            "answer": answerDict["answer"],
+            "score": answerDict["score"],
+            "context": answerDict["context"],
+            "backgroundContent": backgroundContent
+        });
+    return answers

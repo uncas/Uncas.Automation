@@ -1,6 +1,7 @@
-from Services.Google.GoogleDocsServiceTests import testGoogleDocsService
-from Services.Google.GoogleSheetsServiceTests import testGoogleSheetsService
 from QuestionGoogleDocTests import testQuestionGoogleDoc
+from Services.Google.GoogleDocsServiceTests import testGoogleDocsService
+from Services.Google.GooglePresentationsServiceTests import testGooglePresentationsService
+from Services.Google.GoogleSheetsServiceTests import testGoogleSheetsService
 from Tools.Ai.QaPipelineTests import testQaPipeline
 from Tools.Ai.QueryLMTests import testQueryLM
 
@@ -19,6 +20,8 @@ def run():
 		task = input(menu + "\nEnter your choice: ").lower()
 
 		if task == "t":
+			testGooglePresentationsService()
+			return
 			testGoogleDocsService()
 			testGoogleSheetsService()
 			testQueryLM()

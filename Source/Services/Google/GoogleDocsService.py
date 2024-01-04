@@ -3,7 +3,7 @@
 
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-from Services.Google.GoogleAuth import getCredentials
+from GoogleAuth import getCredentials
 
 def readDocument(documentId):
   creds = getCredentials()

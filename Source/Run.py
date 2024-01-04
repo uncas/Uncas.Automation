@@ -1,8 +1,35 @@
-print("Hello")
+from Services.Google.GoogleDocsServiceTests import testGoogleDocsService
+from Services.Google.GoogleSheetsServiceTests import testGoogleSheetsService
+from QuestionGoogleDocTests import testQuestionGoogleDoc
+from Tools.Ai.QaPipelineTests import testQaPipeline
+from Tools.Ai.QueryLMTests import testQueryLM
 
-task = input("1) Ask question\n2) Chat\nEnter your choice: ")
+def run():
+	while True:
+		print("Menu:")
 
-if task == "1":
-	print("TBD")
+		tasks = [
+			{"id": "1", "name": "Ask question"},
+			{"id": "2", "name": "Chat"},
+			{"id": "T", "name": "Test all"},
+			{"id": "Q", "name": "Quit"}
+			]
 
-print("TBD")
+		menu = "\n".join(map(lambda task: task["id"] + ") " + task["name"], tasks))
+		task = input(menu + "\nEnter your choice: ").lower()
+
+		if task == "t":
+			testGoogleDocsService()
+			testGoogleSheetsService()
+			testQueryLM()
+			testQaPipeline()
+			testQuestionGoogleDoc()
+
+		elif task == "q":
+			return
+		else:
+			print("Not implemented")
+		print()
+
+if __name__ == "__main__":
+	run()

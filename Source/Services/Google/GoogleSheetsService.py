@@ -2,7 +2,7 @@
 
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-from GoogleAuth import getCredentials
+from Services.Google.GoogleAuth import getCredentials
 
 def readSheet(id, range):
 	creds = getCredentials()

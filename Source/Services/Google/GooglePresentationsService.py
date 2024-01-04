@@ -21,15 +21,27 @@ def getTextContent(presentation):
   result = []
   for slide in slides:
     elements = slide.get('pageElements')
+    result = result + flatten(getContentOfElements(elements))
+  return "\n".join(result)
+
+def getContentOfElements(elements):
+    if (elements == None):
+      return
     for element in elements:
         if "shape" in element:
-          result = result + list(getTexts(element["shape"]))
+          yield getTexts(element["shape"])
         if "table" in element:
           rows = element["table"]["tableRows"]
-          cells = flatten(map(lambda row: row["tableCells"], rows))
+          cells = flatten(map(getCells, rows))
           texts = map(lambda cell: getTexts(cell), cells)
-          result = result + flatten(texts)
-  return "\n".join(result)
+          yield flatten(texts)
+        if "elementGroup" in element:
+          yield flatten(getContentOfElements(element["elementGroup"]["children"]))
+
+def getCells(row):
+  if "tableCells" in row:
+    return row["tableCells"]
+  return []
 
 def getTexts(shapeOrCell):
   if "text" not in shapeOrCell:

@@ -1,5 +1,7 @@
 import requests, json
 
+# https://github.com/oobabooga/text-generation-webui/wiki/12-%E2%80%90-OpenAI-API
+
 chatUrl = "http://127.0.0.1:5000/v1/chat/completions"
 completionsUrl = "http://127.0.0.1:5000/v1/completions"
 headers = { "Content-Type": "application/json" }

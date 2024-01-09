@@ -5,6 +5,7 @@ from Tools.Ai.QaPipeline import questionDocuments
 from Utils.FileUtils import writeText
 
 def questionGoogleDocsFromSheetList(sheetId, rangeWithDocLinks, question):
+	import os
 	rows = readSheet(sheetId, rangeWithDocLinks)
 	links = map(lambda row: row[0], rows)
 	folder = "Data/GoogleSheetList/" + sheetId
@@ -27,10 +28,14 @@ def questionGoogleDocsFromSheetList(sheetId, rangeWithDocLinks, question):
 			idSearch = re.search(search["regex"], link, re.IGNORECASE)
 			if idSearch:
 				id = idSearch.group(1)
+				file = search["prefix"] + "-" + id + ".txt"
+				if os.path.exists(folder + "/" + file):
+					continue
+				print("Reading: " + link)
 				doc = search["lookup"](id)
 				if doc == None:
 					print("WARNING: DOCUMENT NOT FOUND OR NOT ACCESSIBLE: " + link)
 				else:
-					writeText(folder, search["prefix"] + "-" + id + ".txt", doc["text"])
+					writeText(folder, file, doc["text"])
 				continue
 	return questionDocuments(folder, question)

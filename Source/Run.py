@@ -13,9 +13,12 @@ def run():
 		task = input(menu + "\nEnter your choice: ").lower()
 
 		if task == "t":
+			from QuestionGoogleDocsFromSheetListTests import testQuestionGoogleDocsFromSheetList
+			testQuestionGoogleDocsFromSheetList()
+			return
+		
 			from Services.Google.GooglePresentationsServiceTests import testGooglePresentationsService
 			testGooglePresentationsService()
-			return
 
 			from QuestionGoogleDocTests import testQuestionGoogleDoc
 			from Services.Google.GoogleDocsServiceTests import testGoogleDocsService

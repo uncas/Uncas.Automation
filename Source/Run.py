@@ -12,7 +12,13 @@ def run():
 		menu = "\n".join(map(lambda task: task["id"] + ") " + task["name"], tasks))
 		task = input(menu + "\nEnter your choice: ").lower()
 
-		if task == "t":
+		if task == "1":
+			from Tools.Ai.CompletionApis.ChatCompletion import askQuestion
+			askQuestion()
+		elif task == "2":
+			from Tools.Ai.CompletionApis.ChatCompletion import chat
+			chat()
+		elif task == "t":
 			from QuestionGoogleDocsFromSheetListTests import testQuestionGoogleDocsFromSheetList
 			testQuestionGoogleDocsFromSheetList()
 			return
@@ -30,7 +36,6 @@ def run():
 			testQueryLM()
 			testQaPipeline()
 			testQuestionGoogleDoc()
-
 		elif task == "q":
 			return
 		else:

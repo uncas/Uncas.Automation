@@ -20,12 +20,31 @@ def getAndAppendChatCompletion(message, messages):
     messages.append({"role": "assistant", "content": assistantMessage})
     return responseContent
 
-def getSingleChatCompletion(message):
+def startChat():
 	messages = [{"role": "system", "content": "You are a helpful assistant."}]
+	return messages
+
+def getSingleChatCompletion(message):
+	messages = startChat()
 	getAndAppendChatCompletion(message, messages)
 	return messages[-1]['content']
 
-if __name__ == "__main__":
-	print("Welcome to the chat!")
+def askQuestion():
+	print("Ask a question:")
 	message = input("> ")
 	print(getSingleChatCompletion(message))
+
+def chat():
+	quitInfo = "(Press q to quit)"
+	print("Welcome to the chat! " + quitInfo)
+	messages = startChat()
+	while True:
+		message = input("> ")
+		if message == "q": return
+		if not message: continue
+		responseContent = getAndAppendChatCompletion(message, messages)
+		print(messages[-1]['content'])
+		print(quitInfo)
+
+if __name__ == "__main__":
+	askQuestion()

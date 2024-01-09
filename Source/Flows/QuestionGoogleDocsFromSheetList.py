@@ -7,7 +7,17 @@ from Utils.FileUtils import writeText
 def questionGoogleDocsFromSheetList(sheetId, rangeWithDocLinks, question):
 	folder = "Data/GoogleSheetList/" + sheetId
 	downloadLinksToFiles(sheetId, rangeWithDocLinks, folder)
-	return questionDocuments(folder, question)
+	content = questionDocuments(folder, question)
+
+	modelFolder = "../../public/LLMs/dolly-v2-3b/"
+	from Tools.Ai.QueryLM import getModel, getTokenizer, generateResponse
+	model = getModel(modelFolder)
+	tokenizer = getTokenizer(modelFolder)
+	relevantContent = "\n".join(map(lambda doc: doc["context"], content))
+	prompt = "What is the answer to this question: " + question + "\n\n You can base your answer on the following content:\n\n" + relevantContent
+	print(prompt)
+	result = generateResponse(prompt, model=model, tokenizer=tokenizer)
+	return result
 
 def downloadLinksToFiles(sheetId, rangeWithDocLinks, folder):
 	import os

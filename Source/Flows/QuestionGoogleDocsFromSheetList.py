@@ -9,14 +9,11 @@ def questionGoogleDocsFromSheetList(sheetId, rangeWithDocLinks, question):
 	downloadLinksToFiles(sheetId, rangeWithDocLinks, folder)
 	content = questionDocuments(folder, question)
 
-	modelFolder = "../../public/LLMs/dolly-v2-3b/"
-	from Tools.Ai.QueryLM import getModel, getTokenizer, generateResponse
-	model = getModel(modelFolder)
-	tokenizer = getTokenizer(modelFolder)
+	from Tools.Ai.CompletionApis.ChatCompletion import getSingleChatCompletion
 	relevantContent = "\n".join(map(lambda doc: doc["context"], content))
-	prompt = "What is the answer to this question: " + question + "\n\n You can base your answer on the following content:\n\n" + relevantContent
+	prompt = relevantContent + "\n\n Based on the previous content. What is the answer to this question: " + question
 	print(prompt)
-	result = generateResponse(prompt, model=model, tokenizer=tokenizer)
+	result = getSingleChatCompletion(prompt)
 	return result
 
 def downloadLinksToFiles(sheetId, rangeWithDocLinks, folder):

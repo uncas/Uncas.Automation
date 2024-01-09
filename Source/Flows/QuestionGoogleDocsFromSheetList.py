@@ -5,37 +5,40 @@ from Tools.Ai.QaPipeline import questionDocuments
 from Utils.FileUtils import writeText
 
 def questionGoogleDocsFromSheetList(sheetId, rangeWithDocLinks, question):
+	folder = "Data/GoogleSheetList/" + sheetId
+	downloadLinksToFiles(sheetId, rangeWithDocLinks, folder)
+	return questionDocuments(folder, question)
+
+def downloadLinksToFiles(sheetId, rangeWithDocLinks, folder):
 	import os
+	import re
 	rows = readSheet(sheetId, rangeWithDocLinks)
 	links = map(lambda row: row[0], rows)
-	folder = "Data/GoogleSheetList/" + sheetId
-	# TODO: For completeness, I ought to clean this folder up, or at least remove documents that are no longer active...
-	import re
 	searches = [
 		{
 			"regex": 'https://docs.google.com/document/d/(.*)/edit',
 			"lookup": readDocument,
 			"prefix": "googledoc"
-   		},
+		},
 		{
 			"regex": 'https://docs.google.com/presentation/d/(.*)/edit',
 			"lookup": readPresentation,
 			"prefix": "googlepresentation"
-   		}
+		}
 	]
 	for link in links:
 		for search in searches:
 			idSearch = re.search(search["regex"], link, re.IGNORECASE)
-			if idSearch:
-				id = idSearch.group(1)
-				file = search["prefix"] + "-" + id + ".txt"
-				if os.path.exists(folder + "/" + file):
-					continue
-				print("Reading: " + link)
-				doc = search["lookup"](id)
-				if doc == None:
-					print("WARNING: DOCUMENT NOT FOUND OR NOT ACCESSIBLE: " + link)
-				else:
-					writeText(folder, file, doc["text"])
+			if not idSearch:
 				continue
-	return questionDocuments(folder, question)
+			id = idSearch.group(1)
+			file = search["prefix"] + "-" + id + ".txt"
+			if os.path.exists(folder + "/" + file):
+				break
+			print("Reading: " + link)
+			doc = search["lookup"](id)
+			if doc == None:
+				print("WARNING: DOCUMENT NOT FOUND OR NOT ACCESSIBLE: " + link)
+			else:
+				writeText(folder, file, doc["text"])
+			break

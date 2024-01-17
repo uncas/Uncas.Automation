@@ -23,10 +23,13 @@ def run():
 			from Flows.QuestionGoogleDocsFromSheetList import runQuestionGoogleDocsFromSheetList
 			runQuestionGoogleDocsFromSheetList()
 		elif task == "t":
+			from Services.Google.GmailServiceTests import testGmailService
+			testGmailService()
+
+			return
 			from QuestionGoogleDocsFromSheetListTests import testQuestionGoogleDocsFromSheetList
 			testQuestionGoogleDocsFromSheetList()
-			return
-		
+	
 			from Services.Google.GooglePresentationsServiceTests import testGooglePresentationsService
 			testGooglePresentationsService()
 

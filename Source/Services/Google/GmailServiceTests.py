@@ -1,7 +1,8 @@
-from Services.Google.GmailService import readMails
+from Services.Google.GmailService import getUnreadMessages
 
 def testGmailService():
-	readMails()
+	messages = getUnreadMessages()
+	print(list(messages))
 
 if __name__ == "__main__":
 	testGmailService()

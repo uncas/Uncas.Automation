@@ -2,7 +2,7 @@ from Flows.QuestionGoogleDocsFromSheetList import questionGoogleDocsFromSheetLis
 
 def testQuestionGoogleDocsFromSheetList():
 	sheetId = "1X9QhUocllUsrhW07g2X2O3CqBuURAFMXBqmjqkePvN8"
-	question = "Which tools do we use for documentation?"
+	question = input("Question: ")
 	answer = questionGoogleDocsFromSheetList(sheetId, "Ark1!D2:D", question)
 	print("Answer: " + answer)
 

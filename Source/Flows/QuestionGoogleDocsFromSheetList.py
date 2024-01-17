@@ -4,6 +4,27 @@ from Services.Google.GooglePresentationsService import readPresentation
 from Tools.Ai.QaPipeline import questionDocuments
 from Utils.FileUtils import writeText
 
+def runQuestionGoogleDocsFromSheetList():
+	sheets = getSheetsFromSettings()
+	if len(sheets) < 1:
+		print("No sheets configured")
+		return
+	sheet = sheets[0]
+	if len(sheets) > 1:
+		print("Select sheet:")
+		for i in range(len(sheets)):
+			print(str(i) + ") " + sheets[i]["sheetId"])
+		sheet = sheets[int(input())]
+	question = input("Question: ")
+	answer = questionGoogleDocsFromSheetList(sheet["sheetId"], sheet["cellRange"], question)
+	print("Answer: " + answer)
+
+def getSheetsFromSettings():
+	import json
+	with open("Config/Settings.json") as settingsFile:
+		settings = json.load(settingsFile)
+		return settings["questionGoogleDocsFromSheetList"]["sheets"]
+
 def questionGoogleDocsFromSheetList(sheetId, rangeWithDocLinks, question):
 	folder = "Data/GoogleSheetList/" + sheetId
 	downloadLinksToFiles(sheetId, rangeWithDocLinks, folder)

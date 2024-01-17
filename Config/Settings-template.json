@@ -1,0 +1,15 @@
+{
+	"_comments": [
+		"This is a template for a settings file.",
+		"If you copy this file to a file called Settings.json, then some of the automations will pick it up.",
+		"This template file is included in the repository.",
+		"The Settings.json file is ignored from the repository, so your secrets are safe."
+	],
+	"questionGoogleDocsFromSheetList": {
+		"sheets":[
+			{
+				"sheetId": "(insert ID of google sheet here, find it in the URL to the sheet: https://docs.google.com/spreadsheets/d/(sheetId)/edit)",
+			 	"cellRange": "(insert cell range with links here, for example: Sheet1!D2:D)"}
+		]
+	}
+}

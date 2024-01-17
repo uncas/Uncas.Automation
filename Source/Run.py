@@ -5,6 +5,7 @@ def run():
 		tasks = [
 			{"id": "1", "name": "Ask question"},
 			{"id": "2", "name": "Chat"},
+			{"id": "3", "name": "Question docs from sheet list"},
 			{"id": "T", "name": "Test all"},
 			{"id": "Q", "name": "Quit"}
 			]
@@ -18,6 +19,9 @@ def run():
 		elif task == "2":
 			from Tools.Ai.CompletionApis.ChatCompletion import chat
 			chat()
+		elif task == "3":
+			from Flows.QuestionGoogleDocsFromSheetList import runQuestionGoogleDocsFromSheetList
+			runQuestionGoogleDocsFromSheetList()
 		elif task == "t":
 			from QuestionGoogleDocsFromSheetListTests import testQuestionGoogleDocsFromSheetList
 			testQuestionGoogleDocsFromSheetList()

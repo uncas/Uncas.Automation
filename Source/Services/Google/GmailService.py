@@ -4,11 +4,11 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from Services.Google.GoogleAuth import getCredentials
 
-def getUnreadMessages():
+def getInboxMessages():
   creds = getCredentials()
   try:
     service = build("gmail", "v1", credentials=creds)
-    results = getUnreadMessagesInfo(service)
+    results = getInboxMessagesInfo(service)
     for message in results["messages"]:
         messageId = message["id"]
         content = getMessageContent(service, messageId)
@@ -40,7 +40,13 @@ def getHeaderValue(headers, name):
       return header["value"]
 
 def getUnreadMessagesInfo(service):
-  return service.users().messages().list(userId="me", q="is:unread").execute()
+  return getMessagesInfo(service, "is:unread")
+
+def getInboxMessagesInfo(service):
+  return getMessagesInfo(service, "in:inbox")
+
+def getMessagesInfo(service, query):
+   return service.users().messages().list(userId="me", q=query).execute()
 
 def getThread(service, threadId):
   return service.users().threads().get(userId = "me", id = threadId).execute()

@@ -1,4 +1,12 @@
+def isInVirtualEnvironment():
+	import sys
+	return sys.prefix != sys.base_prefix
+
 def run():
+	if not isInVirtualEnvironment():
+		print("Virtual environment not enabled. Exiting...")
+		return
+
 	while True:
 		print("Menu:")
 

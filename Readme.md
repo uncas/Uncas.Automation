@@ -43,5 +43,6 @@ Todos regarding intelligent assistant:
 
 ### DevOps tasks
 
-- python env
-- setup: installing required dependencies
+- Setup: installing required dependencies
+- Setup virtual environment on Mac
+- Detect whether virtual environment is installed, and if not, then install it.

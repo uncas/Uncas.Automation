@@ -43,6 +43,4 @@ Todos regarding intelligent assistant:
 
 ### DevOps tasks
 
-- Setup: installing required dependencies
 - Setup virtual environment on Mac
-- Detect whether virtual environment is installed, and if not, then install it.

@@ -43,4 +43,4 @@ Todos regarding intelligent assistant:
 
 ### DevOps tasks
 
-- Setup virtual environment on Mac
+- Run tests

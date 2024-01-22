@@ -6,5 +6,6 @@ IF NOT EXIST .venv (
 )
 
 call .venv\Scripts\activate
+py -m pip install --upgrade pip
 pip install -r requirements.txt
 py Source/Run.py

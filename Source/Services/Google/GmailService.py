@@ -3,15 +3,22 @@
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from Services.Google.GoogleAuth import getCredentials
+from Utils.FileUtils import writeText
+import json
+
+QUERY_INBOX = "in:inbox"
+QUERY_UNREAD = "is:unread"
 
 def getInboxMessages():
   creds = getCredentials()
   try:
     service = build("gmail", "v1", credentials=creds)
-    results = getInboxMessagesInfo(service)
+    results = getMessagesInfo(service, QUERY_INBOX)
     for message in results["messages"]:
         messageId = message["id"]
         content = getMessageContent(service, messageId)
+        contentText = json.dumps(content, indent = 2)
+        writeText("Data/Gmail", messageId + ".json", contentText)
         payload = content["payload"]
         headers = payload["headers"]
         sender = getHeaderValue(headers, "From")
@@ -26,24 +33,33 @@ def getInboxMessages():
 
 def getBody(payload):
     parts = payload["parts"]
+    bodyText = []
     for part in parts:
         if part["mimeType"] == "multipart/alternative":
             for subPart in part["parts"]:
-                if subPart["mimeType"] == "text/plain":
-                    encodedBody = subPart["body"]["data"]
-                    from base64 import urlsafe_b64decode
-                    return urlsafe_b64decode(encodedBody)
+                subPartBody = getPartBody(subPart)
+                if subPartBody:
+                    bodyText.append(subPartBody)
+        else:
+            partBody = getPartBody(part)
+            if partBody:
+                bodyText.append(partBody)
+    return "\n".join(bodyText)
+
+def getPartBody(part):
+    try:
+        data = part["body"]["data"]
+        import base64
+        byte_code = base64.urlsafe_b64decode(data)
+        return byte_code.decode("utf-8")
+    except BaseException as error:
+        print(error)
+        return
 
 def getHeaderValue(headers, name):
   for header in headers:
     if header["name"] == name:
       return header["value"]
-
-def getUnreadMessagesInfo(service):
-  return getMessagesInfo(service, "is:unread")
-
-def getInboxMessagesInfo(service):
-  return getMessagesInfo(service, "in:inbox")
 
 def getMessagesInfo(service, query):
    return service.users().messages().list(userId="me", q=query).execute()

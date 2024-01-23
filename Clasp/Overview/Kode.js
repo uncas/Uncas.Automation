@@ -19,6 +19,10 @@ function* getHtmlParts() {
 
 function getCalendarHtml() {
   const events = getCalendar();
+  if (events.length == 0) {
+    return "<p>Ingen planlagte begivenheder.</p>"
+  }
+
   const timeZone = CalendarApp.getTimeZone();
   return "<ul>" + events.map(function(event) {
     const start = Utilities.formatDate(event.startTime, timeZone, "HH:mm")

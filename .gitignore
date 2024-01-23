@@ -1,4 +1,4 @@
-__pycache__
-.venv
+/.venv/
 /Config/
 /Data/
+__pycache__

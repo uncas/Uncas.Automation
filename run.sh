@@ -8,4 +8,4 @@ fi
 source .venv/bin/activate
 python -m pip install --upgrade pip
 pip install -r requirements.txt
-python3 Source/Run.py
+python Source/Run.py

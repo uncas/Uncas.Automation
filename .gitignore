@@ -2,3 +2,4 @@
 /Config/
 /Data/
 __pycache__
+.clasp.json

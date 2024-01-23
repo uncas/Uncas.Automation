@@ -12,6 +12,9 @@ function getHtml() {
 
 function* getHtmlParts() {
   yield "<h3>Kalender</h3>" + getCalendarHtml();
+  const checklistSheetId = PropertiesService.getScriptProperties().getProperty("Checklist.SheetId");
+  const checklistUrl = "https://docs.google.com/spreadsheets/d/" + checklistSheetId;
+  yield "<h3><a target='_blank' href='" + checklistUrl + "'>Checklist</a></h3>" + getChecklistThingsToDoTodayHtml(checklistSheetId);
   yield "<h3>Opgaver</h3>" + getTrelloCardsHtml();
   yield "<h3>Indbakke</h3>" + getInboxHtml();
   yield "<p>Opdateret " + Utilities.formatDate(new Date(), CalendarApp.getTimeZone(), "HH:mm:ss") + ".</p>";

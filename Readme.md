@@ -1,7 +1,11 @@
 # Automation scripts
 
-* Running on Windows: run.cmd
-* Running on Mac: run.sh
+* Python script for running locally:
+  * Running on Windows: run.cmd
+  * Running on Mac: run.sh
+
+* Clasp folder: Google Apps script for deploying to apps script and running there:
+  * Overview: Generates HTML for an overview page of calendar, mail, and Trello tasks.
 
 
 ## TODO

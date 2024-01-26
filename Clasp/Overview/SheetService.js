@@ -6,10 +6,15 @@ function debug_getSheetValues() {
 	Logger.log(getChecklist(PropertiesService.getScriptProperties().getProperty("Checklist.SheetId")));
 }
   
-function getChecklistThingsToDoTodayHtml(checklistSheetId) {
-	return "<ul>" + getChecklistThingsToDoToday(checklistSheetId).map(function(thing) {
-	  return "<li>" + thing.title + "</li>";
-	}).reduce((previous, current) => previous + "\n" + current, "") + "\n</ul>";
+function getChecklistThingsToDoTodayHtml() {
+	const checklistSheetId = PropertiesService.getScriptProperties().getProperty("Checklist.SheetId");
+	const things = getChecklistThingsToDoToday(checklistSheetId);
+	if (things.length == 0) return "";
+
+	const checklistUrl = "https://docs.google.com/spreadsheets/d/" + checklistSheetId;
+	return "<h3><a target='_blank' href='" + checklistUrl + "'>Checklist</a></h3><ul>" +
+		things.map(thing => "<li>" + thing.title + "</li>")
+		.reduce((previous, current) => previous + "\n" + current, "") + "\n</ul>";
 }
   
 function getChecklistThingsToDoToday(checklistSheetId) {

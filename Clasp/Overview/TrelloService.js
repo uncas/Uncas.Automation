@@ -5,7 +5,10 @@ function debugTrelloCards() {
 }
 
 function getTrelloCardsHtml() {
-  return "<ul>" + getTrelloCards().map(function(card) {
+  const cards = getTrelloCards();
+  if  (cards.length == 0) return "";
+  
+  return "<h3>Opgaver</h3><ul>" + cards.map(function(card) {
     return "<li><a target='_blank' href='" + card.url + "'>" + card.name + "</a></li>";
   }).reduce((previous, current) => previous + "\n" + current, "") + "\n</ul>";
 }

@@ -11,23 +11,19 @@ function getHtml() {
 }
 
 function* getHtmlParts() {
-  yield "<h3>Kalender</h3>" + getCalendarHtml();
-  const checklistSheetId = PropertiesService.getScriptProperties().getProperty("Checklist.SheetId");
-  const checklistUrl = "https://docs.google.com/spreadsheets/d/" + checklistSheetId;
-  yield "<h3><a target='_blank' href='" + checklistUrl + "'>Checklist</a></h3>" + getChecklistThingsToDoTodayHtml(checklistSheetId);
-  yield "<h3>Opgaver</h3>" + getTrelloCardsHtml();
-  yield "<h3>Indbakke</h3>" + getInboxHtml();
+  yield getCalendarHtml();
+  yield getChecklistThingsToDoTodayHtml();
+  yield getTrelloCardsHtml();
+  yield getInboxHtml();
   yield "<p>Opdateret " + Utilities.formatDate(new Date(), CalendarApp.getTimeZone(), "HH:mm:ss") + ".</p>";
 }
 
 function getCalendarHtml() {
   const events = getCalendar();
-  if (events.length == 0) {
-    return "<p>Ingen planlagte begivenheder.</p>"
-  }
+  if (events.length == 0) return "";
 
   const timeZone = CalendarApp.getTimeZone();
-  return "<ul>" + events.map(function(event) {
+  return "<h3>Kalender</h3><ul>" + events.map(function(event) {
     const start = Utilities.formatDate(event.startTime, timeZone, "HH:mm")
     const end = Utilities.formatDate(event.endTime, timeZone, "HH:mm")
     return "<li>" + start + "-" + end + ": " + event.title + "</li>";
@@ -46,7 +42,9 @@ function getCalendar() {
 
 function getInboxHtml() {
   const inboxThreads = getInboxThreads();
-  return "<ul>" + inboxThreads.map(function(thread){
+  if (inboxThreads.length == 0) return "";
+
+  return "<h3>Indbakke</h3><ul>" + inboxThreads.map(function(thread){
     const url = "https://mail.google.com/mail/u/0/#inbox/" + thread.messageId;
     return "<li><a target='_blank' href='" + url + "'>" + thread.subject + "</a></li>";
   }).reduce((previous, current) => previous + "\n" + current, "") + "\n</ul>";

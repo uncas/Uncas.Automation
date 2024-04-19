@@ -2,12 +2,12 @@ function debug_readRssFeed() {
 	const url = "https://feeds.feedburner.com/blogspot/gJZg";
 	const entries = readRssFeed(url);
 	entries.forEach(entry => {
-    Logger.log(entry.title);
-    Logger.log(entry.link);
-    Logger.log(entry.id);
-    Logger.log(entry.published);
-    Logger.log(entry.content.substring(0, 1000));
-  });
+		Logger.log(entry.title);
+		Logger.log(entry.link);
+		Logger.log(entry.id);
+		Logger.log(entry.published);
+		Logger.log(entry.content.substring(0, 1000));
+	});
 }
 
 function readRssFeed(feed) {
@@ -21,6 +21,7 @@ function readRssFeed(feed) {
 		const id = values.filter(v => v.name == "id")[0].text;
 		const published = values.filter(v => v.name == "published")[0].text;
 		const content = values.filter(v => v.name == "content")[0].text;
+		// TODO: Include categories!
 		const link = values.filter(v => v.name == "link" && v.rel =="alternate")[0].href;
 		return {title: title, content: content, link: link, id: id, published: published};
 	});

@@ -16,6 +16,8 @@ def run():
 			{"id": "3", "name": "Question docs from sheet list"},
 			{"id": "4", "name": "Assist with emails"},
 			{"id": "5", "name": "Ask ChatGpt"},
+			{"id": "6", "name": "Create image with huggingface"},
+			{"id": "7", "name": "Generate text with huggingface"},
 			{"id": "T", "name": "Test all"},
 			{"id": "Q", "name": "Quit"}
 			]
@@ -38,6 +40,12 @@ def run():
 		elif task == "5":
 			from Services.OpenAi.ChatGptService import runChatGpt
 			runChatGpt()
+		elif task == "6":
+			from Services.HuggingFace.HuggingFaceService import runCreateImage
+			runCreateImage()
+		elif task == "7":
+			from Services.HuggingFace.HuggingFaceService import generateText
+			generateText()
 		elif task == "t":
 			from Services.Google.GmailServiceTests import testGmailService
 			testGmailService()

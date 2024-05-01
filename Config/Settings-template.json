@@ -14,5 +14,8 @@
 	},
 	"openAi": {
 		"apiKey": "(insert OpenAI API key here)"
+	},
+	"huggingFace": {
+		"token": "(insert Hugging Face token here)"
 	}
 }

@@ -18,6 +18,8 @@ def run():
 			{"id": "5", "name": "Ask ChatGpt"},
 			{"id": "6", "name": "Create image with huggingface"},
 			{"id": "7", "name": "Generate text with huggingface"},
+			{"id": "8", "name": "Classify text with huggingface"},
+			{"id": "9", "name": "Translate with huggingface"},
 			{"id": "T", "name": "Test all"},
 			{"id": "Q", "name": "Quit"}
 			]
@@ -46,6 +48,12 @@ def run():
 		elif task == "7":
 			from Services.HuggingFace.HuggingFaceService import generateText
 			generateText()
+		elif task == "8":
+			from Services.HuggingFace.HuggingFaceService import classifyText
+			classifyText()
+		elif task == "9":
+			from Services.HuggingFace.HuggingFaceService import translate
+			translate()
 		elif task == "t":
 			from Services.Google.GmailServiceTests import testGmailService
 			testGmailService()

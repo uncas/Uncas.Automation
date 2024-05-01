@@ -11,5 +11,8 @@
 				"sheetId": "(insert ID of google sheet here, find it in the URL to the sheet: https://docs.google.com/spreadsheets/d/(sheetId)/edit)",
 			 	"cellRange": "(insert cell range with links here, for example: Sheet1!D2:D)"}
 		]
+	},
+	"openAi": {
+		"apiKey": "(insert OpenAI API key here)"
 	}
 }

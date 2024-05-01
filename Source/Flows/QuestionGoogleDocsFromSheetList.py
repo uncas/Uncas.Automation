@@ -1,6 +1,7 @@
 from Services.Google.GoogleSheetsService import readSheet
 from Services.Google.GoogleDocsService import readDocument
 from Services.Google.GooglePresentationsService import readPresentation
+from Source.Utils.Settings import getSetting
 from Tools.Ai.QaPipeline import questionDocuments
 from Utils.FileUtils import writeText
 
@@ -20,10 +21,7 @@ def runQuestionGoogleDocsFromSheetList():
 	print("Answer: " + answer)
 
 def getSheetsFromSettings():
-	import json
-	with open("Config/Settings.json") as settingsFile:
-		settings = json.load(settingsFile)
-		return settings["questionGoogleDocsFromSheetList"]["sheets"]
+	return getSetting("questionGoogleDocsFromSheetList")["sheets"]
 
 def questionGoogleDocsFromSheetList(sheetId, rangeWithDocLinks, question):
 	folder = "Data/GoogleSheetList/" + sheetId

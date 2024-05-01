@@ -15,6 +15,7 @@ def run():
 			{"id": "2", "name": "Chat"},
 			{"id": "3", "name": "Question docs from sheet list"},
 			{"id": "4", "name": "Assist with emails"},
+			{"id": "5", "name": "Ask ChatGpt"},
 			{"id": "T", "name": "Test all"},
 			{"id": "Q", "name": "Quit"}
 			]
@@ -34,6 +35,9 @@ def run():
 		elif task == "4":
 			from Flows.MailAssistant import assistWithMails
 			assistWithMails()
+		elif task == "5":
+			from Services.OpenAi.ChatGptService import runChatGpt
+			runChatGpt()
 		elif task == "t":
 			from Services.Google.GmailServiceTests import testGmailService
 			testGmailService()

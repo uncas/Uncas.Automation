@@ -20,6 +20,8 @@ def run():
 			{"id": "7", "name": "Generate text with huggingface"},
 			{"id": "8", "name": "Classify text with huggingface"},
 			{"id": "9", "name": "Translate with huggingface"},
+			{"id": "10", "name": "Speak text with huggingface"},
+			{"id": "11", "name": "Search with huggingface"},
 			{"id": "T", "name": "Test all"},
 			{"id": "Q", "name": "Quit"}
 			]
@@ -54,6 +56,12 @@ def run():
 		elif task == "9":
 			from Services.HuggingFace.HuggingFaceService import translate
 			translate()
+		elif task == "10":
+			from Services.HuggingFace.HuggingFaceService import runSpeak
+			runSpeak()
+		elif task == "11":
+			from Services.HuggingFace.HuggingFaceService import search
+			search()
 		elif task == "t":
 			from Services.Google.GmailServiceTests import testGmailService
 			testGmailService()

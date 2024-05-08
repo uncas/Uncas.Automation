@@ -5,3 +5,8 @@ huggingface_hub
 openai
 pillow
 requests
+torch
+torchvision
+torchaudio
+scipy
+transformers

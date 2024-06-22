@@ -22,6 +22,10 @@ def run():
 			{"id": "9", "name": "Translate with huggingface"},
 			{"id": "10", "name": "Speak text with huggingface"},
 			{"id": "11", "name": "Search with huggingface"},
+			{"id": "12", "name": "Read cars from Bilbasen blog"},
+			{"id": "13", "name": "Embeddings with openai"},
+			{"id": "14", "name": "Split text with langchain"},
+			{"id": "15", "name": "Embed locally"},
 			{"id": "T", "name": "Test all"},
 			{"id": "Q", "name": "Quit"}
 			]
@@ -62,6 +66,18 @@ def run():
 		elif task == "11":
 			from Services.HuggingFace.HuggingFaceService import search
 			search()
+		elif task == "12":
+			from Flows.ReadCarsFromBilbasenBlog import readCars
+			readCars()
+		elif task == "13":
+			from Services.OpenAi.EmbeddingService import runGetEmbedding
+			runGetEmbedding()
+		elif task == "14":
+			from Services.LangChain.TextSplitter import runSplitText
+			runSplitText()
+		elif task == "15":
+			from Services.Embeddings.Embeddor import runEmbed
+			runEmbed()
 		elif task == "t":
 			from Services.Google.GmailServiceTests import testGmailService
 			testGmailService()

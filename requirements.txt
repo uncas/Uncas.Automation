@@ -10,3 +10,7 @@ torchvision
 torchaudio
 scipy
 transformers
+certifi
+bs4
+langchain-text-splitters
+sentence-transformers

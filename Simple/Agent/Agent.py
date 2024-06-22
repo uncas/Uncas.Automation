@@ -8,6 +8,7 @@ If you already know the answer, then output a Thought and an Answer; do not outp
 If you do not know the answer, then output a Thought and an Action.
 Use Thought to describe your thoughts about the question you have been asked.
 Use Action to run one of the actions available to you.
+Only answer with Thought, Action, or Answer. Do not answer with Observation or other output.
 
 Your available actions are:
 
@@ -25,11 +26,11 @@ Search Simon's blog for that term
 
 get_location:
 e.g. get_location: me
-Returns your current location
+Returns the current location for the provided user
 
-get_weather:
-e.g. get_weather: London
-Returns the weather for that location
+get_location_weather:
+e.g. get_location_weather: London
+Returns the weather for the provided location (London in this example)
 
 
 Example 1:
@@ -113,7 +114,7 @@ def simon_blog_search(q):
 def get_location(who):
     return "Odder, Denmark"
 
-def get_weather(location):
+def get_location_weather(location):
     return "17 Celcius, Raining"
 
 def calculate(what):
@@ -124,7 +125,7 @@ known_actions = {
     "calculate": calculate,
     "simon_blog_search": simon_blog_search,
     "get_location": get_location,
-    "get_weather": get_weather
+    "get_location_weather": get_location_weather
 }
 
 input = input("Question: ")

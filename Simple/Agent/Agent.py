@@ -13,7 +13,7 @@ Your available actions are:
 
 calculate:
 e.g. calculate: 4 * 7 / 3
-Runs a calculation and returns the number - uses Python so be sure to use floating point syntax if necessary
+Runs a mathematical calculation and returns the number - uses Python so be sure to use floating point syntax if necessary
 
 wikipedia:
 e.g. wikipedia: Django
@@ -22,6 +22,14 @@ Returns a summary from searching Wikipedia
 simon_blog_search:
 e.g. simon_blog_search: Django
 Search Simon's blog for that term
+
+get_location:
+e.g. get_location: me
+Returns your current location
+
+get_weather:
+e.g. get_weather: London
+Returns the weather for that location
 
 Always look things up on Wikipedia if you have the opportunity to do so.
 
@@ -50,7 +58,7 @@ def query(question, max_turns=5):
     next_prompt = question
     for _ in range(max_turns):
         result = bot(next_prompt)
-        print(result)
+        print(" -- Result: ",result)
         actions = [action_re.match(a) for a in result.split('\n') if action_re.match(a)]
         if actions:
             # There is an action to run
@@ -59,7 +67,7 @@ def query(question, max_turns=5):
                 raise Exception("Unknown action: {}: {}".format(action, action_input))
             print(" -- running {} {}".format(action, action_input))
             observation = known_actions[action](action_input)
-            print("Observation:", observation)
+            print(" -- Observation: ", observation)
             next_prompt = "Observation: {}".format(observation)
         else:
             return
@@ -93,13 +101,21 @@ def simon_blog_search(q):
     }).json()
     return results[0]["text"]
 
+def get_location(who):
+    return "Odder, Denmark"
+
+def get_weather(location):
+    return "17 Celcius, Raining"
+
 def calculate(what):
     return eval(what)
 
 known_actions = {
     "wikipedia": wikipedia,
     "calculate": calculate,
-    "simon_blog_search": simon_blog_search
+    "simon_blog_search": simon_blog_search,
+    "get_location": get_location,
+    "get_weather": get_weather
 }
 
 input = input("Question: ")

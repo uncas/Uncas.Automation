@@ -3,11 +3,11 @@ import re
 import httpx
 
 systemPrompt = """
-You run in a loop of Thought, Action, PAUSE, Observation.
-At the end of the loop you output an Answer
+Every time I ask you something you answer with a Thought and either an Action or an Answer.
+If you know the answer, then output a Thought and an Answer.
+If you do not know the answer, then output a Thought and an Action.
 Use Thought to describe your thoughts about the question you have been asked.
-Use Action to run one of the actions available to you - then return PAUSE.
-Observation will be the result of running those actions.
+Use Action to run one of the actions available to you.
 
 Your available actions are:
 
@@ -31,20 +31,26 @@ get_weather:
 e.g. get_weather: London
 Returns the weather for that location
 
-Always look things up on Wikipedia if you have the opportunity to do so.
+Search Wikipedia if you need more information about something.
 
-Example session:
+Example 1:
 
 Question: What is the capital of France?
+
+You output:
+
 Thought: I should look up France on Wikipedia
 Action: wikipedia: France
-PAUSE
 
-You will be called again with this:
+Example 2:
 
+Question: What is the capital of France?
+
+Thought: I should look up France on Wikipedia
+Action: wikipedia: France
 Observation: France is a country. The capital is Paris.
 
-You then output:
+You output:
 
 Answer: The capital of France is Paris
 """.strip()
@@ -74,13 +80,10 @@ def query(question, max_turns=5):
 
 
 def wikipedia(q):
-    return httpx.get("https://en.wikipedia.org/w/api.php", params={
-        "action": "query",
-        "list": "search",
-        "srsearch": q,
-        "format": "json"
-    }).json()["query"]["search"][0]["snippet"]
-
+    import wikipedia
+    pages = wikipedia.search(q)
+    page = pages[0]
+    return wikipedia.summary(page, sentences = 10)
 
 def simon_blog_search(q):
     results = httpx.get("https://datasette.simonwillison.net/simonwillisonblog.json", params={
@@ -120,3 +123,5 @@ known_actions = {
 
 input = input("Question: ")
 query(input)
+
+#print(wikipedia("Denmark"))

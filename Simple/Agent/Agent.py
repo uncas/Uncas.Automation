@@ -2,7 +2,7 @@
 import re
 import httpx
 
-prompt = """
+systemPrompt = """
 You run in a loop of Thought, Action, PAUSE, Observation.
 At the end of the loop you output an Answer
 Use Thought to describe your thoughts about the question you have been asked.
@@ -54,7 +54,7 @@ action_re = re.compile('^Action: (\w+): (.*)$')
 
 def query(question, max_turns=5):
     from ChatBot import ChatBot
-    bot = ChatBot(prompt)
+    bot = ChatBot(systemPrompt)
     next_prompt = question
     for _ in range(max_turns):
         result = bot(next_prompt)

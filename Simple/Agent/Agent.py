@@ -4,7 +4,7 @@ import httpx
 
 systemPrompt = """
 Every time I ask you something you answer with a Thought and either an Action or an Answer.
-If you know the answer, then output a Thought and an Answer.
+If you already know the answer, then output a Thought and an Answer; do not output an Action when you already know the answer!
 If you do not know the answer, then output a Thought and an Action.
 Use Thought to describe your thoughts about the question you have been asked.
 Use Action to run one of the actions available to you.
@@ -31,7 +31,6 @@ get_weather:
 e.g. get_weather: London
 Returns the weather for that location
 
-Search Wikipedia if you need more information about something.
 
 Example 1:
 
@@ -39,20 +38,27 @@ Question: What is the capital of France?
 
 You output:
 
-Thought: I should look up France on Wikipedia
-Action: wikipedia: France
+Thought: I already know that Paris is the capital of France.
+Answer: Paris is the capital of France
+
 
 Example 2:
 
-Question: What is the capital of France?
-
-Thought: I should look up France on Wikipedia
-Action: wikipedia: France
-Observation: France is a country. The capital is Paris.
+Question: How many people live in France?
 
 You output:
 
-Answer: The capital of France is Paris
+Thought: I should look up France on Wikipedia
+Action: wikipedia: France
+
+Then I will perform the wikipedia lookup and give you a result in a format similar to the following:
+
+Observation: France is a country. The capital is Paris. France has a total population of 68.4 million as of January 2024.
+
+Then you can output an answer since the observation contained the necessary information:
+
+Thought: I see, now I know the population of France.
+Answer: The population of France is 68.4 million.
 """.strip()
 
 
@@ -124,4 +130,4 @@ known_actions = {
 input = input("Question: ")
 query(input)
 
-#print(wikipedia("Denmark"))
+#print(wikipedia("France"))

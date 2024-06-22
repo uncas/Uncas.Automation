@@ -9,6 +9,8 @@ If you do not know the answer, then output a Thought and an Action.
 Use Thought to describe your thoughts about the question you have been asked.
 Use Action to run one of the actions available to you.
 Only answer with Thought, Action, or Answer. Do not answer with Observation or other output.
+Do not attempt other actions than the one's available below.
+If you need more information than you can get from the available actions, then output a SuggestedImplementation.
 
 Your available actions are:
 
@@ -20,10 +22,6 @@ wikipedia:
 e.g. wikipedia: Django
 Returns a summary from searching Wikipedia
 
-simon_blog_search:
-e.g. simon_blog_search: Django
-Search Simon's blog for that term
-
 get_location:
 e.g. get_location: me
 Returns the current location for the provided user
@@ -31,6 +29,10 @@ Returns the current location for the provided user
 get_location_weather:
 e.g. get_location_weather: London
 Returns the weather for the provided location (London in this example)
+
+get_tasks:
+e.g. get_tasks: 10
+Returns a list with the specified number of incomplete tasks
 
 
 Example 1:
@@ -120,12 +122,15 @@ def get_location_weather(location):
 def calculate(what):
     return eval(what)
 
+def get_tasks(count):
+    return "Task 1, Task 2, Task 3, Task 4, Task 5, Task 6, Task 7, Task 8, Task 9, Task 10"
+
 known_actions = {
     "wikipedia": wikipedia,
     "calculate": calculate,
-    "simon_blog_search": simon_blog_search,
     "get_location": get_location,
-    "get_location_weather": get_location_weather
+    "get_location_weather": get_location_weather,
+    "get_tasks": get_tasks
 }
 
 input = input("Question: ")

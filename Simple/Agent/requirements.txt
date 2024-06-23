@@ -3,3 +3,4 @@ openai
 wikipedia
 langchain
 langchain_community
+langchainhub

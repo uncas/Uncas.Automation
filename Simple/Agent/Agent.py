@@ -4,6 +4,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def askAgent(tools, question):
+    print("Tools loaded:")
+    for tool in tools:
+        print(tool.name)
     from langchain import hub
     from langchain.agents import AgentExecutor, create_react_agent
     from langchain_community.chat_models import ChatOllama

@@ -22,9 +22,7 @@ def askRealAgent(question):
     wikipedia = WikipediaQueryRun(api_wrapper=WikipediaAPIWrapper())
     #print(wikipedia.run("HUNTER X HUNTER"))
 
-    import os
-    from langchain_community.utilities import OpenWeatherMapAPIWrapper
-    os.environ["OPENWEATHERMAP_API_KEY"] = "8e5d4f4c4df92d6bad93f5b9cbcedfb1"
+    #from langchain_community.utilities import OpenWeatherMapAPIWrapper
     #weather = OpenWeatherMapAPIWrapper()
     #print(weather.run("London,GB"))
 

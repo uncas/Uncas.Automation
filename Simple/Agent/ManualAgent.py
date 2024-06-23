@@ -1,3 +1,6 @@
+# This manually coded agent served as a learning experience for me,
+# before I started using langchain instead...
+
 # https://til.simonwillison.net/llms/python-react-pattern
 import re
 import httpx

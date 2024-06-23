@@ -1,5 +1,8 @@
 # Started from https://github.com/rabbitmetrics/langchain-agents-explained
 
+from dotenv import load_dotenv
+load_dotenv()
+
 def askAgent(tools, question):
     from langchain import hub
     from langchain.agents import AgentExecutor, create_react_agent
@@ -9,15 +12,25 @@ def askAgent(tools, question):
     chat = ChatOllama(model="llama3", temperature=0)
     prompt = hub.pull("hwchase17/react")
     agent = create_react_agent(chat, tools, prompt)
-    agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True, max_iterations=3)
+    agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True, max_iterations=5)
     return agent_executor.invoke({"input": question})
 
 def askRealAgent(question):
     from langchain_community.tools import WikipediaQueryRun
     from langchain_community.utilities import WikipediaAPIWrapper
+    from langchain_community.agent_toolkits.load_tools import load_tools
     wikipedia = WikipediaQueryRun(api_wrapper=WikipediaAPIWrapper())
     #print(wikipedia.run("HUNTER X HUNTER"))
-    tools = [wikipedia]
+
+    import os
+    from langchain_community.utilities import OpenWeatherMapAPIWrapper
+    os.environ["OPENWEATHERMAP_API_KEY"] = "8e5d4f4c4df92d6bad93f5b9cbcedfb1"
+    #weather = OpenWeatherMapAPIWrapper()
+    #print(weather.run("London,GB"))
+
+    tools = load_tools(["openweathermap-api"])
+    tools.append(wikipedia)
+
     return askAgent(tools, question)
 
 input = input("Question: ")

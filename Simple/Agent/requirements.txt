@@ -1,6 +1,17 @@
+# Env files:
+python-dotenv
+
+# LLMs:
 ollama
 openai
-wikipedia
+
+# Langchain:
 langchain
 langchain_community
 langchainhub
+
+# Tools:
+wikipedia
+
+#openweathermap:
+pyowm

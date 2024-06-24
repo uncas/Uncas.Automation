@@ -1,4 +1,5 @@
 # From Scrimba course in AI Engineering
+# With langchain setup from https://python.langchain.com/v0.1/docs/integrations/vectorstores/chroma/
 
 # import
 from langchain_chroma import Chroma

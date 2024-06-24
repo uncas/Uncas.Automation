@@ -8,4 +8,6 @@ fi
 source .venv/bin/activate
 python -m pip install --upgrade pip
 pip install -r requirements.txt
-python ScrimbaBot.py
+
+#python SplitEmbedStore.py
+python UserFlow.py

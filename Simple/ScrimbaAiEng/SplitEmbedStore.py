@@ -1,34 +1,38 @@
 # From Scrimba course in AI Engineering
 # With langchain setup from https://python.langchain.com/v0.1/docs/integrations/vectorstores/chroma/
 
-# import
-from langchain_chroma import Chroma
-from langchain_community.document_loaders import TextLoader
-from langchain_community.embeddings.sentence_transformer import (
-    SentenceTransformerEmbeddings,
-)
-from langchain_text_splitters import RecursiveCharacterTextSplitter
+persist_directory = "./chroma_db"
 
-# load the document and split it into chunks
-loader = TextLoader("scrimba-info.txt")
-documents = loader.load()
+def getEmbeddingFunction():
+    from langchain_community.embeddings.sentence_transformer import SentenceTransformerEmbeddings
+    # create the open-source embedding function
+    return SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
 
-# split it into chunks
-text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
-docs = text_splitter.split_documents(documents)
+def splitEmbedAndStore():
+    from langchain_chroma import Chroma
+    from langchain_community.document_loaders import TextLoader
+    from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-# create the open-source embedding function
-embedding_function = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
+    # load the document
+    loader = TextLoader("scrimba-info.txt")
+    documents = loader.load()
 
-# query it
-query = "How can I use Scrimba?"
+    # split it into chunks
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+    docs = text_splitter.split_documents(documents)
 
-# save to disk
-db2 = Chroma.from_documents(docs, embedding_function, persist_directory="./chroma_db")
-docs = db2.similarity_search(query)
-print(docs[0].page_content)
+    # save to disk
+    Chroma.from_documents(docs, getEmbeddingFunction(), persist_directory=persist_directory)
 
-# load from disk
-db3 = Chroma(persist_directory="./chroma_db", embedding_function=embedding_function)
-docs = db3.similarity_search(query)
+def getVectorStore():
+    from langchain_chroma import Chroma
+    return Chroma(persist_directory=persist_directory, embedding_function=getEmbeddingFunction())
+
+def getSimilarities(query):
+    db = getVectorStore()
+    docs = db.similarity_search(query)
+    return docs
+
+splitEmbedAndStore()
+docs = getSimilarities("What are the technical requirements for running Scrimba? I only have a very old laptop which is not that powerful.")
 print(docs[0].page_content)

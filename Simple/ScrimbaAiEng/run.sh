@@ -10,5 +10,5 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 
 #python SplitEmbedStore.py
-#python UserFlow.py
-python RunnableSequence.py
+python UserFlow.py
+#python RunnableSequence.py

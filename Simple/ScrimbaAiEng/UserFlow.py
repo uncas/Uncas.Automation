@@ -1,12 +1,26 @@
+from dotenv import load_dotenv # type: ignore
+load_dotenv()
+
 def combineDocs(docs):
 	return "\n\n".join(doc.page_content for doc in docs)
 
+def getLlm():
+	import os
+	llmType = os.getenv('LlmType')
+	if llmType == "OpenAi":
+		print("Using OpenAI LLM")
+		from langchain_openai import ChatOpenAI # type: ignore
+		return ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
+	
+	print("Using Ollama LLM")
+	from langchain_community.chat_models import ChatOllama # type: ignore
+	return ChatOllama(model="llama3", temperature=0)
+
 def askQuestion(question):
 	from SplitEmbedStore import getVectorStore
-	from langchain_community.chat_models import ChatOllama
 	from langchain_core.prompts import PromptTemplate
 	from langchain_core.output_parsers.string import StrOutputParser
-	llm = ChatOllama(model="llama3", temperature=0)
+	llm = getLlm()
 	vectorStoreRetriever = getVectorStore().as_retriever()
 	standaloneQuestionTemplate = 'Given a question, convert it to a standalone question. Question: {question}. Standalone question:'
 	standaloneQuestionPrompt = PromptTemplate.from_template(standaloneQuestionTemplate)

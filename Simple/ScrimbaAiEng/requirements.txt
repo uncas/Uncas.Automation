@@ -1,3 +1,7 @@
+# Env files:
+python-dotenv
+
 langchain_community
 langchain-chroma
+langchain-openai
 sentence-transformers

@@ -1,3 +1,6 @@
+def combineDocs(docs):
+	return "\n\n".join(doc.page_content for doc in docs)
+
 def askQuestion(question):
 	from SplitEmbedStore import getVectorStore
 	from langchain_community.chat_models import ChatOllama
@@ -16,16 +19,10 @@ def askQuestion(question):
  		"user to email help@scrimba.com. Question: {question}. Context: {context}. Answer: "
 	answerPrompt = PromptTemplate.from_template(answerTemplate)
 	answerChain = answerPrompt.pipe(llm)
-	context = docs[0].page_content
+	context = combineDocs(docs)
 	print(" *** Context: ", context)
 	answer = answerChain.invoke({ "question": question, "context": context })
 	return answer.content
 
 response = askQuestion('What are the technical requirements for running Scrimba? I only have a very old laptop which is not that powerful.')
-print(response)
-
-
-
-	#tweetTemplate = 'Generate a promotional tweet for a product, from this product description: {productDesc}'
-	#tweetPrompt = PromptTemplate.from_template(tweetTemplate)
-	#print(tweetPrompt)
+print(" *** Answer ", response)

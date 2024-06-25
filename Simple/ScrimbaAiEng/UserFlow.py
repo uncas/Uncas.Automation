@@ -8,13 +8,14 @@ def getLlm():
 	import os
 	llmType = os.getenv('LlmType')
 	if llmType == "OpenAi":
-		print("Using OpenAI LLM")
+		print("Using OpenAI LLM.")
 		from langchain_openai import ChatOpenAI # type: ignore
 		return ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
 	
-	print("Using Ollama LLM")
+	print("Using Ollama LLM.")
 	from langchain_community.chat_models import ChatOllama # type: ignore
-	return ChatOllama(model="llama3", temperature=0)
+	localModel = os.getenv("LocalModel")
+	return ChatOllama(model=localModel, temperature=0)
 
 def askQuestion(question):
 	from SplitEmbedStore import getVectorStore
@@ -39,4 +40,4 @@ def askQuestion(question):
 	return answer.content
 
 response = askQuestion('What are the technical requirements for running Scrimba? I only have a very old laptop which is not that powerful.')
-print(" *** Answer ", response)
+print(" *** Answer: ", response)

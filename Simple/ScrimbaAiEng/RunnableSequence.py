@@ -11,15 +11,9 @@ punctuationPrompt = PromptTemplate.from_template(punctuationTemplate)
 grammarTemplate = "Given a sentence correct the grammar. sentence: {punctuated_sentence} sentence with correct grammar: "
 grammarPrompt = PromptTemplate.from_template(grammarTemplate)
 
-chain = RunnableSequence(
-    punctuationPrompt,
-    llm,
-    StrOutputParser(),
-#	lambda prevResult: print("D: ", prevResult),
-#    {punctuated_sentence: prevResult => prevResult},
-    grammarPrompt,
-    llm,
-    StrOutputParser())
+punctuationChain = RunnableSequence(punctuationPrompt, llm, StrOutputParser())
+grammarChain = RunnableSequence(grammarPrompt, llm, StrOutputParser())
+chain = RunnableSequence(punctuationChain, grammarChain)
 
 response = chain.invoke({
     "sentence": 'i dont liked mondays',

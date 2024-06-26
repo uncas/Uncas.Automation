@@ -48,7 +48,7 @@ def askQuestion(question):
     	},
 		{
         	"context": retrieverChain,
-        	"question": lambda original_input: original_input["original_input"]["question"]
+        	"question": lambda previousOutput: previousOutput["original_input"]["question"]
     	},
 		answerChain
 	)

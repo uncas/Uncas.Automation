@@ -61,7 +61,7 @@ def askQuestion(question, conversationHistory):
 	result = chain.invoke({ "question": question, "conversation_history": conversationHistory })
 	return result
 
-question = 'What are the technical requirements for running Scrimba? I only have a very old laptop which is not that powerful.'
+# question = 'What are the technical requirements for running Scrimba? I only have a very old laptop which is not that powerful.'
 conversationHistory = ""
 for i in range(5):
 	question = input("How can I help you?")

@@ -33,6 +33,6 @@ def getSimilarities(query):
     docs = db.similarity_search(query)
     return docs
 
-splitEmbedAndStore()
-docs = getSimilarities("What are the technical requirements for running Scrimba? I only have a very old laptop which is not that powerful.")
-print(docs[0].page_content)
+#splitEmbedAndStore()
+#docs = getSimilarities("What are the technical requirements for running Scrimba? I only have a very old laptop which is not that powerful.")
+#print(docs[0].page_content)

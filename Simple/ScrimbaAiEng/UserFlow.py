@@ -4,6 +4,9 @@ load_dotenv()
 def getLlm():
 	import os
 	llmType = os.getenv('LlmType')
+	if not llmType:
+		import sys
+		sys.exit("*** ERROR: You need to set the environment variable LlmType, for example in an .env file.")
 	if llmType == "OpenAi":
 		from langchain_openai import ChatOpenAI # type: ignore
 		model = "gpt-3.5-turbo"

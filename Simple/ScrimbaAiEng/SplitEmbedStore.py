@@ -4,13 +4,13 @@
 persist_directory = "./chroma_db"
 
 def getEmbeddingFunction():
-    from langchain_community.embeddings.sentence_transformer import SentenceTransformerEmbeddings
+    from langchain_community.embeddings.sentence_transformer import SentenceTransformerEmbeddings # type: ignore
     # create the open-source embedding function
     return SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
 
 def splitEmbedAndStore():
-    from langchain_chroma import Chroma
-    from langchain_community.document_loaders import TextLoader
+    from langchain_chroma import Chroma # type: ignore
+    from langchain_community.document_loaders import TextLoader # type: ignore
     from langchain_text_splitters import RecursiveCharacterTextSplitter
 
     # load the document
@@ -25,7 +25,7 @@ def splitEmbedAndStore():
     Chroma.from_documents(docs, getEmbeddingFunction(), persist_directory=persist_directory)
 
 def getVectorStore():
-    from langchain_chroma import Chroma
+    from langchain_chroma import Chroma # type: ignore
     return Chroma(persist_directory=persist_directory, embedding_function=getEmbeddingFunction())
 
 def getSimilarities(query):

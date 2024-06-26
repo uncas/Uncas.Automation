@@ -59,5 +59,7 @@ def askQuestion(question):
 	result = chain.invoke({ "question": question })
 	return result
 
-response = askQuestion('What are the technical requirements for running Scrimba? I only have a very old laptop which is not that powerful.')
+question = 'What are the technical requirements for running Scrimba? I only have a very old laptop which is not that powerful.'
+question = input("How can I help you?")
+response = askQuestion(question)
 print(" *** Answer: ", response)

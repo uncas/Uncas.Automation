@@ -36,7 +36,8 @@ def askQuestion(question):
  		"We want this answer to be friendly, " + \
  		"only answer from the context provided and never make up answers, " + \
  		"apologise if you do not know the answer and advise the " + \
- 		"user to email help@scrimba.com. Question: {question}. Context: {context}. Answer: "
+ 		"user to email help@scrimba.com. Do not mention the context in the answer, since the user does not know about that. " + \
+		"Question: {question}. Context: {context}. Answer: "
 	answerPrompt = PromptTemplate.from_template(answerTemplate)
 	answerChain = RunnableSequence(answerPrompt, llm, StrOutputParser())
 

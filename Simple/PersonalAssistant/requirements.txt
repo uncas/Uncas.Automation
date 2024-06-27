@@ -1,0 +1,12 @@
+# Env files:
+python-dotenv
+
+langchain_community
+langchain-chroma
+langchain-openai
+sentence-transformers
+
+# Google
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib

@@ -4,5 +4,5 @@
 /Data/
 __pycache__
 .clasp.json
-/Output
+Output/
 chroma_db/

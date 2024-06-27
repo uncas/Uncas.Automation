@@ -39,8 +39,16 @@ def initialize():
     events = readNextEvents(100)
     for event in events:
         start = event["start"].get("dateTime", event["start"].get("date"))
-        calendarFileContent += start + " " + event["summary"] + "\n\n"
-        print(start, event["summary"])
+        calendarFileContent += "Event: " + event["summary"] + "\n"
+        calendarFileContent += "Start time: " + start + "\n"
+        calendarFileContent += "Event type: " + event["eventType"] + "\n"
+        calendarFileContent += "Status: " + event["status"] + "\n"
+        if "description" in event:
+            calendarFileContent += "Description: " + event["description"] + "\n"
+        if "attendees" in event:
+            attendeesEmails = ", ".join([attendee["email"] for attendee in event["attendees"]])
+            calendarFileContent += "Attendees: " + attendeesEmails + "\n"
+        calendarFileContent += "\n\n"
     import os
     folderName = "Output"
     if not os.path.exists(folderName):

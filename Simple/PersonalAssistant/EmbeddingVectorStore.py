@@ -1,14 +1,17 @@
 # With langchain setup from https://python.langchain.com/v0.1/docs/integrations/vectorstores/chroma/
 
-
 vectorStoreDirectory = "./chroma_db"
 
-def getEmbeddingFunction():
+def getEmbeddingFunction(logger):
+    logger.debug("Before importing sentence_transformer")
     from langchain_community.embeddings.sentence_transformer import SentenceTransformerEmbeddings # type: ignore
+    logger.debug("After importing sentence_transformer")
     # create the open-source embedding function
-    return SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
+    result = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
+    logger.debug("After creating embedding function")
+    return result
 
-def splitEmbedAndStore(textFile):
+def splitEmbedAndStore(textFile, logger):
     from langchain_chroma import Chroma # type: ignore
     from langchain_community.document_loaders import TextLoader # type: ignore
     from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -22,14 +25,14 @@ def splitEmbedAndStore(textFile):
     docs = text_splitter.split_documents(documents)
 
     # save to disk
-    Chroma.from_documents(docs, getEmbeddingFunction(), persist_directory=vectorStoreDirectory)
+    Chroma.from_documents(docs, getEmbeddingFunction(logger), persist_directory=vectorStoreDirectory)
 
-def getVectorStore():
+def getVectorStore(logger):
     from langchain_chroma import Chroma # type: ignore
-    return Chroma(persist_directory=vectorStoreDirectory, embedding_function=getEmbeddingFunction())
+    return Chroma(persist_directory=vectorStoreDirectory, embedding_function=getEmbeddingFunction(logger))
 
-def getSimilarities(query):
-    db = getVectorStore()
+def getSimilarities(query, logger):
+    db = getVectorStore(logger)
     docs = db.similarity_search(query)
     return docs
 
@@ -56,6 +59,9 @@ def initialize():
     fileName = folderName + "/calendar.txt"
     with open(fileName, "w") as f:
         f.write(calendarFileContent)
-    splitEmbedAndStore(fileName)
+    from Logger import Logger
+    logger = Logger()
+    splitEmbedAndStore(fileName, logger)
 
-initialize()
+if __name__ == "__main__":
+	initialize()

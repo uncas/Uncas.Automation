@@ -10,22 +10,14 @@ def readNextEvents(count):
   try:
     service = build("calendar", "v3", credentials=creds)
     now = datetime.datetime.utcnow().isoformat() + "Z"  # 'Z' indicates UTC time
-    print("Getting the upcoming 10 events")
     events_result = (
-    service.events()
-    .list(
-    calendarId="primary",
-    timeMin=now,
-    maxResults=count,
-    singleEvents=True,
-    orderBy="startTime",
-    )
-    .execute()
+      service.events()
+        .list(calendarId="primary", timeMin=now, maxResults=count, singleEvents=True, orderBy="startTime")
+        .execute()
     )
     events = events_result.get("items", [])
-
     if not events:
-      print("No upcoming events found.")
+      return []
     return events
   except HttpError as err:
     print(err)

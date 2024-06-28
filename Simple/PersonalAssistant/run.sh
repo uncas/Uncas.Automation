@@ -6,8 +6,8 @@ if [ ! -d ".venv" ]; then
 fi
 
 source .venv/bin/activate
-python -m pip install --upgrade pip
-pip install -r requirements.txt
+python -m pip install --upgrade pip -q
+pip install -r requirements.txt -q
 
 #python EmbeddingVectorStore.py
 python PersonalAssistant.py

@@ -6,19 +6,17 @@ logger = Logger()
 
 def getLlm():
 	llmType = os.getenv('LlmType')
+	model = os.getenv("LlmModel")
 	if not llmType:
 		import sys
 		sys.exit("*** ERROR: You need to set the environment variable LlmType, for example in an .env file.")
+	logger.info("Using " + llmType + " with model " + model + ".")
 	if llmType == "OpenAi":
 		from langchain_openai import ChatOpenAI # type: ignore
-		model = "gpt-3.5-turbo"
-		logger.info("Using OpenAI with model " + model + ".")
 		return ChatOpenAI(model=model)
 	
 	from langchain_community.chat_models import ChatOllama # type: ignore
-	localModel = os.getenv("LocalModel")
-	logger.info("Using Ollama with model " + localModel + ".")
-	return ChatOllama(model=localModel)
+	return ChatOllama(model=model)
 
 def combineDocs(docs):
 	return "\n\n".join(doc.page_content for doc in docs)

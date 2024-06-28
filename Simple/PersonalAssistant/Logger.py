@@ -1,9 +1,37 @@
+class fg:
+    BLACK   = '\033[30m'
+    RED     = '\033[31m'
+    GREEN   = '\033[32m'
+    YELLOW  = '\033[33m'
+    BLUE    = '\033[34m'
+    MAGENTA = '\033[35m'
+    CYAN    = '\033[36m'
+    WHITE   = '\033[37m'
+    RESET   = '\033[39m'
+
+class bg:
+    BLACK   = '\033[40m'
+    RED     = '\033[41m'
+    GREEN   = '\033[42m'
+    YELLOW  = '\033[43m'
+    BLUE    = '\033[44m'
+    MAGENTA = '\033[45m'
+    CYAN    = '\033[46m'
+    WHITE   = '\033[47m'
+    RESET   = '\033[49m'
+
+class style:
+    BRIGHT    = '\033[1m'
+    DIM       = '\033[2m'
+    NORMAL    = '\033[22m'
+    RESET_ALL = '\033[0m'
+
 class Logger:
-	DEBUG = '\033[96m'
-	INFO = '\033[92m'
-	WARNING = '\033[93m'
-	ERROR = '\033[91m'
-	ENDC = '\033[0m'
+	DEBUG = bg.BLUE + fg.WHITE
+	INFO = bg.BLACK + fg.YELLOW
+	WARNING = bg.WHITE + fg.YELLOW
+	ERROR = bg.YELLOW + fg.RED
+	RESET = style.RESET_ALL
 	
 	def __init__(self):
 		import os
@@ -14,16 +42,16 @@ class Logger:
     
 	def error(self, message):
 		if self.logLevel == 'Error' or self.logLevel == 'WARNING' or self.logLevel == 'INFO' or self.logLevel == 'DEBUG':
-			print(self.ERROR, "ERROR: ", message, self.ENDC)
+			print(self.ERROR, "ERROR: ", message, self.RESET)
 
 	def warning(self, message):
 		if self.logLevel == 'WARNING' or self.logLevel == 'INFO' or self.logLevel == 'DEBUG':
-			print(self.WARNING, "WARNING: ", message, self.ENDC)
+			print(self.WARNING, "WARNING: ", message, self.RESET)
 
 	def info(self, message):
 		if self.logLevel == 'INFO' or self.logLevel == 'DEBUG':
-			print(self.INFO, "INFO: ", message, self.ENDC)
+			print(self.INFO, "INFO: ", message, self.RESET)
 
 	def debug(self, message):
 		if self.logLevel == 'DEBUG':
-			print(self.DEBUG, "DEBUG: ", message, self.ENDC)
+			print(self.DEBUG, "DEBUG: ", message, self.RESET)

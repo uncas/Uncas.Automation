@@ -9,10 +9,10 @@ def askAgent(tools, question):
         print(tool.name)
     from langchain import hub
     from langchain.agents import AgentExecutor, create_react_agent
-    from langchain_community.chat_models import ChatOllama
-    #from langchain.chat_models import ChatOpenAI
-    #chat = ChatOpenAI(model_name="gpt-4",temperature=0.2)
-    chat = ChatOllama(model="llama3", temperature=0)
+    from langchain.chat_models import ChatOpenAI
+    chat = ChatOpenAI(model_name="gpt-4o",temperature=0.2)
+    #from langchain_community.chat_models import ChatOllama
+    #chat = ChatOllama(model="llama3", temperature=0)
     prompt = hub.pull("hwchase17/react")
     agent = create_react_agent(chat, tools, prompt)
     agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True, max_iterations=5)

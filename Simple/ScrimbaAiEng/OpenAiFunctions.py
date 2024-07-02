@@ -1,14 +1,20 @@
 from dotenv import load_dotenv # type: ignore
 load_dotenv()
 
-def getCurrentWeather():
+def getCurrentWeather(location):
 	import random
-	temp = random.randint(13, 29)
+	temp = random.randint(5, 19)
+	if location["country"] == "Denmark":
+		return {
+			"temperature": str(temp),
+			"unit": "C",
+			"forecast": "rainy"
+		}
 	return {
-        "temperature": str(temp),
-        "unit": "C",
-        "forecast": "sunny"
-    }
+		"temperature": str(temp+10),
+		"unit": "C",
+		"forecast": "sunny"
+	}
 
 def getLocation():
     return {
@@ -26,7 +32,12 @@ def getTools():
 				"description": "Get the current weather",
 				"parameters": {
 					"type": "object",
-					"properties": {}
+					"properties": {
+						"country": {
+							"type": "string",
+							"description": "The country from where to get the weather"
+                    	}
+					}
 				}
 			}
 		},
@@ -72,7 +83,9 @@ def chat_with_chatgpt(prompt, model="gpt-3.5-turbo"):
 				callFunction = toolCall.function
 				if callFunction.name in toolMethods:
 					functionName = callFunction.name
-					functionResponse = toolMethods[functionName]()
+					functionArgs = json.loads(callFunction.arguments)
+					print("Calling function: ", functionName, " with args: ", functionArgs)
+					functionResponse = toolMethods[functionName](functionArgs)
 					messages.append({
 						"role": "tool",
 						"name": functionName,

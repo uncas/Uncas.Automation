@@ -17,10 +17,14 @@ def getCurrentWeather(location):
 	}
 
 def getLocation():
-    return {
-		"city": "San Diego",
-		"state": "CA",
-		"country": "US"
+	import requests
+	url = "https://ipapi.co/json/"
+	r = requests.get(url)
+	data = r.json()
+	return {
+		"city": data["city"],
+		"state": data["region"],
+		"country": data["country_name"]
 	}
 
 def getTools():
@@ -84,8 +88,13 @@ def chat_with_chatgpt(prompt, model="gpt-3.5-turbo"):
 				if callFunction.name in toolMethods:
 					functionName = callFunction.name
 					functionArgs = json.loads(callFunction.arguments)
-					print("Calling function: ", functionName, " with args: ", functionArgs)
-					functionResponse = toolMethods[functionName](functionArgs)
+					functionResponse = None
+					if functionArgs:
+						print("Calling function: ", functionName, " with args: ", functionArgs)
+						functionResponse = toolMethods[functionName](functionArgs)
+					else:
+						print("Calling function: ", functionName, " without args.")
+						functionResponse = toolMethods[functionName]()
 					messages.append({
 						"role": "tool",
 						"name": functionName,
@@ -94,7 +103,7 @@ def chat_with_chatgpt(prompt, model="gpt-3.5-turbo"):
 					})
 
 
-prompt = "What is the weather in Denmark and in England?"
+prompt = "What is the weather in my current location, and in Germany and in England?"
 print("Prompt: ", prompt)
 response = chat_with_chatgpt(prompt)
 print("Response: ", response)

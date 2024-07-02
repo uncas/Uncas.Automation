@@ -9,7 +9,8 @@
 
 # API Keys: https://www.themoviedb.org/settings/api
 
-def getWatchProviders(movieTitle):
+def getWatchProviders(movieInfo):
+	movieTitle = movieInfo["movieTitle"]
 	myCountry = "DK"
 	myProviders = ["Viaplay", "HBO Max", "Netflix", "TV 2 Play"]
 	import tmdbsimple as tmdb
@@ -30,4 +31,4 @@ def getWatchProviders(movieTitle):
 				providerName = option["provider_name"]
 				if providerName in myProviders and providerName not in options:
 					options.append(providerName)
-	return options
+	return [{"providerName": option} for option in options]

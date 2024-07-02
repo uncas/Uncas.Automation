@@ -30,6 +30,22 @@ def getTools():
 				}
 			}
 		},
+		{
+			"type": "function",
+			"function": {
+				"name": "getWatchProviders",
+				"description": "Get watch providers for a given movie",
+				"parameters": {
+					"type": "object",
+					"properties": {
+						"movieTitle": {
+							"type": "string",
+							"description": "The title of the movie"
+                    	}
+					}
+				}
+			}
+		},
 	]
 
 def chat_with_chatgpt(prompt, model="gpt-3.5-turbo"):
@@ -37,10 +53,11 @@ def chat_with_chatgpt(prompt, model="gpt-3.5-turbo"):
 	from openai import OpenAI
 	from Functions.getLocation import getLocation
 	from Functions.getCurrentWeather import getCurrentWeather
+	from Functions.theMovieDb import getWatchProviders
 
 	maxIterations = 3
 	tools = getTools()
-	toolMethods = {"getLocation": getLocation, "getCurrentWeather": getCurrentWeather}
+	toolMethods = {"getLocation": getLocation, "getCurrentWeather": getCurrentWeather, "getWatchProviders": getWatchProviders}
 	client = OpenAI()
 	messages = [{
 			"role": "user",
@@ -82,10 +99,6 @@ def chat_with_chatgpt(prompt, model="gpt-3.5-turbo"):
 #prompt = "What is the weather in my current location, and in Germany and in England?"
 #print("Prompt: ", prompt)
 
-#prompt = input("Prompt : ")
-#response = chat_with_chatgpt(prompt)
-#print("Response: ", response)
-
-from Functions.theMovieDb import getWatchProviders
-watchProviders = getWatchProviders("The Matrix")
-print(watchProviders)
+prompt = input("Prompt : ")
+response = chat_with_chatgpt(prompt)
+print("Response: ", response)

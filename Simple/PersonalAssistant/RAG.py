@@ -1,3 +1,5 @@
+# RAG = Retrieval-Augmented Generation
+
 from Logger import Logger
 from dotenv import load_dotenv # type: ignore
 load_dotenv()

@@ -10,4 +10,5 @@ python -m pip install --upgrade pip -q
 pip install -r requirements.txt -q
 
 #python EmbeddingVectorStore.py
-python PersonalAssistant.py
+python RAG.py
+#python PersonalAssistant.py

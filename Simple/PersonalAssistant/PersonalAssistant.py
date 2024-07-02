@@ -1,32 +1,6 @@
 from dotenv import load_dotenv # type: ignore
 load_dotenv()
 
-def getCurrentWeather(location):
-	import random
-	temp = random.randint(5, 19)
-	if location["country"] == "Denmark":
-		return {
-			"temperature": str(temp),
-			"unit": "C",
-			"forecast": "rainy"
-		}
-	return {
-		"temperature": str(temp+10),
-		"unit": "C",
-		"forecast": "sunny"
-	}
-
-def getLocation():
-	import requests
-	url = "https://ipapi.co/json/"
-	r = requests.get(url)
-	data = r.json()
-	return {
-		"city": data["city"],
-		"state": data["region"],
-		"country": data["country_name"]
-	}
-
 def getTools():
 	return [
 		{
@@ -59,8 +33,10 @@ def getTools():
 	]
 
 def chat_with_chatgpt(prompt, model="gpt-3.5-turbo"):
-	from openai import OpenAI
 	import json
+	from openai import OpenAI
+	from Functions.getLocation import getLocation
+	from Functions.getCurrentWeather import getCurrentWeather
 
 	maxIterations = 3
 	tools = getTools()

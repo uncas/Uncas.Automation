@@ -82,6 +82,10 @@ def chat_with_chatgpt(prompt, model="gpt-3.5-turbo"):
 #prompt = "What is the weather in my current location, and in Germany and in England?"
 #print("Prompt: ", prompt)
 
-prompt = input("Prompt : ")
-response = chat_with_chatgpt(prompt)
-print("Response: ", response)
+#prompt = input("Prompt : ")
+#response = chat_with_chatgpt(prompt)
+#print("Response: ", response)
+
+from Functions.theMovieDb import getWatchProviders
+watchProviders = getWatchProviders("The Matrix")
+print(watchProviders)

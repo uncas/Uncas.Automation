@@ -6,9 +6,10 @@ if [ ! -d ".venv" ]; then
 fi
 
 source .venv/bin/activate
-python -m pip install --upgrade pip
-pip install -r requirements.txt
+python -m pip install --upgrade pip -q
+pip install -r requirements.txt -q
 
 #python RunnableSequence.py
 #python SplitEmbedStore.py
-python UserFlow.py
+#python UserFlow.py
+python OpenAiFunctions.py

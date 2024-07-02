@@ -2,14 +2,20 @@ from dotenv import load_dotenv # type: ignore
 load_dotenv()
 
 def getCurrentWeather():
-    return {
-        "temperature": "75",
-        "unit": "F",
+	import random
+	temp = random.randint(13, 29)
+	return {
+        "temperature": str(temp),
+        "unit": "C",
         "forecast": "sunny"
     }
 
 def getLocation():
-    return "San Diego, CA"
+    return {
+		"city": "San Diego",
+		"state": "CA",
+		"country": "US"
+	}
 
 def getTools():
 	return [
@@ -37,39 +43,45 @@ def getTools():
 		},
 	]
 
-def chat_with_chatgpt(prompt, model="gpt-3.5-turbo", iteration = 0):
-	maxIterations = 3
-	if iteration >= maxIterations:
-		return "Max iterations reached"
-	print(prompt)
+def chat_with_chatgpt(prompt, model="gpt-3.5-turbo"):
 	from openai import OpenAI
+	import json
+
+	maxIterations = 3
+	tools = getTools()
+	toolMethods = {"getLocation": getLocation, "getCurrentWeather": getCurrentWeather}
 	client = OpenAI()
-	messages = [
-		{
+	messages = [{
 			"role": "user",
 			"content": prompt,
-		}
-	]
-	chat_completion = client.chat.completions.create(
-		messages = messages,
-		model = model,
-		tools = getTools()
-	)
-	choice = chat_completion.choices[0]
-	finishReason = choice.finish_reason
-	message = choice.message
-	if finishReason == "stop":
-		return message.content
-	elif finishReason == "tool_calls":
-		callFunction = message.tool_calls[0].function
-		toolMethods = {"getLocation": getLocation, "getCurrentWeather": getCurrentWeather}
-		if callFunction.name in toolMethods:
-			toolResult = toolMethods[callFunction.name]()
-			newPrompt = f"{prompt}. The result of the {callFunction.name} function is {toolResult}."
-			return chat_with_chatgpt(newPrompt, model, iteration + 1)
-		else:
-			return "Tool not found."
+	}]
+	for _ in range(maxIterations):
+		chat_completion = client.chat.completions.create(
+			messages = messages,
+			model = model,
+			tools = tools
+		)
+		choice = chat_completion.choices[0]
+		finishReason = choice.finish_reason
+		message = choice.message
+		if finishReason == "stop":
+			return message.content
+		elif finishReason == "tool_calls":
+			messages.append(message)
+			for toolCall in message.tool_calls:
+				callFunction = toolCall.function
+				if callFunction.name in toolMethods:
+					functionName = callFunction.name
+					functionResponse = toolMethods[functionName]()
+					messages.append({
+						"role": "tool",
+						"name": functionName,
+						"tool_call_id": toolCall.id,
+						"content": json.dumps(functionResponse)
+					})
 
 
-response = chat_with_chatgpt("What is the weather in my current location?")
-print(response)
+prompt = "What is the weather in Denmark and in England?"
+print("Prompt: ", prompt)
+response = chat_with_chatgpt(prompt)
+print("Response: ", response)

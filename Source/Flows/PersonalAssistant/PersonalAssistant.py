@@ -105,12 +105,13 @@ def chat_with_chatgpt(prompt, model="gpt-3.5-turbo"):
 					functionName = callFunction.name
 					functionArgs = json.loads(callFunction.arguments)
 					functionResponse = None
+					toolMethod = toolMethods[functionName]
 					if functionArgs:
 						print("Calling function: ", functionName, " with args: ", functionArgs)
-						functionResponse = toolMethods[functionName](functionArgs)
+						functionResponse = toolMethod(functionArgs)
 					else:
 						print("Calling function: ", functionName, " without args.")
-						functionResponse = toolMethods[functionName]()
+						functionResponse = toolMethod()
 					messages.append({
 						"role": "tool",
 						"name": functionName,

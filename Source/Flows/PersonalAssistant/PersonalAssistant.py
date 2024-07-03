@@ -101,9 +101,9 @@ def runPersonalAssistant():
 	#prompt = "What is the weather in my current location, and in Germany and in England?"
 	#print("Prompt: ", prompt)
 
-	from Flows.PersonalAssistant.Functions.findInfoInDocs import syncDocs # type: ignore
-	syncDocs()
+	#from Flows.PersonalAssistant.Functions.findInfoInDocs import syncDocs # type: ignore
+	#syncDocs()
 
-	#prompt = input("Prompt : ")
-	#response = chat_with_chatgpt(prompt)
-	#print("Response: ", response)
+	prompt = input("Prompt : ")
+	response = chat_with_chatgpt(prompt)
+	print("Response: ", response)

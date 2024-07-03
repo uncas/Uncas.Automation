@@ -34,39 +34,3 @@ class EmbeddingVectorStore:
     def getSimilarities(self, query):
         db = self.load()
         return db.similarity_search(query)
-
-vectorStoreDirectory = "./chroma_db"
-
-def getVectorStore(logger):
-    return EmbeddingVectorStore(vectorStoreDirectory, logger).load()
-
-def initialize():
-    from GoogleCalendarService import readNextEvents
-    calendarFileContent = ""
-    events = readNextEvents(100)
-    for event in events:
-        start = event["start"].get("dateTime", event["start"].get("date"))
-        calendarFileContent += "Event: " + event["summary"] + "\n"
-        calendarFileContent += "Start time: " + start + "\n"
-        calendarFileContent += "Event type: " + event["eventType"] + "\n"
-        calendarFileContent += "Status: " + event["status"] + "\n"
-        if "description" in event:
-            calendarFileContent += "Description: " + event["description"] + "\n"
-        if "attendees" in event:
-            attendeesEmails = ", ".join([attendee["email"] for attendee in event["attendees"]])
-            calendarFileContent += "Attendees: " + attendeesEmails + "\n"
-        calendarFileContent += "\n\n"
-    import os
-    folderName = "Output"
-    if not os.path.exists(folderName):
-        os.makedirs(folderName)
-    fileName = folderName + "/calendar.txt"
-    with open(fileName, "w") as f:
-        f.write(calendarFileContent)
-    from Logger import Logger
-    logger = Logger()
-    store = EmbeddingVectorStore(vectorStoreDirectory, logger)
-    store.save(fileName)
-
-if __name__ == "__main__":
-	initialize()

@@ -6,6 +6,7 @@ if [ ! -d ".venv" ]; then
 fi
 
 source .venv/bin/activate
-python -m pip install --upgrade pip
-pip install -r requirements.txt
-python Source/Run.py
+python -m pip install --upgrade pip -q
+pip install -r requirements.txt -q
+#python Source/Run.py
+python Source/Flows/PersonalAssistant/PersonalAssistant.py

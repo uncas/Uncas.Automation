@@ -14,3 +14,14 @@ certifi
 bs4
 langchain-text-splitters
 sentence-transformers
+
+# Env files:
+python-dotenv
+
+langchain_community
+langchain-chroma
+langchain-openai
+sentence-transformers
+
+# The Movie Database:
+tmdbsimple

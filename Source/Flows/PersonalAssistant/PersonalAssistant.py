@@ -1,4 +1,5 @@
-from dotenv import load_dotenv # type: ignore
+from dotenv import load_dotenv
+
 load_dotenv()
 
 def getTools():
@@ -51,9 +52,9 @@ def getTools():
 def chat_with_chatgpt(prompt, model="gpt-3.5-turbo"):
 	import json
 	from openai import OpenAI
-	from Functions.getLocation import getLocation
-	from Functions.getCurrentWeather import getCurrentWeather
-	from Functions.theMovieDb import getWatchProviders
+	from Flows.PersonalAssistant.Functions.getLocation import getLocation
+	from Flows.PersonalAssistant.Functions.getCurrentWeather import getCurrentWeather
+	from Flows.PersonalAssistant.Functions.theMovieDb import getWatchProviders
 
 	maxIterations = 3
 	tools = getTools()
@@ -96,9 +97,13 @@ def chat_with_chatgpt(prompt, model="gpt-3.5-turbo"):
 					})
 
 
-#prompt = "What is the weather in my current location, and in Germany and in England?"
-#print("Prompt: ", prompt)
+def runPersonalAssistant():
+	#prompt = "What is the weather in my current location, and in Germany and in England?"
+	#print("Prompt: ", prompt)
 
-prompt = input("Prompt : ")
-response = chat_with_chatgpt(prompt)
-print("Response: ", response)
+	from Flows.PersonalAssistant.Functions.findInfoInDocs import syncDocs # type: ignore
+	syncDocs()
+
+	#prompt = input("Prompt : ")
+	#response = chat_with_chatgpt(prompt)
+	#print("Response: ", response)

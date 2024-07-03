@@ -9,4 +9,4 @@ source .venv/bin/activate
 python -m pip install --upgrade pip -q
 pip install -r requirements.txt -q
 #python Source/Run.py
-python Source/Flows/PersonalAssistant/PersonalAssistant.py
+python Source/RunPersonalAssistant.py

@@ -1,0 +1,3 @@
+from Flows.PersonalAssistant.PersonalAssistant import runPersonalAssistant
+
+runPersonalAssistant()

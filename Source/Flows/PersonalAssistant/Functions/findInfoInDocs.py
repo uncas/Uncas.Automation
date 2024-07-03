@@ -2,6 +2,7 @@ def syncDocs():
 	# Read list of docs from sheet
 	# Read docs
 	# Index docs
+	print("Syncing docs")
 	pass
 
 def findInfoInDocs(query):

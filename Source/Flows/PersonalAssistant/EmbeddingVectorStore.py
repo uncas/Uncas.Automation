@@ -1,30 +1,33 @@
 # With langchain setup from https://python.langchain.com/v0.1/docs/integrations/vectorstores/chroma/
 
 class EmbeddingVectorStore:
-    def __init__(self, directory, logger):
+    def __init__(self, directory):
+        from Flows.PersonalAssistant.Logger import Logger
         self.directory = directory
-        self.logger = logger
+        self.textSplitter = None
+        self.embeddingFunction = None
+        self.logger = Logger()
     
     def getEmbeddingFunction(self):
-        self.logger.debug("Importing sentence_transformer")
-        from langchain_community.embeddings.sentence_transformer import SentenceTransformerEmbeddings # type: ignore
-        self.logger.debug("Creating embedding function")
-        return SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
-    
+        if not self.embeddingFunction:
+            self.logger.debug("Importing sentence_transformer")
+            from langchain_community.embeddings.sentence_transformer import SentenceTransformerEmbeddings # type: ignore
+            self.logger.debug("Creating embedding function")
+            self.embeddingFunction = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
+        return self.embeddingFunction
+
+    def getTextSplitter(self):
+        if not self.textSplitter:
+            from langchain_text_splitters import RecursiveCharacterTextSplitter
+            self.textSplitter = RecursiveCharacterTextSplitter(chunk_size = 500, chunk_overlap = 50)
+        return self.textSplitter
+
     def save(self, textFile):
         from langchain_chroma import Chroma # type: ignore
         from langchain_community.document_loaders import TextLoader # type: ignore
-        from langchain_text_splitters import RecursiveCharacterTextSplitter
-
-        # load the document
         loader = TextLoader(textFile)
         documents = loader.load()
-
-        # split it into chunks
-        text_splitter = RecursiveCharacterTextSplitter(chunk_size = 500, chunk_overlap = 50)
-        docs = text_splitter.split_documents(documents)
-
-        # save to disk
+        docs = self.getTextSplitter().split_documents(documents)
         Chroma.from_documents(docs, self.getEmbeddingFunction(), persist_directory = self.directory)
     
     def load(self):

@@ -1,40 +1,44 @@
 # With langchain setup from https://python.langchain.com/v0.1/docs/integrations/vectorstores/chroma/
 
+class EmbeddingVectorStore:
+    def __init__(self, directory, logger):
+        self.directory = directory
+        self.logger = logger
+    
+    def getEmbeddingFunction(self):
+        self.logger.debug("Importing sentence_transformer")
+        from langchain_community.embeddings.sentence_transformer import SentenceTransformerEmbeddings # type: ignore
+        self.logger.debug("Creating embedding function")
+        return SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
+    
+    def save(self, textFile):
+        from langchain_chroma import Chroma # type: ignore
+        from langchain_community.document_loaders import TextLoader # type: ignore
+        from langchain_text_splitters import RecursiveCharacterTextSplitter
+
+        # load the document
+        loader = TextLoader(textFile)
+        documents = loader.load()
+
+        # split it into chunks
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size = 500, chunk_overlap = 50)
+        docs = text_splitter.split_documents(documents)
+
+        # save to disk
+        Chroma.from_documents(docs, self.getEmbeddingFunction(), persist_directory = self.directory)
+    
+    def load(self):
+        from langchain_chroma import Chroma # type: ignore
+        return Chroma(persist_directory = self.directory, embedding_function = self.getEmbeddingFunction())
+
+    def getSimilarities(self, query):
+        db = self.load()
+        return db.similarity_search(query)
+
 vectorStoreDirectory = "./chroma_db"
 
-def getEmbeddingFunction(logger):
-    logger.debug("Before importing sentence_transformer")
-    from langchain_community.embeddings.sentence_transformer import SentenceTransformerEmbeddings # type: ignore
-    logger.debug("After importing sentence_transformer")
-    # create the open-source embedding function
-    result = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
-    logger.debug("After creating embedding function")
-    return result
-
-def splitEmbedAndStore(textFile, logger):
-    from langchain_chroma import Chroma # type: ignore
-    from langchain_community.document_loaders import TextLoader # type: ignore
-    from langchain_text_splitters import RecursiveCharacterTextSplitter
-
-    # load the document
-    loader = TextLoader(textFile)
-    documents = loader.load()
-
-    # split it into chunks
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
-    docs = text_splitter.split_documents(documents)
-
-    # save to disk
-    Chroma.from_documents(docs, getEmbeddingFunction(logger), persist_directory=vectorStoreDirectory)
-
 def getVectorStore(logger):
-    from langchain_chroma import Chroma # type: ignore
-    return Chroma(persist_directory=vectorStoreDirectory, embedding_function=getEmbeddingFunction(logger))
-
-def getSimilarities(query, logger):
-    db = getVectorStore(logger)
-    docs = db.similarity_search(query)
-    return docs
+    return EmbeddingVectorStore(vectorStoreDirectory, logger).load()
 
 def initialize():
     from GoogleCalendarService import readNextEvents
@@ -61,7 +65,8 @@ def initialize():
         f.write(calendarFileContent)
     from Logger import Logger
     logger = Logger()
-    splitEmbedAndStore(fileName, logger)
+    store = EmbeddingVectorStore(vectorStoreDirectory, logger)
+    store.save(fileName)
 
 if __name__ == "__main__":
 	initialize()

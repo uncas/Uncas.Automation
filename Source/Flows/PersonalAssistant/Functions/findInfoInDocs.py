@@ -1,6 +1,6 @@
 def getStore():
 	from Flows.PersonalAssistant.EmbeddingVectorStore import EmbeddingVectorStore
-	store = EmbeddingVectorStore("Output/GoogleSheetList.db")
+	return EmbeddingVectorStore("Output/GoogleSheetList.db")
 
 def syncDocs():
 	# TODO: Read list of docs from sheet
@@ -11,11 +11,11 @@ def syncDocs():
 		print("Storing file ", file)
 		store.save(file)
 
-def findInfoInDocs(query):
+def findInfoInDocs(input):
+	query = input["query"]
 	# TODO: Check when docs were last synced
 	# TODO: If sync was more than X days ago, then sync again
-	# Use RAG to extract information from docs
 	store = getStore()
-	#store.
-	# return information
-	pass
+	docs = store.getSimilarities(query)
+	result = "\n\n".join(doc.page_content for doc in docs)
+	return result

@@ -47,6 +47,22 @@ def getTools():
 				}
 			}
 		},
+		{
+			"type": "function",
+			"function": {
+				"name": "findInfoInDocs",
+				"description": "Find info in documentation",
+				"parameters": {
+					"type": "object",
+					"properties": {
+						"query": {
+							"type": "string",
+							"description": "The thing to search for in the documentation"
+                    	}
+					}
+				}
+			}
+		},
 	]
 
 def chat_with_chatgpt(prompt, model="gpt-3.5-turbo"):
@@ -55,10 +71,16 @@ def chat_with_chatgpt(prompt, model="gpt-3.5-turbo"):
 	from Flows.PersonalAssistant.Functions.getLocation import getLocation
 	from Flows.PersonalAssistant.Functions.getCurrentWeather import getCurrentWeather
 	from Flows.PersonalAssistant.Functions.theMovieDb import getWatchProviders
+	from Flows.PersonalAssistant.Functions.findInfoInDocs import findInfoInDocs
 
 	maxIterations = 3
 	tools = getTools()
-	toolMethods = {"getLocation": getLocation, "getCurrentWeather": getCurrentWeather, "getWatchProviders": getWatchProviders}
+	toolMethods = {
+		"getLocation": getLocation, 
+		"getCurrentWeather": getCurrentWeather, 
+		"getWatchProviders": getWatchProviders,
+		"findInfoInDocs": findInfoInDocs,
+	}
 	client = OpenAI()
 	messages = [{
 			"role": "user",
@@ -97,13 +119,19 @@ def chat_with_chatgpt(prompt, model="gpt-3.5-turbo"):
 					})
 
 
-def runPersonalAssistant():
-	#prompt = "What is the weather in my current location, and in Germany and in England?"
-	#print("Prompt: ", prompt)
-
+def testingIt():
 	#from Flows.PersonalAssistant.Functions.findInfoInDocs import syncDocs # type: ignore
 	#syncDocs()
 
+	from Flows.PersonalAssistant.Functions.findInfoInDocs import findInfoInDocs # type: ignore
+	info = findInfoInDocs("What are the plans for the office space?")
+	print(info)
+
+def runIt():
 	prompt = input("Prompt : ")
 	response = chat_with_chatgpt(prompt)
 	print("Response: ", response)
+
+def runPersonalAssistant():
+	runIt()
+	#testingIt()

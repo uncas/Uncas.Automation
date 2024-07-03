@@ -3,9 +3,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def getTools():
+	from Flows.PersonalAssistant.Functions.getLocation import getLocation
+	from Flows.PersonalAssistant.Functions.getCurrentWeather import getCurrentWeather
+	from Flows.PersonalAssistant.Functions.theMovieDb import getWatchProviders
+	from Flows.PersonalAssistant.Functions.findInfoInDocs import findInfoInDocs
 	return [
 		{
-			"type": "function",
+			"method": getCurrentWeather,
 			"function": {
 				"name": "getCurrentWeather",
 				"description": "Get the current weather",
@@ -21,7 +25,7 @@ def getTools():
 			}
 		},
 		{
-			"type": "function",
+			"method": getLocation,
 			"function": {
 				"name": "getLocation",
 				"description": "Get the user's current location",
@@ -32,7 +36,7 @@ def getTools():
 			}
 		},
 		{
-			"type": "function",
+			"method": getWatchProviders,
 			"function": {
 				"name": "getWatchProviders",
 				"description": "Get watch providers for a given movie",
@@ -48,7 +52,7 @@ def getTools():
 			}
 		},
 		{
-			"type": "function",
+			"method": findInfoInDocs,
 			"function": {
 				"name": "findInfoInDocs",
 				"description": "Find info in documentation",
@@ -68,19 +72,12 @@ def getTools():
 def chat_with_chatgpt(prompt, model="gpt-3.5-turbo"):
 	import json
 	from openai import OpenAI
-	from Flows.PersonalAssistant.Functions.getLocation import getLocation
-	from Flows.PersonalAssistant.Functions.getCurrentWeather import getCurrentWeather
-	from Flows.PersonalAssistant.Functions.theMovieDb import getWatchProviders
-	from Flows.PersonalAssistant.Functions.findInfoInDocs import findInfoInDocs
 
 	maxIterations = 3
-	tools = getTools()
-	toolMethods = {
-		"getLocation": getLocation, 
-		"getCurrentWeather": getCurrentWeather, 
-		"getWatchProviders": getWatchProviders,
-		"findInfoInDocs": findInfoInDocs,
-	}
+
+	toolList = getTools()
+	tools = [{"type": "function", "function": tool["function"]} for tool in toolList]
+	toolMethods = {tool["function"]["name"]: tool["method"] for tool in toolList}
 	client = OpenAI()
 	messages = [{
 			"role": "user",

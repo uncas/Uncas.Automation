@@ -8,6 +8,7 @@ def getTools():
 	from Flows.PersonalAssistant.Functions.theMovieDb import getWatchProviders
 	from Flows.PersonalAssistant.Functions.findInfoInDocs import findInfoInDocs
 	from Flows.PersonalAssistant.Functions.getLatestNews import getLatestNews
+	from Flows.PersonalAssistant.Functions.getLatestNews import getNewsDetails
 	return [
 		{
 			"method": getCurrentWeather,
@@ -49,7 +50,16 @@ def getTools():
 			"description": "Get the latest news",
 			"parameters": {}
 		},
-
+		{
+			"method": getNewsDetails,
+			"description": "Get details about news in the provided link.",
+			"parameters": {
+				"newsLink": {
+					"type": "string",
+					"description": "The link to the news"
+				}
+			}
+		},
 	]
 
 def chat_with_chatgpt(prompt, model="gpt-3.5-turbo"):
@@ -112,13 +122,19 @@ def chat_with_chatgpt(prompt, model="gpt-3.5-turbo"):
 					})
 
 
-def testingIt():
+def testIt():
 	#from Flows.PersonalAssistant.Functions.findInfoInDocs import syncDocs # type: ignore
 	#syncDocs()
 
-	from Flows.PersonalAssistant.Functions.findInfoInDocs import findInfoInDocs # type: ignore
-	info = findInfoInDocs("What are the plans for the office space?")
-	print(info)
+	#from Flows.PersonalAssistant.Functions.findInfoInDocs import findInfoInDocs # type: ignore
+	#info = findInfoInDocs("What are the plans for the office space?")
+	#print(info)
+
+	from Flows.PersonalAssistant.Functions.getLatestNews import getNewsDetails, getLatestNews
+
+	news = getLatestNews()
+	print(news)
+	print(getNewsDetails(news[0]))
 
 def runIt():
 	prompt = input("Prompt : ")
@@ -126,5 +142,5 @@ def runIt():
 	print("Response: ", response)
 
 def runPersonalAssistant():
+	#testIt()
 	runIt()
-	#testingIt()

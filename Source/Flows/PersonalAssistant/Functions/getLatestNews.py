@@ -5,4 +5,24 @@ def getLatestNews():
 	rss_url = "https://www.dr.dk/nyheder/service/feeds/allenyheder"
 	response = get(rss_url)
 	rss = RSSParser.parse(response.text)
-	return "\n".join([item.title.content for item in rss.channel.items])
+	return [{"title": item.title.content, "newsLink": item.link.content} for item in rss.channel.items]
+
+def getNewsDetails(input):
+	from requests import get
+	from bs4 import BeautifulSoup 
+
+	newsLink = input["newsLink"]
+	response = get(newsLink)
+	html = response.text
+
+	# Get text content of elements like this:
+	# <div class="hydra-latest-news-page-short-news-article__body" itemprop="articleBody">
+
+	cssClass = "hydra-latest-news-page-short-news-article__body"
+	itemprop = "articleBody"
+
+	soup = BeautifulSoup(html, 'html.parser')
+	article = soup.find('div', class_ = cssClass)
+	content = article.find('div', itemprop = itemprop)
+	text = content.get_text()
+	return text

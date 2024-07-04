@@ -9,6 +9,7 @@ def getTools():
 	from Flows.PersonalAssistant.Functions.findInfoInDocs import findInfoInDocs
 	from Flows.PersonalAssistant.Functions.getLatestNews import getLatestNews
 	from Flows.PersonalAssistant.Functions.getLatestNews import getNewsDetails
+
 	return [
 		{
 			"method": getCurrentWeather,
@@ -130,11 +131,11 @@ def testIt():
 	#info = findInfoInDocs("What are the plans for the office space?")
 	#print(info)
 
-	from Flows.PersonalAssistant.Functions.getLatestNews import getNewsDetails, getLatestNews
-
-	news = getLatestNews()
-	print(news)
-	print(getNewsDetails(news[0]))
+	#from Flows.PersonalAssistant.Functions.getLatestNews import getNewsDetails, getLatestNews
+	#news = getLatestNews()
+	#print(news)
+	#print(getNewsDetails(news[0]))
+	pass
 
 def runIt():
 	prompt = input("Prompt : ")

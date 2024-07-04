@@ -30,6 +30,7 @@ Completing ongoing work:
 
 Generic ideas:
 - Keep the chat thread going, remembering previous messages.
+- Let the agent ask me for input, if the agent is in doubt about some questions.
 
 Work-related Use case ideas:
 - Prepare meetings for the following week... (research + people styles)
@@ -44,3 +45,17 @@ Private time / Leisure time Use case ideas:
 Resource ideas (to improve the data that the assistant can use):
 - Include the personal "about me" google doc I have
 - Include my company readme
+
+Misc notes & random thoughts, that are not yet sorted:
+- Some idea about stuff specific to the local machine.
+- For each start: A session starts, with the messages saved to a json file.
+- A HTML page that can list the sessions, viewing the conversations.
+- Get books
+- Read mail
+- Send mail (pending confirmation or a draft mail)
+- Taking input and saving to garden journal or storing in other journals
+- Based on conversation, suggest tasks to be added to Trello, or information to be added to tasks in Trello.
+
+
+- Finde events (for eksempel jeg sad og skulle finde friluftsspil på Moesgaard, Ragnarok eller Snedronningen, men det var ikke muligt for mig at finde det)
+- At skrive noget til assistenten og så få det tilføjet til dagbog eller idé-bank eller regn-log eller lignende...

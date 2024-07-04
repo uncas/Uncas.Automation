@@ -10,63 +10,39 @@ def getTools():
 	return [
 		{
 			"method": getCurrentWeather,
-			"function": {
-				"name": "getCurrentWeather",
-				"description": "Get the current weather",
-				"parameters": {
-					"type": "object",
-					"properties": {
-						"country": {
-							"type": "string",
-							"description": "The country from where to get the weather"
-                    	}
-					}
+			"description": "Gets the current weather",
+			"parameters": {
+				"country": {
+					"type": "string",
+					"description": "The country from where to get the weather"
 				}
 			}
 		},
 		{
 			"method": getLocation,
-			"function": {
-				"name": "getLocation",
-				"description": "Get the user's current location",
-				"parameters": {
-					"type": "object",
-					"properties": {}
-				}
-			}
+			"description": "Get the user's current location",
+			"parameters": {}
 		},
 		{
 			"method": getWatchProviders,
-			"function": {
-				"name": "getWatchProviders",
-				"description": "Get watch providers for a given movie",
-				"parameters": {
-					"type": "object",
-					"properties": {
-						"movieTitle": {
-							"type": "string",
-							"description": "The title of the movie"
-                    	}
-					}
+			"description": "Gets watch providers for a given movie",
+			"parameters": {
+				"movieTitle": {
+					"type": "string",
+					"description": "The title of the movie"
 				}
 			}
 		},
 		{
 			"method": findInfoInDocs,
-			"function": {
-				"name": "findInfoInDocs",
-				"description": "Find info in documentation",
-				"parameters": {
-					"type": "object",
-					"properties": {
-						"query": {
-							"type": "string",
-							"description": "The thing to search for in the documentation"
-                    	}
-					}
+			"description": "Find info in work-related documentation",
+			"parameters": {
+				"query": {
+					"type": "string",
+					"description": "The thing to search for in the documentation"
 				}
 			}
-		},
+		}
 	]
 
 def chat_with_chatgpt(prompt, model="gpt-3.5-turbo"):
@@ -76,8 +52,20 @@ def chat_with_chatgpt(prompt, model="gpt-3.5-turbo"):
 	maxIterations = 3
 
 	toolList = getTools()
-	tools = [{"type": "function", "function": tool["function"]} for tool in toolList]
-	toolMethods = {tool["function"]["name"]: tool["method"] for tool in toolList}
+	tools = [
+		{
+			"type": "function",
+			"function": {
+				"name": tool["method"].__name__,
+				"description": tool["description"],
+				"parameters": {
+					"type": "object",
+					"properties": tool["parameters"]
+				}
+			}
+		} for tool in toolList
+	]
+	toolMethods = {tool["method"].__name__: tool["method"] for tool in toolList}
 	client = OpenAI()
 	messages = [{
 			"role": "user",

@@ -25,3 +25,6 @@ sentence-transformers
 
 # The Movie Database:
 tmdbsimple
+
+# RSS Feed parsing
+rss_parser

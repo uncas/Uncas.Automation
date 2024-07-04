@@ -7,6 +7,7 @@ def getTools():
 	from Flows.PersonalAssistant.Functions.getCurrentWeather import getCurrentWeather
 	from Flows.PersonalAssistant.Functions.theMovieDb import getWatchProviders
 	from Flows.PersonalAssistant.Functions.findInfoInDocs import findInfoInDocs
+	from Flows.PersonalAssistant.Functions.getLatestNews import getLatestNews
 	return [
 		{
 			"method": getCurrentWeather,
@@ -42,7 +43,13 @@ def getTools():
 					"description": "The thing to search for in the documentation"
 				}
 			}
-		}
+		},
+		{
+			"method": getLatestNews,
+			"description": "Get the latest news",
+			"parameters": {}
+		},
+
 	]
 
 def chat_with_chatgpt(prompt, model="gpt-3.5-turbo"):

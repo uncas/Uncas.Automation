@@ -26,7 +26,6 @@ Private time / Leisure time:
 
 Completing ongoing work:
 - Implement sync of documentation.
-- Implement the weather lookup.
 
 Generic ideas:
 - Keep the chat thread going, remembering previous messages.
@@ -59,3 +58,11 @@ Misc notes & random thoughts, that are not yet sorted:
 
 - Finde events (for eksempel jeg sad og skulle finde friluftsspil på Moesgaard, Ragnarok eller Snedronningen, men det var ikke muligt for mig at finde det)
 - At skrive noget til assistenten og så få det tilføjet til dagbog eller idé-bank eller regn-log eller lignende...
+
+
+## Things that I typically do manually
+
+- Check my calendar for the day (work + family)
+- Check the weather for the day
+- Check email (work + private)
+- Check slack (work)

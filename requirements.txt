@@ -31,3 +31,6 @@ rss_parser
 
 # For searching arxiv.org:
 arxiv
+
+# For getting the current weather:
+pyowm

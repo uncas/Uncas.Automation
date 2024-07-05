@@ -16,9 +16,13 @@ def getTools():
 			"method": getCurrentWeather,
 			"description": "Gets the current weather",
 			"parameters": {
-				"country": {
+				"countryCode": {
 					"type": "string",
-					"description": "The country from where to get the weather"
+					"description": "The country code from where to get the weather"
+				},
+				"city": {
+					"type": "string",
+					"description": "The city from where to get the weather"
 				}
 			}
 		},
@@ -161,9 +165,13 @@ def testIt():
 	#print(news)
 	#print(getNewsDetails(news[0]))
 
-	from Flows.PersonalAssistant.Functions.searchArxiv import searchArxiv
-	papers = searchArxiv({"query": "rag"})
-	print(papers)
+	#from Flows.PersonalAssistant.Functions.searchArxiv import searchArxiv
+	#papers = searchArxiv({"query": "rag"})
+	#print(papers)
+
+	from Flows.PersonalAssistant.Functions.getCurrentWeather import getCurrentWeather
+	weather = getCurrentWeather({"city": "Odder", "countryCode": "DK"})
+	print("Weather: ", weather)
 
 def runIt():
 	prompt = input("Prompt : ")

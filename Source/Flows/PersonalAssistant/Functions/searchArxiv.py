@@ -1,5 +1,6 @@
 def searchArxiv(data):
 	import arxiv
+	# https://github.com/lukasschwab/arxiv.py
 	query = data["query"]
 	maxResults = data["maxResults"] if "maxResults" in data else 5
 	sortBy = data["sortBy"] if "sortBy" in data else arxiv.SortCriterion.SubmittedDate

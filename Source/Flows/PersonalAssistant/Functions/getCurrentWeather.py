@@ -32,7 +32,7 @@ def mapWeatherObjectToMyDesiredOutput(weather):
 		"status": weather.detailed_status,
 		"wind": {
 			"speed": wind["speed"],
-			"gust": wind["gust"],
+			"gust": wind["gust"] if "gust" in wind else None,
 			"direction": wind["deg"]
 		},
 		"rainProbability": weather.rain,

@@ -30,6 +30,7 @@ Completing ongoing work:
 Generic ideas:
 - Keep the chat thread going, remembering previous messages.
 - Let the agent ask me for input, if the agent is in doubt about some questions.
+- Fetching docs, mail, calendar from different Google accounts.
 
 Work-related Use case ideas:
 - Prepare meetings for the following week... (research + people styles)
@@ -66,3 +67,6 @@ Misc notes & random thoughts, that are not yet sorted:
 - Check the weather for the day
 - Check email (work + private)
 - Check slack (work)
+- Registering rain fall in my garden
+- Checking the climate / typical weather in holiday target locations
+- Researching holiday options

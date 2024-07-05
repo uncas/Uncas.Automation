@@ -9,6 +9,7 @@ def getTools():
 	from Flows.PersonalAssistant.Functions.findInfoInDocs import findInfoInDocs
 	from Flows.PersonalAssistant.Functions.getLatestNews import getLatestNews
 	from Flows.PersonalAssistant.Functions.getLatestNews import getNewsDetails
+	from Flows.PersonalAssistant.Functions.searchArxiv import searchArxiv
 
 	return [
 		{
@@ -61,6 +62,30 @@ def getTools():
 				}
 			}
 		},
+		{
+			"method": searchArxiv,
+			"description": "Search arXiv.org for articles on physics, mathematics, computer science, quantitative biology, quantitative finance, statistics, electrical engineering and systems science, and economics",
+			"parameters": {
+				"query": {
+					"type": "string",
+					"description": "The query to search for"
+				},
+				"maxResults": {
+					"type": "integer",
+					"description": "The maximum number of results to return"
+				},
+				"sortBy": {
+					"type": "string",
+					"description": "The field to sort by",
+					"enum": ["relevance", "lastUpdatedDate", "submittedDate"]
+				},
+				"sortOrder": {
+					"type": "string",
+					"description": "The order to sort by",
+					"enum": ["ascending", "descending"]
+				}
+			}
+		}
 	]
 
 def chat_with_chatgpt(prompt, model="gpt-3.5-turbo"):
@@ -135,7 +160,10 @@ def testIt():
 	#news = getLatestNews()
 	#print(news)
 	#print(getNewsDetails(news[0]))
-	pass
+
+	from Flows.PersonalAssistant.Functions.searchArxiv import searchArxiv
+	papers = searchArxiv({"query": "rag"})
+	print(papers)
 
 def runIt():
 	prompt = input("Prompt : ")

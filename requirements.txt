@@ -28,3 +28,6 @@ tmdbsimple
 
 # RSS Feed parsing
 rss_parser
+
+# For searching arxiv.org:
+arxiv

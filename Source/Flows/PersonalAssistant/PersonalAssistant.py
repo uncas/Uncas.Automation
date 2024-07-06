@@ -169,9 +169,14 @@ def testIt():
 	#papers = searchArxiv({"query": "rag"})
 	#print(papers)
 
-	from Flows.PersonalAssistant.Functions.getCurrentWeather import getCurrentWeather
-	weather = getCurrentWeather({"city": "Odder", "countryCode": "DK"})
-	print("Weather: ", weather)
+	#from Flows.PersonalAssistant.Functions.getCurrentWeather import getCurrentWeather
+	#weather = getCurrentWeather({"city": "Odder", "countryCode": "DK"})
+	#print("Weather: ", weather)
+
+	from Flows.PersonalAssistant.Functions.theMovieDb import getRecommendedMoviesThatIHaveAccessToWatch
+	movies = getRecommendedMoviesThatIHaveAccessToWatch()
+	for movie in movies:
+		print(movie["rating"], movie["title"], movie["providers"])
 
 def runIt():
 	prompt = input("Prompt : ")
@@ -179,5 +184,5 @@ def runIt():
 	print("Response: ", response)
 
 def runPersonalAssistant():
-	#testIt()
-	runIt()
+	testIt()
+	#runIt()

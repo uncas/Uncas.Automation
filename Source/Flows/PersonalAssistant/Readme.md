@@ -31,6 +31,7 @@ Generic ideas:
 - Keep the chat thread going, remembering previous messages.
 - Let the agent ask me for input, if the agent is in doubt about some questions.
 - Fetching docs, mail, calendar from different Google accounts.
+- Unit testing
 
 Work-related Use case ideas:
 - Prepare meetings for the following week... (research + people styles)

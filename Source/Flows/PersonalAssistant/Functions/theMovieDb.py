@@ -22,11 +22,17 @@ def getBestMatchingMovieId(movieTitle):
 def getWatchProviders(movieInfo):
 	movieTitle = movieInfo["movieTitle"]
 	movieId = getBestMatchingMovieId(movieTitle)
+	return getWatchProvidersByMovieId(movieId)
+
+def getWatchProvidersByMovieId(movieId):
 	movie = tmdb.Movies(movieId)
-	watchProviders = movie.watch_providers()
+	watchProviders = movie.watch_providers()["results"]
 	myCountry = "DK"
 	myProviders = ["Viaplay", "HBO Max", "Netflix", "TV 2 Play"]
-	providersInMyCountry = watchProviders["results"][myCountry]
+	if not myCountry in watchProviders:
+		return []
+
+	providersInMyCountry = watchProviders[myCountry]
 	types = ["rent", "buy", "flatrate", "ads"]
 	options = []
 	for type in types:
@@ -35,4 +41,43 @@ def getWatchProviders(movieInfo):
 				providerName = option["provider_name"]
 				if providerName in myProviders and providerName not in options:
 					options.append(providerName)
-	return [{"providerName": option} for option in options]
+	return options
+
+def getRecommendedMovies(movieId):
+	movie = tmdb.Movies(movieId)
+	recommendations = movie.recommendations()
+	return [{
+		"title": recommendation["title"],
+		"id": recommendation["id"],
+		"rating": recommendation["vote_average"],
+		"overview": recommendation["overview"]
+	} for recommendation in recommendations["results"]]
+
+def getRecommendedMoviesThatIHaveAccessToWatch():
+	favorites = getMyFavoriteMovies()
+	recommendations = []
+	moviesIHaveWatched = getMoviesIHaveWatched()
+	for favorite in favorites:
+		movieId = getBestMatchingMovieId(favorite)
+		recommendedMovies = getRecommendedMovies(movieId)
+		for movie in recommendedMovies:
+			if movie["title"] not in moviesIHaveWatched:
+				if movie not in recommendations:
+					recommendations.append(movie)
+	# Return list of recommended movies (sorted by rating)
+	viable = []
+	for movie in recommendations:
+		watchProviders = getWatchProvidersByMovieId(movie["id"])
+		if len(watchProviders) > 1:
+			viable.append({
+				"title": movie["title"],
+				"id": movie["id"],
+				"rating": movie["rating"],
+				"providers": watchProviders})
+	return sorted(viable, key=lambda d: d['rating'], reverse = True)
+
+def getMyFavoriteMovies():
+	return ["Ashes of time", "The Godfather"]
+
+def getMoviesIHaveWatched():
+	return ["The Godfather", "Ashes of time"]

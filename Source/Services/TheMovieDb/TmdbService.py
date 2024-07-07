@@ -97,3 +97,18 @@ class TmdbService:
 		createSesssionUrl = "https://api.themoviedb.org/3/authentication/session/new"
 		sessionResponse = requests.post(createSesssionUrl, json={ "request_token": requestToken }, headers=headers)
 		return sessionResponse.json()["session_id"]
+	
+	def getMyFavoriteMovies(self):
+		sessionId = self.getSessionId()
+		account = tmdb.Account(sessionId)
+		account.info()
+		return account.favorite_movies()["results"]
+
+	def getMoviesIHaveWatched(self):
+		return self.getMoviesIHaveRated()
+
+	def getMoviesIHaveRated(self):
+		sessionId = self.getSessionId()
+		account = tmdb.Account(sessionId)
+		account.info()
+		return account.rated_movies()["results"]

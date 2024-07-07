@@ -180,8 +180,10 @@ def testIt():
 
 	from Services.TheMovieDb.TmdbService import TmdbService
 	tmdbService = TmdbService()
-	tmdbService.rateMovieByTitle("Ashes of Time", 10)
-	tmdbService.rateMovieByTitle("The Godfather", 9)
+	#tmdbService.rateMovieByTitle("Ashes of Time", 10)
+	#tmdbService.rateMovieByTitle("The Godfather", 9)
+	#print(tmdbService.getMyFavoriteMovies())
+	print(tmdbService.getMoviesIHaveWatched())
 
 
 def runIt():

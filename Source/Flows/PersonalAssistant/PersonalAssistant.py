@@ -173,10 +173,16 @@ def testIt():
 	#weather = getCurrentWeather({"city": "Odder", "countryCode": "DK"})
 	#print("Weather: ", weather)
 
-	from Flows.PersonalAssistant.Functions.theMovieDb import getRecommendedMoviesThatIHaveAccessToWatch
-	movies = getRecommendedMoviesThatIHaveAccessToWatch()
-	for movie in movies:
-		print(movie["rating"], movie["title"], movie["providers"])
+	#from Flows.PersonalAssistant.Functions.theMovieDb import getRecommendedMoviesThatIHaveAccessToWatch
+	#movies = getRecommendedMoviesThatIHaveAccessToWatch()
+	#for movie in movies:
+	#	print(movie["rating"], movie["title"], movie["providers"])
+
+	from Services.TheMovieDb.TmdbService import TmdbService
+	tmdbService = TmdbService()
+	tmdbService.rateMovieByTitle("Ashes of Time", 10)
+	tmdbService.rateMovieByTitle("The Godfather", 9)
+
 
 def runIt():
 	prompt = input("Prompt : ")

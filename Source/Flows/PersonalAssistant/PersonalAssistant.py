@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(override = True)
 
 def getTools():
 	from Flows.PersonalAssistant.Functions.getLocation import getLocation
@@ -178,13 +178,26 @@ def testIt():
 	#for movie in movies:
 	#	print(movie["rating"], movie["title"], movie["providers"])
 
-	from Services.TheMovieDb.TmdbService import TmdbService
-	tmdbService = TmdbService()
+	#from Services.TheMovieDb.TmdbService import TmdbService
+	#tmdbService = TmdbService()
 	#tmdbService.rateMovieByTitle("Ashes of Time", 10)
 	#tmdbService.rateMovieByTitle("The Godfather", 9)
 	#print(tmdbService.getMyFavoriteMovies())
-	print(tmdbService.getMoviesIHaveWatched())
+	#print(tmdbService.getMoviesIHaveWatched())
 
+	#from Flows.PersonalAssistant.Functions.generateImage import generateImage, makePartOfImageTransparent
+	#image = generateImage("A steampunk city with gear-driven machines, airships docked atop buildings, and streets lit by gas lamps, set in a vast canyon")
+	#print(image)
+
+	#from pathlib import Path
+	#downloadsPath = str(Path.home() / "Downloads")
+	#originalFilePath = downloadsPath + "/skriget.jpg"
+	#newFilePath = downloadsPath + "/skriget_transparent.png"
+	#xFraction, yFraction, widthFraction, heightFraction = 0.1, 0.1, 0.5, 0.5
+	#makePartOfImageTransparent(originalFilePath, newFilePath, xFraction, yFraction, widthFraction, heightFraction)
+
+	from Flows.PersonalAssistant.Functions.createAssistant import createAndRunAssistant
+	createAndRunAssistant()
 
 def runIt():
 	prompt = input("Prompt : ")

@@ -3,7 +3,6 @@ google-auth-httplib2
 google-auth-oauthlib
 huggingface_hub
 openai
-pillow
 requests
 torch
 torchvision
@@ -34,3 +33,6 @@ arxiv
 
 # For getting the current weather:
 pyowm
+
+# For image manipulation:
+pillow

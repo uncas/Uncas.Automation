@@ -11,6 +11,7 @@ def getTools():
 	from Flows.PersonalAssistant.Functions.getLatestNews import getNewsDetails
 	from Flows.PersonalAssistant.Functions.searchArxiv import searchArxiv
 	from Flows.PersonalAssistant.Functions.readEmail import readEmail
+	from Flows.PersonalAssistant.Functions.readEmail import writeEmail
 
 	return [
 		{
@@ -95,6 +96,32 @@ def getTools():
 			"method": readEmail,
 			"description": "Read email",
 			"parameters": {}
+		},
+		{
+			"method": writeEmail,
+			"description": "Write an email",
+			"parameters": {
+				"recipient": {
+					"type": "string",
+					"description": "The recipient of the email"
+				},
+				"subject": {
+					"type": "string",
+					"description": "The subject of the email"
+				},
+				"body": {
+					"type": "string",
+					"description": "The body of the email"
+				},
+				"sender": {
+					"type": "string",
+					"description": "The sender of the email"
+				},
+				"internalMessageId": {
+					"type": "string",
+					"description": "The id of the message that should be replied to (used only when replying to an email)"
+				}
+			}
 		}
 	]
 

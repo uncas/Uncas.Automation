@@ -5,6 +5,7 @@ from email.message import EmailMessage
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from Services.Google.GoogleAuth import getCredentials
+from Services.Google.GmailService import getMessageContent
 
 def createDraft(recipient, subject, body, sender, internalMessageId = None):
 	print("Should I create a draft with the following parameters: " + recipient + ", " + subject + ", " + sender)
@@ -19,12 +20,14 @@ def createDraft(recipient, subject, body, sender, internalMessageId = None):
 		message.set_content(body)
 		message["To"] = recipient
 		message["From"] = sender
-		message["Subject"] = subject
-		#if internalMessageId:
-		#	message["ThreadId"] = threadId
-		#	message['References'] = globalMessageId
-		#	message['In-Reply-To'] = globalMessageId
-		#	message["Subject"] = 
+		if internalMessageId:
+			originalMessage = getMessageContent(internalMessageId)
+			message["ThreadId"] = originalMessage["threadId"]
+			message['References'] = originalMessage["globalMessageId"]
+			message['In-Reply-To'] = originalMessage["globalMessageId"]
+			message["Subject"] = originalMessage["subject"]
+		else:
+			message["Subject"] = subject
 		encodedMessage = base64.urlsafe_b64encode(message.as_bytes()).decode()
 		createMessage = {"message": {"raw": encodedMessage}}
 		draft = (

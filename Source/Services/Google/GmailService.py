@@ -17,29 +17,7 @@ def getInboxMessages():
     results = getMessagesInfo(QUERY_INBOX)
     for message in results["messages"]:
         internalMessageId = message["id"]
-        content = getMessageContent(internalMessageId)
-        contentText = json.dumps(content, indent = 2)
-        writeText("Data/Gmail", internalMessageId + ".json", contentText)
-        payload = content["payload"]
-        headers = payload["headers"]
-        sender = getHeaderValue(headers, "From")
-        recipient = getHeaderValue(headers, "To")
-        date = getHeaderValue(headers, "Date")
-        subject = getHeaderValue(headers, "Subject")
-        threadId = message["threadId"]
-        globalMessageId = getHeaderValue(headers, "Message-ID")
-        #body = getBody(payload)
-        body = parse_email_body(content)
-        yield { 
-          "sender": sender, 
-          "recipient": recipient, 
-          "date": date, 
-          "subject": subject, 
-          "body": body, 
-          "threadId": threadId, 
-          "globalMessageId": globalMessageId, 
-          "internalMessageId": internalMessageId 
-        }
+        yield getMessageContent(internalMessageId)
     return
   except HttpError as err:
     print(err)
@@ -98,4 +76,26 @@ def getThread(threadId):
   return gmailService.users().threads().get(userId = "me", id = threadId).execute()
 
 def getMessageContent(internalMessageId):
-  return gmailService.users().messages().get(userId = "me", id = internalMessageId, format = "full").execute()
+  content = gmailService.users().messages().get(userId = "me", id = internalMessageId, format = "full").execute()
+  contentText = json.dumps(content, indent = 2)
+  writeText("Data/Gmail", internalMessageId + ".json", contentText)
+  payload = content["payload"]
+  headers = payload["headers"]
+  sender = getHeaderValue(headers, "From")
+  recipient = getHeaderValue(headers, "To")
+  date = getHeaderValue(headers, "Date")
+  subject = getHeaderValue(headers, "Subject")
+  threadId = content["threadId"]
+  globalMessageId = getHeaderValue(headers, "Message-ID")
+  #body = getBody(payload)
+  body = parse_email_body(content)
+  return { 
+    "sender": sender, 
+    "recipient": recipient, 
+    "date": date, 
+    "subject": subject, 
+    "body": body, 
+    "threadId": threadId, 
+    "globalMessageId": globalMessageId, 
+    "internalMessageId": internalMessageId 
+  }

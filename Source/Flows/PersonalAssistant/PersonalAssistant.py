@@ -119,7 +119,7 @@ def getTools():
 				},
 				"internalMessageId": {
 					"type": "string",
-					"description": "The id of the message that should be replied to (used only when replying to an email)"
+					"description": "The internal id of the message that should be replied to (used only when replying to an email)"
 				}
 			}
 		}

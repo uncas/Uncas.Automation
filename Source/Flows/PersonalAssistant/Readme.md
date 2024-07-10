@@ -26,6 +26,7 @@ Private time / Leisure time:
 
 Completing ongoing work:
 - Implement sync of documentation.
+- Properly extract email body for all kinds of messages (currently some are missing).
 
 Generic ideas:
 - Keep the chat thread going, remembering previous messages.

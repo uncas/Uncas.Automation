@@ -25,13 +25,16 @@ def getInboxMessages():
         recipient = getHeaderValue(headers, "To")
         date = getHeaderValue(headers, "Date")
         subject = getHeaderValue(headers, "Subject")
-        body = getBody(payload)
+        #body = getBody(payload)
+        body = parse_email_body(content)
         yield { "sender": sender, "recipient": recipient, "date": date, "subject": subject, "body": body }
     return
   except HttpError as err:
     print(err)
 
 def getBody(payload):
+    if "parts" not in payload:
+       return ""
     parts = payload["parts"]
     bodyText = []
     for part in parts:
@@ -55,6 +58,21 @@ def getPartBody(part):
     except BaseException as error:
         print(error)
         return
+
+def parse_email_body(msg: dict) -> str:
+    import base64
+    parts = msg["payload"].get("parts", [])
+    for part in parts:
+        # only parse the first text/plain part, ignore the rest
+        if part["mimeType"] == "text/plain":
+            body = part["body"].get("data", "")
+            body = base64.urlsafe_b64decode(
+                body.encode("ASCII")).decode("utf-8")
+            break
+    else:
+        body = ""
+
+    return body
 
 def getHeaderValue(headers, name):
   for header in headers:

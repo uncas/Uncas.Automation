@@ -10,6 +10,7 @@ def getTools():
 	from Flows.PersonalAssistant.Functions.getLatestNews import getLatestNews
 	from Flows.PersonalAssistant.Functions.getLatestNews import getNewsDetails
 	from Flows.PersonalAssistant.Functions.searchArxiv import searchArxiv
+	from Flows.PersonalAssistant.Functions.readEmail import readEmail
 
 	return [
 		{
@@ -89,6 +90,11 @@ def getTools():
 					"enum": ["ascending", "descending"]
 				}
 			}
+		},
+		{
+			"method": readEmail,
+			"description": "Read email",
+			"parameters": {}
 		}
 	]
 
@@ -205,5 +211,5 @@ def runIt():
 	print("Response: ", response)
 
 def runPersonalAssistant():
-	testIt()
-	#runIt()
+	#testIt()
+	runIt()

@@ -25,6 +25,7 @@ def runAssistantLoop(model="gpt-3.5-turbo"):
 	messages = []
 	while True:
 		prompt = input(background.BLUE + foreground.WHITE + "  You        " + style.RESET_ALL + " : ")
+		print()
 		if prompt == "bye":
 			printAssistantMessage("Good bye!")
 			return
@@ -33,9 +34,11 @@ def runAssistantLoop(model="gpt-3.5-turbo"):
 
 def printAssistantMessage(content):
 	print(background.GREEN + foreground.WHITE + "  Assistant  " + style.RESET_ALL + " :", content)
+	print()
 
 def printToolMessage(content):
 	print(background.YELLOW + foreground.WHITE + "  Tool       " + style.RESET_ALL + " :", content)
+	print()
 
 def runToolLoop(client, model, tools, toolMethods, messages):
 	import json

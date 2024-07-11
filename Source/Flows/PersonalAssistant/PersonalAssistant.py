@@ -35,6 +35,9 @@ def runAssistantLoop(model="gpt-3.5-turbo"):
 def printAssistantMessage(content):
 	print(background.GREEN + foreground.WHITE + "Assistant : ", content, style.RESET_ALL)
 
+def printToolMessage(content):
+	print(background.YELLOW + foreground.WHITE + "Tool : ", content, style.RESET_ALL)
+
 def runToolLoop(client, model, tools, toolMethods, messages):
 	import json
 	maxIterations = 5
@@ -60,10 +63,10 @@ def runToolLoop(client, model, tools, toolMethods, messages):
 					functionResponse = None
 					toolMethod = toolMethods[functionName]
 					if functionArgs:
-						print("Calling function", functionName, "with", functionArgs)
+						printToolMessage("Calling function " + functionName + " with " + str(functionArgs))
 						functionResponse = toolMethod(functionArgs)
 					else:
-						print("Calling function", functionName)
+						printToolMessage("Calling function " + functionName)
 						functionResponse = toolMethod()
 					messages.append({
 						"role": "tool",

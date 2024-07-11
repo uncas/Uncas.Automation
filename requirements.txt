@@ -36,3 +36,6 @@ pyowm
 
 # For image manipulation:
 pillow
+
+# For accessing Jira:
+jira

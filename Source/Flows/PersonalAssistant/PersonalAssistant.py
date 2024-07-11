@@ -12,6 +12,8 @@ def getTools():
 	from Flows.PersonalAssistant.Functions.searchArxiv import searchArxiv
 	from Flows.PersonalAssistant.Functions.readEmail import readEmail
 	from Flows.PersonalAssistant.Functions.readEmail import writeEmail
+	from Flows.PersonalAssistant.Functions.createJiraIssue import createJiraIssue
+	from Flows.PersonalAssistant.Functions.createJiraIssue import getMyJiraIssues
 
 	return [
 		{
@@ -122,6 +124,25 @@ def getTools():
 					"description": "The internal id of the message that should be replied to (used only when replying to an email)"
 				}
 			}
+		},
+		{
+			"method": createJiraIssue,
+			"description": "Create a task for me as a Jira issue",
+			"parameters": {
+				"summary": {
+					"type": "string",
+					"description": "A short summary of the issue"
+				},
+				"description": {
+					"type": "string",
+					"description": "A detailed description of the issue"
+				}
+			}
+		},
+		{
+			"method": getMyJiraIssues,
+			"description": "Get the issues that are assigned to me",
+			"parameters": {}
 		}
 	]
 
@@ -229,8 +250,12 @@ def testIt():
 	#xFraction, yFraction, widthFraction, heightFraction = 0.1, 0.1, 0.5, 0.5
 	#makePartOfImageTransparent(originalFilePath, newFilePath, xFraction, yFraction, widthFraction, heightFraction)
 
-	from Flows.PersonalAssistant.Functions.createAssistant import createAndRunAssistant
-	createAndRunAssistant()
+	#from Flows.PersonalAssistant.Functions.createAssistant import createAndRunAssistant
+	#createAndRunAssistant()
+
+	from Source.Flows.PersonalAssistant.Functions.createJiraIssue import getJiraIssues, createJiraIssue
+	#getJiraIssues()
+	createJiraIssue({"summary": "TEST SUMMARY", "description": "TEST DESCRIPTION"})
 
 def runIt():
 	prompt = input("Prompt : ")

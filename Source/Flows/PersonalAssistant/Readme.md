@@ -1,22 +1,20 @@
 # Personal assistant
 
-This folder contains an AI assistant that can do various actions based on the user's input.
+This folder contains the script for an AI assistant that can do various actions based on the user's input.
 
 The assistant can perform the following actions:
 - Check mail (gmail)
 - Create mail drafts (gmail)
 - Retrieve Jira issues
 - Create Jira issues
-- Search Google documents (currently hard-coded to my locally cached documents)
+- Search documents (currently hard-coded to my locally cached documents)
 - Search arXiv.org
 - Get the news (from Danish news site https://www.dr.dk/nyheder)
 - Get the current location (based on IP address)
 - Get the weather at a given location
-- Find out where you can stream a certain movie (currently hard-coded to Denmark and my streaming providers)
+- Find out where a certain movie can be streamed (currently hard-coded to Denmark and my streaming providers)
 
 The assistant can reason about how to do a sequence of actions, for example if I ask about the weather it will first find my location and then find the weather at that location. (See example conversation + more in the Examples section below.)
-
-The assistant leverages the LLM capabilities of Chat GPT, so it can handle other languages as well; I have tested it with Danish and English.
 
 
 ## Examples
@@ -174,7 +172,7 @@ https://v2.scrimba.com/the-ai-engineer-path-c02v
 ## TODOs & Draft notes & thoughts
 
 Completing ongoing work:
-- Implement sync of documentation (currently it only uses documents that I downloaded in a separate script).
+- Implement sync of documentation (currently it only uses documents that I downloaded in a separate thread).
 
 Improving functionality:
 - Properly extract email body for all kinds of messages (currently some are missing).
@@ -184,6 +182,8 @@ Generic ideas:
 - Unit testing.
 
 Work-related Use case ideas:
+- Get calendar events
+- Create calendar event
 - Prepare meetings for the following week... (research + people styles)
 
 Private time / Leisure time Use case ideas:
@@ -217,3 +217,5 @@ Misc notes & random thoughts, that are not yet sorted:
 - Registering rain fall in my garden
 - Checking the climate / typical weather in holiday target locations
 - Researching holiday options
+- Find a picture of someone at some specific place (or at a specific age). Could search google photos!
+- Categorize pictures...

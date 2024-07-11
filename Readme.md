@@ -12,10 +12,12 @@ This repository contains various automations scripts.
 
 ## Other things
 
-Besides the personal AI assistant, there are various experiments and minor scripts, primarily located in the following folders:
+Besides the personal AI assistant, there are various experiments and minor scripts (finished, unfinished, or abandoned), primarily located in the following folders:
 
 - [Source](Source): Organized as modules that can call each other.
 
 - [Simple](Simple): Stand-alone experiments, not linked to the other modules.
 
 - [Clasp](Clasp): Google Apps Script: Overview page of calendar, mail, and tasks.
+
+There be dragons.

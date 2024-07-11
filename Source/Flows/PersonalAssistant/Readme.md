@@ -1,6 +1,6 @@
 # Personal assistant
 
-This is an AI assistant that can do various actions based on the user's input.
+This folder contains an AI assistant that can do various actions based on the user's input.
 
 The assistant can perform the following actions:
 - Check mail (gmail)

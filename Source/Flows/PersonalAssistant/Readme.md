@@ -5,6 +5,8 @@ This folder contains the script for an AI assistant that can do various actions 
 The assistant can perform the following actions:
 - Check mail (gmail)
 - Create mail drafts (gmail)
+- Check calendar (Google Calendar)
+- Get the current date and time
 - Retrieve Jira issues
 - Create Jira issues
 - Search documents (currently hard-coded to my locally cached documents)
@@ -91,6 +93,7 @@ You can track these tasks with the given Jira issue keys:
 - `How are we using OKRs in our company?`
 - `Summarize the most recent research about AI Agents.`
 - `What are the most recent tech-related news?`
+- `How does my calendar look tomorrow?`
 
 
 ### Example 4: Other questions or instructions that it can handle
@@ -178,11 +181,10 @@ Improving functionality:
 - Properly extract email body for all kinds of messages (currently some are missing).
 
 Generic ideas:
-- Fetching docs, mail, calendar from different Google accounts.
+- Fetching Google resources from two+ different Google accounts.
 - Unit testing.
 
 Work-related Use case ideas:
-- Get calendar events
 - Create calendar event
 - Prepare meetings for the following week... (research + people styles)
 

@@ -10,6 +10,8 @@ def getTools():
 	from Flows.PersonalAssistant.Functions.readEmail import writeEmail
 	from Flows.PersonalAssistant.Functions.createJiraIssue import createJiraIssue
 	from Flows.PersonalAssistant.Functions.createJiraIssue import getMyJiraIssues
+	from Flows.PersonalAssistant.Functions.getCalendarEvents import getCalendarEvents
+	from Flows.PersonalAssistant.Functions.getDateAndTime import getDateAndTime
 
 	return [
 		{
@@ -134,6 +136,16 @@ def getTools():
 		{
 			"method": getMyJiraIssues,
 			"description": "Get the issues that are assigned to me",
+			"parameters": {}
+		},
+		{
+			"method": getCalendarEvents,
+			"description": "Get events from the user's calendar",
+			"parameters": {}
+		},
+		{
+			"method": getDateAndTime,
+			"description": "Get current date and time",
 			"parameters": {}
 		}
 	]

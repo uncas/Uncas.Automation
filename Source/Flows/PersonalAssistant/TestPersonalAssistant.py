@@ -45,6 +45,10 @@ def testIt():
 	#from Flows.PersonalAssistant.Functions.createAssistant import createAndRunAssistant
 	#createAndRunAssistant()
 
-	from Flows.PersonalAssistant.Functions.createJiraIssue import getMyJiraIssues, createJiraIssue
-	print(getMyJiraIssues()[0])
+	#from Flows.PersonalAssistant.Functions.createJiraIssue import getMyJiraIssues, createJiraIssue
+	#print(getMyJiraIssues()[0])
 	#print(createJiraIssue({"summary": "TEST SUMMARY", "description": "TEST DESCRIPTION"}))
+
+	from Flows.PersonalAssistant.Functions.getCalendarEvents import getCalendarEvents
+	for item in getCalendarEvents():
+		print(item) 

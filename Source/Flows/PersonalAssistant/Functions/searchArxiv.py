@@ -3,8 +3,8 @@ def searchArxiv(data):
 	# https://github.com/lukasschwab/arxiv.py
 	query = data["query"]
 	maxResults = data["maxResults"] if "maxResults" in data else 5
-	sortBy = data["sortBy"] if "sortBy" in data else arxiv.SortCriterion.SubmittedDate
-	sortOrder = data["sortOrder"] if "sortOrder" in data else arxiv.SortOrder.Descending
+	sortBy = arxiv.SortCriterion(data["sortBy"]) if "sortBy" in data else arxiv.SortCriterion.SubmittedDate
+	sortOrder = arxiv.SortOrder(data["sortOrder"]) if "sortOrder" in data else arxiv.SortOrder.Descending
 	client = arxiv.Client()
 	search = arxiv.Search(
 		query = query,

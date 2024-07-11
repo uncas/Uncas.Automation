@@ -82,6 +82,31 @@ You can track these tasks with the given Jira issue keys:
 ````
 
 
+### Example 3: Work-related questions or instructions that it can handle
+
+- `Summarize my mail inbox.`
+- `Check mail and create tasks with steps based on the mails.`
+- `Write a mail to my-colleagues@example.com about how the OKR process works.`
+- `Create a task for me to fix the bug in the home page.`
+- `How are we using OKRs in our company?`
+- `Summarize the most recent research about AI Agents.`
+- `What are the most recent tech-related news?`
+
+
+### Example 4: Other questions or instructions that it can handle
+
+- `Write a mail to my-studying-son@example.com about how the photosynthesis works.`
+- `Where can I watch The Godfather?`
+- `How is the weather?`
+- `Suggest some fun outdoor activities that suits the current weather.`
+
+
+### Example 5: Questions or instructions that it can *not* handle
+
+- `Suggest some fun outdoor activities.` (For some reason it cannot figure out to call the functions to get my current location and the current weather.)
+
+
+
 ## How to use it
 
 If you have already performed the first-time configuration below,

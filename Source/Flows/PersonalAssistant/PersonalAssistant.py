@@ -193,10 +193,10 @@ def chat_with_chatgpt(prompt, model="gpt-3.5-turbo"):
 					functionResponse = None
 					toolMethod = toolMethods[functionName]
 					if functionArgs:
-						print("Calling function: ", functionName, " with args: ", functionArgs)
+						print("Calling function", functionName, "with", functionArgs)
 						functionResponse = toolMethod(functionArgs)
 					else:
-						print("Calling function: ", functionName, " without args.")
+						print("Calling function", functionName)
 						functionResponse = toolMethod()
 					messages.append({
 						"role": "tool",
@@ -253,9 +253,9 @@ def testIt():
 	#from Flows.PersonalAssistant.Functions.createAssistant import createAndRunAssistant
 	#createAndRunAssistant()
 
-	from Source.Flows.PersonalAssistant.Functions.createJiraIssue import getJiraIssues, createJiraIssue
-	#getJiraIssues()
-	createJiraIssue({"summary": "TEST SUMMARY", "description": "TEST DESCRIPTION"})
+	from Flows.PersonalAssistant.Functions.createJiraIssue import getMyJiraIssues, createJiraIssue
+	print(getMyJiraIssues()[0])
+	#print(createJiraIssue({"summary": "TEST SUMMARY", "description": "TEST DESCRIPTION"}))
 
 def runIt():
 	prompt = input("Prompt : ")

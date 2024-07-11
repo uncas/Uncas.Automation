@@ -1,31 +1,147 @@
 # Personal assistant
 
-## Background
+This is an AI assistant that can do various actions based on the user's input.
+
+The assistant can perform the following actions:
+- Check mail (gmail)
+- Create mail drafts (gmail)
+- Retrieve Jira issues
+- Create Jira issues
+- Search Google documents (currently hard-coded to my locally cached documents)
+- Search arXiv.org
+- Get the news (from Danish news site https://www.dr.dk/nyheder)
+- Get the current location (based on IP address)
+- Get the weather at a given location
+- Find out where you can stream a certain movie (currently hard-coded to Denmark and my streaming providers)
+
+The assistant can reason about how to do a sequence of actions, for example if I ask about the weather it will first find my location and then find the weather at that location. (See example conversation + more in the Examples section below.)
+
+
+## Examples
+
+### Example 1: Weather
+
+When I ask:
+````
+How is the weather?
+````
+Then it performs the following function calls:
+````
+Calling function getLocation
+Calling function getCurrentWeather with {'countryCode': 'DK', 'city': 'Hørning'}
+````
+And replies:
+````
+The current weather in Hørning, Denmark is as follows:
+- Temperature: 18.96°C
+- Weather: Broken clouds
+- Wind: 
+  - Speed: 1.34 m/s
+  - Gust: 3.58 m/s
+  - Direction: 245°
+- Cloud Coverage: 68%
+
+Here is the forecast for today:
+- 09:00: Temperature 18.96°C, Broken clouds, Moderate wind
+- 12:00: Temperature 19.55°C, Light rain, Moderate wind (44% rain probability)
+- 15:00: Temperature 19.85°C, Light rain, Moderate wind (95% rain probability)
+- 18:00: Temperature 18.53°C, Light rain, Light wind (57% rain probability)
+- 21:00: Temperature 13.33°C, Light rain, Light wind (13% rain probability)
+
+If you need more details or a forecast for a specific time, feel free to ask!
+````
+
+
+### Example 2: Check mail and create tasks
+
+When I ask:
+````
+Check mail and create tasks with suggested steps based on the mails.
+````
+It makes the following operations:
+````
+Calling function readEmail
+Calling function createJiraIssue with {'summary': 'Discuss OKR presentation with team', 'description': 'Schedule a meeting to discuss the OKR presentation.'}
+Calling function createJiraIssue with {'summary': 'Summer canteen arrangements', 'description': "Ensure that the summer canteen schedule is coordinated for the upcoming weeks based on Jane's email."}
+````
+And replies:
+````
+Tasks have been created based on the emails:
+1. Task: Discuss OKR presentation with team
+   Description: Schedule a meeting to discuss the OKR presentation.
+
+2. Task: Summer canteen arrangements
+   Description: Ensure that the summer canteen schedule is coordinated for the upcoming weeks based on Jane's email.
+
+You can track these tasks with the given Jira issue keys:
+1. Task: Discuss OKR presentation with team
+   Jira Issue Key: EXAMPLE-404
+
+2. Task: Summer canteen arrangements
+   Jira Issue Key: EXAMPLE-405
+````
+
+
+## How to use it
+
+If you have already performed the first-time configuration below,
+then you can run the AI assistant by:
+- Open a terminal window in the root folder of the repository.
+- Run this in the terminal:
+`./run.sh`
+
+### First-time Configuration
+
+Requirements:
+
+- Python ([install Python](https://www.python.org/downloads/))
+
+Depending on which functionality you are going to use, you will need to define various environment variables:
+
+- Create a `.env` file in the root of the repository.
+- Add the following environment variables (or only the ones you will need):
+````
+# Required for the AI Assistant to run:
+OPENAI_API_KEY=INSERT_YOUR_VALUE_HERE # From https://platform.openai.com/api-keys
+
+# If using Jira:
+ATLASSIAN_API_TOKEN=INSERT_YOUR_VALUE_HERE # From https://id.atlassian.com/manage-profile/security/api-tokens
+ATLASSIAN_USER=INSERT_YOUR_VALUE_HERE # From https://id.atlassian.com/manage-profile/profile-and-visibility
+JIRA_SERVER=INSERT_YOUR_VALUE_HERE # For example https://example-jira.atlassian.net
+JIRA_PROJECT=INSERT_YOUR_VALUE_HERE # For example SITEOPS
+
+# If querying for weather:
+OpenWeatherMap_Api_Key=INSERT_YOUR_VALUE_HERE # From https://home.openweathermap.org/api_keys
+
+# If querying for movies:
+THEMOVIEDB_API_KEY=INSERT_YOUR_VALUE_HERE # From https://www.themoviedb.org/settings/api
+THEMOVIEDB_ACCESS_TOKEN=INSERT_YOUR_VALUE_HERE # From https://www.themoviedb.org/settings/api
+````
+
+For the Google integration (gmail, docs):
+- Enable Google API ([read about how](https://developers.google.com/docs/api/quickstart/python)).
+- Save Google credentials file as `Config/GoogleCredentials.json` (i.e. in the `Config` folder which is a sub folder of the root folder of the repository).
+
+
+## How it works
+
+This script leverages Open AI functions to enable the LLM to decide on different actions to take.
+
+[Read about function calling](https://platform.openai.com/docs/guides/function-calling)
+
+
+## Inspiration
 
 Inspired by the section about "Build Apps with LangChain" in the AI Engineering course on Scrimba:
 https://v2.scrimba.com/the-ai-engineer-path-c02v
 
 
-## Use cases
-
-The following are some examples of questions that are supported:
-
-Generic:
-- Get my current location. (Based on IP address.)
-
-Work-related:
-- Questions that query documentation. (Based on retrieval of Google documents, embedding and searching.)
-
-Private time / Leisure time:
-- Where can I watch a certain movie? (Based on lookup in the movie db's API.)
-- Get the latest news. (Based on lookup in RSS feed from dr.dk.)
-- What is the current weather? (Fake implementation. Not yet implemented an API lookup.)
-
-
-## TODOs
+## TODOs & Draft notes & thoughts
 
 Completing ongoing work:
-- Implement sync of documentation.
+- Implement sync of documentation (currently it only uses documents that I downloaded in a separate script).
+
+Improving functionality:
 - Properly extract email body for all kinds of messages (currently some are missing).
 
 Generic ideas:
@@ -38,7 +154,6 @@ Work-related Use case ideas:
 - Prepare meetings for the following week... (research + people styles)
 
 Private time / Leisure time Use case ideas:
-- Get news in Denmark/other places (dr.dk API / RSS feeds).
 - Find movies available on my streaming services.
   - Bonus 1: Only movies that I have not yet seen.
   - Bonus 2: Filtering by: New movies, Genre, Language, Actors, Directors.
@@ -53,17 +168,14 @@ Misc notes & random thoughts, that are not yet sorted:
 - For each start: A session starts, with the messages saved to a json file.
 - A HTML page that can list the sessions, viewing the conversations.
 - Get books
-- Read mail
-- Send mail (pending confirmation or a draft mail)
-- Taking input and saving to garden journal or storing in other journals
+- Taking input and saving to journal
 - Based on conversation, suggest tasks to be added to Trello, or information to be added to tasks in Trello.
-
 
 - Finde events (for eksempel jeg sad og skulle finde friluftsspil på Moesgaard, Ragnarok eller Snedronningen, men det var ikke muligt for mig at finde det)
 - At skrive noget til assistenten og så få det tilføjet til dagbog eller idé-bank eller regn-log eller lignende...
 
 
-## Things that I typically do manually
+### Things that I typically do manually
 
 - Check my calendar for the day (work + family)
 - Check the weather for the day

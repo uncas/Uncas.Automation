@@ -96,7 +96,11 @@ then you can run the AI assistant by:
 
 Requirements:
 
+- Git ([install Git](https://git-scm.com/))
 - Python ([install Python](https://www.python.org/downloads/))
+- Clone this repository, for example by running this in a terminal:
+
+      git clone https://github.com/uncas/Uncas.Automation.git
 
 Depending on which functionality you are going to use, you will need to define various environment variables:
 

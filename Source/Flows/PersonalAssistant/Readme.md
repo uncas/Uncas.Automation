@@ -169,6 +169,9 @@ https://v2.scrimba.com/the-ai-engineer-path-c02v
 
 ## TODOs & Draft notes & thoughts
 
+Most important:
+- Keep the chat thread going, remembering previous messages.
+
 Completing ongoing work:
 - Implement sync of documentation (currently it only uses documents that I downloaded in a separate script).
 

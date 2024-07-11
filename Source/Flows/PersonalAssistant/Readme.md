@@ -107,6 +107,7 @@ You can track these tasks with the given Jira issue keys:
 ### Example 5: Questions or instructions that it can *not* handle
 
 - `Suggest some fun outdoor activities.` (For some reason it cannot figure out to call the functions to get my current location and the current weather.)
+- `Find latest research about biology` followed up by `Can you summarize more information about article 2?` (Results in an error because it calls the DR news details method with a URL from an arXiv article.)
 
 
 

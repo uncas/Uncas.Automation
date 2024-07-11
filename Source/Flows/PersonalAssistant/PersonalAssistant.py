@@ -24,8 +24,7 @@ def runAssistantLoop(model="gpt-3.5-turbo"):
 	client = OpenAI()
 	messages = []
 	while True:
-		prompt = input(background.BLUE + foreground.WHITE + "You :  ")
-		print(style.RESET_ALL)
+		prompt = input(background.BLUE + foreground.WHITE + "  You        " + style.RESET_ALL + " : ")
 		if prompt == "bye":
 			printAssistantMessage("Good bye!")
 			return
@@ -33,10 +32,10 @@ def runAssistantLoop(model="gpt-3.5-turbo"):
 		messages = runToolLoop(client, model, tools, toolMethods, messages)
 
 def printAssistantMessage(content):
-	print(background.GREEN + foreground.WHITE + "Assistant : ", content, style.RESET_ALL)
+	print(background.GREEN + foreground.WHITE + "  Assistant  " + style.RESET_ALL + " :", content)
 
 def printToolMessage(content):
-	print(background.YELLOW + foreground.WHITE + "Tool : ", content, style.RESET_ALL)
+	print(background.YELLOW + foreground.WHITE + "  Tool       " + style.RESET_ALL + " :", content)
 
 def runToolLoop(client, model, tools, toolMethods, messages):
 	import json

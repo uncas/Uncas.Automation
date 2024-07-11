@@ -16,6 +16,8 @@ The assistant can perform the following actions:
 
 The assistant can reason about how to do a sequence of actions, for example if I ask about the weather it will first find my location and then find the weather at that location. (See example conversation + more in the Examples section below.)
 
+The assistant leverages the LLM capabilities of Chat GPT, so it can handle other languages as well; I have tested it with Danish and English.
+
 
 ## Examples
 

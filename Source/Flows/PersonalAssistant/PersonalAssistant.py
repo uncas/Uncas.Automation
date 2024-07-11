@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 
 load_dotenv(override = True)
 
-def chat_with_chatgpt(prompt, model="gpt-3.5-turbo"):
+def runAssistantLoop(prompt, model="gpt-3.5-turbo"):
 	import json
 	from openai import OpenAI
 	from Flows.PersonalAssistant.AssistantTools import getTools
@@ -30,12 +30,12 @@ def chat_with_chatgpt(prompt, model="gpt-3.5-turbo"):
 			"content": prompt,
 	}]
 	for _ in range(maxIterations):
-		chat_completion = client.chat.completions.create(
+		chatCompletion = client.chat.completions.create(
 			messages = messages,
 			model = model,
 			tools = tools
 		)
-		choice = chat_completion.choices[0]
+		choice = chatCompletion.choices[0]
 		finishReason = choice.finish_reason
 		message = choice.message
 		if finishReason == "stop":
@@ -64,7 +64,7 @@ def chat_with_chatgpt(prompt, model="gpt-3.5-turbo"):
 
 def runIt():
 	prompt = input("Prompt : ")
-	response = chat_with_chatgpt(prompt)
+	response = runAssistantLoop(prompt)
 	print("Response: ", response)
 
 def runPersonalAssistant():

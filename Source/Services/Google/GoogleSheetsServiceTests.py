@@ -1,7 +1,7 @@
 from Services.Google.GoogleSheetsService import readSheet
 
 def testGoogleSheetsService():
-	id = "1X9QhUocllUsrhW07g2X2O3CqBuURAFMXBqmjqkePvN8"
+	id = "xx"
 	range = "Ark1!A:D"
 	values = readSheet(id, range)
 	for row in values:

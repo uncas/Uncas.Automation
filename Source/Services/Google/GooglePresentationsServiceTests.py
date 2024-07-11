@@ -1,7 +1,7 @@
 from Services.Google.GooglePresentationsService import readPresentation
 
 def testGooglePresentationsService():
-	id = "1FHM1hBFbLCfWAJHmr6oM0Vpyv65Sxfg5d7WrQGSM-AQ"
+	id = "xx"
 	pres = readPresentation(id)
 	title = pres["title"]
 	text = pres["text"]

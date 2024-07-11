@@ -1,7 +1,7 @@
 from Services.Google.GoogleDocsService import readDocument
 
 def testGoogleDocsService():
-	id = "1j80Lx1Rlu3w1gOh6FHZeF3TftA4vyV9VNEyskpF6wO4"
+	id = "xx"
 	doc = readDocument(id)
 	title = doc["title"]
 	text = doc["text"]

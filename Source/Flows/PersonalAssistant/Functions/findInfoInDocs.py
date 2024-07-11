@@ -7,7 +7,7 @@ def syncDocs():
 	print("Syncing docs")
 	store = getStore()
 	import glob
-	for file in glob.glob("Data/GoogleSheetList/1X9QhUocllUsrhW07g2X2O3CqBuURAFMXBqmjqkePvN8/*.txt"):
+	for file in glob.glob("Data/GoogleSheetList/TODO/*.txt"):
 		print("Storing file ", file)
 		store.save(file)
 

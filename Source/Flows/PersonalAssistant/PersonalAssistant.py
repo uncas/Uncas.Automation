@@ -224,7 +224,7 @@ def testIt():
 	#print(papers)
 
 	#from Flows.PersonalAssistant.Functions.getCurrentWeather import getCurrentWeather
-	#weather = getCurrentWeather({"city": "Odder", "countryCode": "DK"})
+	#weather = getCurrentWeather({"city": "Copenhagen", "countryCode": "DK"})
 	#print("Weather: ", weather)
 
 	#from Flows.PersonalAssistant.Functions.theMovieDb import getRecommendedMoviesThatIHaveAccessToWatch

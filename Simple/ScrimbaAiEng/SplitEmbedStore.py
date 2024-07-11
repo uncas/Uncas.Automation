@@ -14,7 +14,7 @@ def splitEmbedAndStore():
     from langchain_text_splitters import RecursiveCharacterTextSplitter
 
     # load the document
-    loader = TextLoader("scrimba-info.txt")
+    loader = TextLoader("../../Data/scrimba-info.txt")
     documents = loader.load()
 
     # split it into chunks

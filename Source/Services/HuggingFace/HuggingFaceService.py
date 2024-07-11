@@ -45,7 +45,7 @@ def speak(text):
 def convertFlacToMp3(flacFileName):
 	from subprocess import run
 	mp3 = flacFileName.replace(".flac", ".mp3") 
-	run(["/Users/ole.lynge.soerensenschibsted.com/Downloads/ffmpeg", "-i", flacFileName, "-c:v", "copy", "-b:a", "320k", mp3, "-y"])
+	run(["~/Downloads/ffmpeg", "-i", flacFileName, "-c:v", "copy", "-b:a", "320k", mp3, "-y"])
 	playMp3(mp3)
 
 def playMp3(mp3FileName):

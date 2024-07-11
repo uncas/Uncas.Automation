@@ -1,14 +1,11 @@
 from dotenv import load_dotenv
+from Flows.PersonalAssistant.Logger import foreground, background, style
 
 load_dotenv(override = True)
 
-def runAssistantLoop(prompt, model="gpt-3.5-turbo"):
-	import json
+def runAssistantLoop(model="gpt-3.5-turbo"):
 	from openai import OpenAI
 	from Flows.PersonalAssistant.AssistantTools import getTools
-
-	maxIterations = 3
-
 	toolList = getTools()
 	tools = [
 		{
@@ -25,10 +22,22 @@ def runAssistantLoop(prompt, model="gpt-3.5-turbo"):
 	]
 	toolMethods = {tool["method"].__name__: tool["method"] for tool in toolList}
 	client = OpenAI()
-	messages = [{
-			"role": "user",
-			"content": prompt,
-	}]
+	messages = []
+	while True:
+		prompt = input(background.BLUE + foreground.WHITE + "You :  ")
+		print(style.RESET_ALL)
+		if prompt == "bye":
+			printAssistantMessage("Good bye!")
+			return
+		messages.append({ "role": "user", "content": prompt })
+		messages = runToolLoop(client, model, tools, toolMethods, messages)
+
+def printAssistantMessage(content):
+	print(background.GREEN + foreground.WHITE + "Assistant : ", content, style.RESET_ALL)
+
+def runToolLoop(client, model, tools, toolMethods, messages):
+	import json
+	maxIterations = 5
 	for _ in range(maxIterations):
 		chatCompletion = client.chat.completions.create(
 			messages = messages,
@@ -38,10 +47,11 @@ def runAssistantLoop(prompt, model="gpt-3.5-turbo"):
 		choice = chatCompletion.choices[0]
 		finishReason = choice.finish_reason
 		message = choice.message
+		messages.append(message)
 		if finishReason == "stop":
-			return message.content
+			printAssistantMessage(message.content)
+			return messages
 		elif finishReason == "tool_calls":
-			messages.append(message)
 			for toolCall in message.tool_calls:
 				callFunction = toolCall.function
 				if callFunction.name in toolMethods:
@@ -62,12 +72,7 @@ def runAssistantLoop(prompt, model="gpt-3.5-turbo"):
 						"content": json.dumps(functionResponse)
 					})
 
-def runIt():
-	prompt = input("Prompt : ")
-	response = runAssistantLoop(prompt)
-	print("Response: ", response)
-
 def runPersonalAssistant():
 	#from Flows.PersonalAssistant.TestPersonalAssistant import testIt
 	#testIt()
-	runIt()
+	runAssistantLoop()

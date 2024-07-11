@@ -101,6 +101,7 @@ You can track these tasks with the given Jira issue keys:
 - `Where can I watch The Godfather?`
 - `How is the weather?`
 - `Suggest some fun outdoor activities that suits the current weather.`
+- `What do I need to wear today?`
 
 
 ### Example 5: Questions or instructions that it can *not* handle
@@ -171,9 +172,6 @@ https://v2.scrimba.com/the-ai-engineer-path-c02v
 
 ## TODOs & Draft notes & thoughts
 
-Most important:
-- Keep the chat thread going, remembering previous messages.
-
 Completing ongoing work:
 - Implement sync of documentation (currently it only uses documents that I downloaded in a separate script).
 
@@ -181,10 +179,8 @@ Improving functionality:
 - Properly extract email body for all kinds of messages (currently some are missing).
 
 Generic ideas:
-- Keep the chat thread going, remembering previous messages.
-- Let the agent ask me for input, if the agent is in doubt about some questions.
 - Fetching docs, mail, calendar from different Google accounts.
-- Unit testing
+- Unit testing.
 
 Work-related Use case ideas:
 - Prepare meetings for the following week... (research + people styles)

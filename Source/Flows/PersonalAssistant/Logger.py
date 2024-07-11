@@ -1,4 +1,4 @@
-class fg:
+class foreground:
     BLACK   = '\033[30m'
     RED     = '\033[31m'
     GREEN   = '\033[32m'
@@ -9,7 +9,7 @@ class fg:
     WHITE   = '\033[37m'
     RESET   = '\033[39m'
 
-class bg:
+class background:
     BLACK   = '\033[40m'
     RED     = '\033[41m'
     GREEN   = '\033[42m'
@@ -27,10 +27,10 @@ class style:
     RESET_ALL = '\033[0m'
 
 class Logger:
-	DEBUG = bg.BLUE + fg.WHITE
-	INFO = bg.BLACK + fg.YELLOW
-	WARNING = bg.WHITE + fg.YELLOW
-	ERROR = bg.YELLOW + fg.RED
+	DEBUG = background.BLUE + foreground.WHITE
+	INFO = background.BLACK + foreground.YELLOW
+	WARNING = background.WHITE + foreground.YELLOW
+	ERROR = background.YELLOW + foreground.RED
 	RESET = style.RESET_ALL
 	
 	def __init__(self):

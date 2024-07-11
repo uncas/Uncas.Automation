@@ -9,10 +9,6 @@ This repository contains various automations scripts.
   - [Open folder](Source/Flows/PersonalAssistant)
   - [View the readme](Source/Flows/PersonalAssistant/Readme.md)
 
-* Python script for running locally:
-  * Running on Windows: run.cmd
-  * Running on Mac: run.sh
-
 
 ## Other things
 

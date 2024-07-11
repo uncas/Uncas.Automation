@@ -15,7 +15,6 @@ def readEmail():
 def writeEmail(data):
 	body = data["body"]
 	subject = data["subject"]
-	sender = data["sender"]
 	recipient = data["recipient"]
-	internalMessageId = data["internalMessageId"]
-	createDraft(recipient, subject, body, sender, internalMessageId)
+	internalMessageId = data["internalMessageId"] if "internalMessageId" in data else None
+	createDraft(recipient, subject, body, internalMessageId)

@@ -115,10 +115,6 @@ def getTools():
 					"type": "string",
 					"description": "The body of the email"
 				},
-				"sender": {
-					"type": "string",
-					"description": "The sender of the email"
-				},
 				"internalMessageId": {
 					"type": "string",
 					"description": "The internal id of the message that should be replied to (used only when replying to an email)"

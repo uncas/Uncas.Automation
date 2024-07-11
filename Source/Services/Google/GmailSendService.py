@@ -7,8 +7,8 @@ from googleapiclient.errors import HttpError
 from Services.Google.GoogleAuth import getCredentials
 from Services.Google.GmailService import getMessageContent
 
-def createDraft(recipient, subject, body, sender, internalMessageId = None):
-	print("Should I create a draft with the following parameters: " + recipient + ", " + subject + ", " + sender)
+def createDraft(recipient, subject, body, internalMessageId = None):
+	print("Should I create a draft with the following parameters: " + recipient + ", " + subject)
 	decision = input("y/n ")
 	if (decision != "y"):
 		return
@@ -19,7 +19,7 @@ def createDraft(recipient, subject, body, sender, internalMessageId = None):
 		message = EmailMessage()
 		message.set_content(body)
 		message["To"] = recipient
-		message["From"] = sender
+		#message["From"] = sender
 		if internalMessageId:
 			originalMessage = getMessageContent(internalMessageId)
 			message["ThreadId"] = originalMessage["threadId"]

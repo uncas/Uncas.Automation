@@ -166,10 +166,11 @@ This script leverages Open AI functions to enable the LLM to decide on different
 [Read about function calling](https://platform.openai.com/docs/guides/function-calling)
 
 
-## Inspiration
+## Inspirations
 
-Inspired by the section about "Build Apps with LangChain" in the AI Engineering course on Scrimba:
-https://v2.scrimba.com/the-ai-engineer-path-c02v
+* [The section about "Build Apps with LangChain" in the AI Engineering course on Scrimba](https://v2.scrimba.com/the-ai-engineer-path-c02v)
+* [Youtube video about the different levels of AI](https://www.youtube.com/watch?v=F5nlMBVZxb4)
+* [Fabric, a framework and prompts to augment human intelligence](https://github.com/danielmiessler/fabric)
 
 
 ## TODOs & Draft notes & thoughts
@@ -206,8 +207,8 @@ Misc notes & random thoughts, that are not yet sorted:
 - Taking input and saving to journal
 - Based on conversation, suggest tasks to be added to Trello, or information to be added to tasks in Trello.
 
-- Finde events (for eksempel jeg sad og skulle finde friluftsspil på Moesgaard, Ragnarok eller Snedronningen, men det var ikke muligt for mig at finde det)
-- At skrive noget til assistenten og så få det tilføjet til dagbog eller idé-bank eller regn-log eller lignende...
+- Finde events (for eksempel: jeg skulle finde friluftsspil på Moesgaard; Ragnarok eller Snedronningen; men det var ikke muligt for mig at finde det)
+- At skrive noget til assistenten og få det tilføjet til dagbog eller idé-bank eller regn-log eller lignende...
 
 
 ### Things that I typically do manually
@@ -219,5 +220,6 @@ Misc notes & random thoughts, that are not yet sorted:
 - Registering rain fall in my garden
 - Checking the climate / typical weather in holiday target locations
 - Researching holiday options
-- Find a picture of someone at some specific place (or at a specific age). Could search google photos!
+- Find a picture of someone at some specific place (or at a specific age). Could search google photos
 - Categorize pictures...
+- Summarize stuff from Miro or Slack

@@ -15,6 +15,7 @@ The assistant can perform the following actions:
 - Get the current location (based on IP address)
 - Get the weather at a given location
 - Find out where a certain movie can be streamed (currently hard-coded to Denmark and my streaming providers)
+- Read the text of a web page
 
 The assistant can reason about how to do a sequence of actions, for example if I ask about the weather it will first find my location and then find the weather at that location. (See example conversation + more in the Examples section below.)
 
@@ -103,6 +104,7 @@ You can track these tasks with the given Jira issue keys:
 - `How is the weather?`
 - `Suggest some fun outdoor activities that suits the current weather.`
 - `What do I need to wear today?`
+- `Summarize https://blog.bilbasen.dk/elbiler-i-danmark-2021-353560/'
 
 
 ### Example 5: Questions or instructions that it can *not* handle
@@ -145,6 +147,8 @@ ATLASSIAN_API_TOKEN=INSERT_YOUR_VALUE_HERE # From https://id.atlassian.com/manag
 ATLASSIAN_USER=INSERT_YOUR_VALUE_HERE # From https://id.atlassian.com/manage-profile/profile-and-visibility
 JIRA_SERVER=INSERT_YOUR_VALUE_HERE # For example https://example-jira.atlassian.net
 JIRA_PROJECT=INSERT_YOUR_VALUE_HERE # For example SITEOPS
+# OPTIONAL:
+JIRA_JQL_MY_ISSUES=INSERT_YOUR_VALUE_HERE # If none provided, defaults to: assignee = currentUser() AND Resolution = unresolved
 
 # If querying for weather:
 OpenWeatherMap_Api_Key=INSERT_YOUR_VALUE_HERE # From https://home.openweathermap.org/api_keys

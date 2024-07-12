@@ -12,6 +12,7 @@ def getTools():
 	from Flows.PersonalAssistant.Functions.createJiraIssue import getMyJiraIssues
 	from Flows.PersonalAssistant.Functions.getCalendarEvents import getCalendarEvents
 	from Flows.PersonalAssistant.Functions.getDateAndTime import getDateAndTime
+	from Flows.PersonalAssistant.Functions.readWebPage import readWebPage
 
 	return [
 		{
@@ -135,7 +136,7 @@ def getTools():
 		},
 		{
 			"method": getMyJiraIssues,
-			"description": "Get the issues that are assigned to me",
+			"description": "Get my issues from Jira",
 			"parameters": {}
 		},
 		{
@@ -147,5 +148,15 @@ def getTools():
 			"method": getDateAndTime,
 			"description": "Get current date and time",
 			"parameters": {}
+		},
+		{
+			"method": readWebPage,
+			"description": "Read web page",
+			"parameters": {
+				"url": {
+					"type": "string",
+					"description": "The URL of the web page to read"
+				}
+			}
 		}
 	]

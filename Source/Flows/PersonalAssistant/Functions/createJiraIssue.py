@@ -13,9 +13,22 @@ def initJira():
 
 def getMyJiraIssues():
 	jira = initJira()
-	jql = "assignee = currentUser() AND Resolution = unresolved"
-	issues = jira.search_issues(jql, fields='summary,description')
-	return [{"key": issue.key, "summary": issue.fields.summary, "description": issue.fields.description} for issue in issues]
+	jql = os.getenv("JIRA_JQL_MY_ISSUES")
+	if not jql:
+		jql = "assignee = currentUser() AND Resolution = unresolved"
+	issues = jira.search_issues(jql, fields='summary,description,due')
+	#for issue in issues:
+	#	for field_name in issue.raw['fields']:
+	#		print("Field:", field_name, "Value:", issue.raw['fields'][field_name])
+	return [{
+		"key": issue.key,
+		"summary": getFieldValue(issue, "summary"),
+		"description": getFieldValue(issue, "description"),
+		"due": getFieldValue(issue, "due")
+	} for issue in issues]
+
+def getFieldValue(issue, fieldName):
+	return issue.raw['fields'][fieldName]
 
 def createJiraIssue(data):
 	summary = data["summary"]

@@ -206,9 +206,8 @@ Misc notes & random thoughts, that are not yet sorted:
 - Get books
 - Taking input and saving to journal
 - Based on conversation, suggest tasks to be added to Trello, or information to be added to tasks in Trello.
-
-- Finde events (for eksempel: jeg skulle finde friluftsspil på Moesgaard; Ragnarok eller Snedronningen; men det var ikke muligt for mig at finde det)
-- At skrive noget til assistenten og få det tilføjet til dagbog eller idé-bank eller regn-log eller lignende...
+- Find events (for example, I searched for friluftsspil at Moesgaard; Ragnarok or Snedronningen; but I did not find anything coherent overview)
+- Write something to the assistent and have it added to diary, journal, log, knowledge bank, idea bank, rain log, or similar.
 
 
 ### Things that I typically do manually

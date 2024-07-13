@@ -1,7 +1,9 @@
 from dotenv import load_dotenv
 from Flows.PersonalAssistant.Logger import foreground, background, style
+from Flows.PersonalAssistant.Utility.AiLog import AiLog
 
 load_dotenv(override = True)
+aiLog = AiLog()
 
 def runAssistantLoop(model="gpt-3.5-turbo"):
 	from openai import OpenAI
@@ -43,12 +45,15 @@ def printToolMessage(content):
 def runToolLoop(client, model, tools, toolMethods, messages):
 	import json
 	maxIterations = 5
+	messageCountAtLastLog = len(messages) - 1
 	for _ in range(maxIterations):
 		chatCompletion = client.chat.completions.create(
 			messages = messages,
 			model = model,
 			tools = tools
 		)
+		aiLog.log(model, chatCompletion.usage.prompt_tokens, chatCompletion.usage.completion_tokens, messages[messageCountAtLastLog:])
+		messageCountAtLastLog = len(messages)
 		choice = chatCompletion.choices[0]
 		finishReason = choice.finish_reason
 		message = choice.message

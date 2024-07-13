@@ -212,6 +212,8 @@ Misc notes & random thoughts, that are not yet sorted:
 - Based on conversation, suggest tasks to be added to Trello, or information to be added to tasks in Trello.
 - Find events (for example, I searched for friluftsspil at Moesgaard; Ragnarok or Snedronningen; but I did not find anything coherent overview)
 - Write something to the assistent and have it added to diary, journal, log, knowledge bank, idea bank, rain log, or similar.
+- Based on the different resources and data: Produce inbox tasks for my approval
+- A log of which items have been processed already (can be used by the agent to avoid doing the same thing twice, or to lookup later what has been done about some thing already, can also be used as a knowledge base)
 
 
 ### Things that I typically do manually

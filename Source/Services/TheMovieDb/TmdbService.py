@@ -19,13 +19,12 @@ class TmdbService:
 
 	def getBestMatchingMovieId(self, movieTitle):
 		search = tmdb.Search()
-		response = search.movie(query=movieTitle)
-		movieResponse = response["results"][0]
-		return movieResponse["id"]
+		results = search.movie(query=movieTitle)["results"]
+		return results[0]["id"] if len(results) > 0 else None
 
 	def getWatchProvidersByMovieTitle(self, movieTitle):
 		movieId = self.getBestMatchingMovieId(movieTitle)
-		return self.getWatchProvidersByMovieId(movieId)
+		return self.getWatchProvidersByMovieId(movieId) if movieId else []
 
 	def getWatchProvidersByMovieId(self, movieId):
 		movie = tmdb.Movies(movieId)
@@ -48,7 +47,7 @@ class TmdbService:
 
 	def getRecommendedMoviesByMovieTitle(self, movieTitle):
 		movieId = self.getBestMatchingMovieId(movieTitle)
-		return self.getRecommendedMoviesByMovieId(movieId)
+		return self.getRecommendedMoviesByMovieId(movieId) if movieId else []
 
 	def getRecommendedMoviesByMovieId(self, movieId):
 		movie = tmdb.Movies(movieId)

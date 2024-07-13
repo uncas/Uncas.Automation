@@ -41,9 +41,8 @@ def getMoviesInCinema_NonCached(cinema):
 			day = match.group(1)
 			month = match.group(2)
 			timesDiv = dayDiv.find_all("div", {"class": "date-picker__time"})
-			times = [timeDiv.text for timeDiv in timesDiv]
-			date = {"day": day, "month": month, "times": times}
-			dates.append(date)
+			for timeDiv in timesDiv:
+				dates.append({"day": day, "month": month, "time": timeDiv.text})
 		movies.append({ "title" : title, "cinema" : cinema["name"], "dates" : dates })
 	return movies
 

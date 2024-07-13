@@ -17,19 +17,17 @@ def getOrAdd(key, getValue):
 def getOrAddWithLifetime(key, getValue, lifetimeSeconds):
 	import time
 	db = getDb()
-	db.execute("CREATE TABLE IF NOT EXISTS CacheWithLifetime (Key TEXT PRIMARY KEY, Value TEXT, ExpiryTimestamp INTEGER)")
-	existingValue = db.execute("SELECT Value, ExpiryTimestamp FROM CacheWithLifetime WHERE Key = ?", (key,)).fetchone()
 	nowTimestamp = time.time()
+	mustBeCreatedAfterTimestamp = nowTimestamp - lifetimeSeconds
+	db.execute("CREATE TABLE IF NOT EXISTS CacheWithLifetime (Key TEXT PRIMARY KEY, Value TEXT, Timestamp INTEGER)")
+	existingValue = db.execute("SELECT Value FROM CacheWithLifetime WHERE Key = ? AND Timestamp > ?", (key,mustBeCreatedAfterTimestamp,)).fetchone()
 	if existingValue:
-		expiryTimestamp = existingValue[1]
-		if nowTimestamp <= expiryTimestamp:
-			return existingValue[0]
+		return existingValue[0]
 	
 	value = getValue()
-	expiryTimestamp = nowTimestamp + lifetimeSeconds
 	db.execute(
-		"INSERT OR REPLACE INTO CacheWithLifetime (Key, Value, ExpiryTimestamp) VALUES (?, ?, ?)",
-		(key, value, expiryTimestamp))
+		"INSERT OR REPLACE INTO CacheWithLifetime (Key, Value, Timestamp) VALUES (?, ?, ?)",
+		(key, value, nowTimestamp))
 	db.commit()
 	return value
 

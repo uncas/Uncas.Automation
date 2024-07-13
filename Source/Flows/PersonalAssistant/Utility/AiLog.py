@@ -22,7 +22,7 @@ class AiLog:
 			return {
 				"role": message.role, 
 				"content": message.content,
-				"tool_calls": [self.extractToolCallValues(toolCall) for toolCall in message.tool_calls]
+				"tool_calls": [self.extractToolCallValues(toolCall) for toolCall in message.tool_calls] if message.tool_calls else None
 			}
 		return {
 			"role": message["role"],

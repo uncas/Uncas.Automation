@@ -52,12 +52,12 @@ def runToolLoop(client, model, tools, toolMethods, messages):
 			model = model,
 			tools = tools
 		)
-		aiLog.log(model, chatCompletion.usage.prompt_tokens, chatCompletion.usage.completion_tokens, messages[messageCountAtLastLog:])
-		messageCountAtLastLog = len(messages)
 		choice = chatCompletion.choices[0]
 		finishReason = choice.finish_reason
 		message = choice.message
 		messages.append(message)
+		aiLog.log(model, chatCompletion.usage.prompt_tokens, chatCompletion.usage.completion_tokens, messages[messageCountAtLastLog:])
+		messageCountAtLastLog = len(messages)
 		if finishReason == "stop":
 			printAssistantMessage(message.content)
 			return messages

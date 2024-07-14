@@ -6,6 +6,9 @@
 #test_getOrAdd()
 #test_getOrAddWithLifetime()
 
-from Services.TheMovieDb.TmdbService import test_getTrendingMovies, test_getTrendingMoviesThatIHaveAccessToWatch
+from Services.TheMovieDb.TmdbService import test_getTrendingMovies, test_getGoodMoviesThatIHaveAccessToWatch, test_getPopularMovies, test_getMoviesPlayingNow, test_getTopRatedMovies
 #test_getTrendingMovies()
-test_getTrendingMoviesThatIHaveAccessToWatch()
+test_getGoodMoviesThatIHaveAccessToWatch()
+#test_getPopularMovies()
+#test_getMoviesPlayingNow()
+#test_getTopRatedMovies()

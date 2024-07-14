@@ -116,22 +116,57 @@ class TmdbService:
 		account.info()
 		return account.rated_movies()["results"]
 
+	def getMoviesPlayingNow(self):
+		def _get():
+			return tmdb.Movies().now_playing(region = "DK")["results"]
+		return self.cache.getOrAddWithLifetime("TheMovieDb_MoviesNowPlaying", _get, 3600 * 24 * 3)
+
+	def getPopularMovies(self):
+		def _get():
+			return tmdb.Movies().popular()["results"]
+		return self.cache.getOrAddWithLifetime("TheMovieDb_PopularMovies", _get, 3600 * 24)
+
+	def getTopRatedMovies(self, page = 1):
+		def _get():
+			return tmdb.Movies().top_rated(page = page)["results"]
+		return self.cache.getOrAddWithLifetime("TheMovieDb_TopRatedMovies-page" + str(page), _get, 3600 * 24 * 3)
+
 	def getTrendingMovies(self):
 		def _get():
-			return tmdb.Trending(media_type = "movie", time_window = "day").info()["results"]
-		return self.cache.getOrAddWithLifetime("TheMovieDb_TrendingMovies", _get, 3600 * 24)
+			return tmdb.Trending(media_type = "movie", time_window = "week").info()["results"]
+		return self.cache.getOrAddWithLifetime("TheMovieDb_TrendingMovies", _get, 3600 * 24 * 7)
 	
-	def getTrendingMoviesThatIHaveAccessToWatch(self):
-		for movie in self.getTrendingMovies():
+	def getGoodMoviesThatIHaveAccessToWatch(self, minRating = 5.0):
+		movies = self.getTrendingMovies() + self.getMoviesPlayingNow() + self.getPopularMovies()
+		for page in range(1, 5):
+			movies += self.getTopRatedMovies(page)
+		uniqueMovies = list({movie["id"]:movie for movie in movies}.values())
+		sortedMovies = sorted(uniqueMovies, key = lambda movie: movie['vote_average'], reverse = True)
+		for movie in sortedMovies:
+			if movie["vote_average"] < minRating:
+				continue
 			watchProviders = self.getWatchProvidersByMovieId(movie["id"])
 			if len(watchProviders) > 0:
 				movie["watchProviders"] = watchProviders
 				yield movie
 
+def test_getMoviesPlayingNow():
+	import json
+	print(json.dumps(TmdbService().getMoviesPlayingNow())[:2000])
+
+def test_getPopularMovies():
+	import json
+	print(json.dumps(TmdbService().getPopularMovies())[:2000])
+
+def test_getTopRatedMovies():
+	import json
+	print(json.dumps(TmdbService().getTopRatedMovies())[:2000])
+	print(json.dumps(TmdbService().getTopRatedMovies(2))[:2000])
+
 def test_getTrendingMovies():
 	import json
 	print(json.dumps(TmdbService().getTrendingMovies())[:2000])
 
-def test_getTrendingMoviesThatIHaveAccessToWatch():
-	for movie in TmdbService().getTrendingMoviesThatIHaveAccessToWatch():
-		print(movie["title"], movie["watchProviders"])
+def test_getGoodMoviesThatIHaveAccessToWatch():
+	for movie in TmdbService().getGoodMoviesThatIHaveAccessToWatch():
+		print(movie["title"], movie["vote_average"], movie["watchProviders"])

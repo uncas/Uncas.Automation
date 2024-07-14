@@ -28,23 +28,26 @@ class TmdbService:
 		return self.getWatchProvidersByMovieId(movieId) if movieId else []
 
 	def getWatchProvidersByMovieId(self, movieId):
-		movie = tmdb.Movies(movieId)
-		watchProviders = movie.watch_providers()["results"]
-		myCountry = "DK"
-		if not myCountry in watchProviders:
-			return []
+		def _get():
+			movie = tmdb.Movies(movieId)
+			watchProviders = movie.watch_providers()["results"]
+			myCountry = "DK"
+			if not myCountry in watchProviders:
+				return []
 
-		providersInMyCountry = watchProviders[myCountry]
-		myProviders = ["Viaplay", "HBO Max", "Netflix", "TV 2 Play"]
-		types = ["rent", "buy", "flatrate", "ads"]
-		options = []
-		for type in types:
-			if type in providersInMyCountry:
-				for option in providersInMyCountry[type]:
-					providerName = option["provider_name"]
-					if providerName in myProviders and providerName not in options:
-						options.append(providerName)
-		return options
+			providersInMyCountry = watchProviders[myCountry]
+			myProviders = ["Viaplay", "HBO Max", "Netflix", "TV 2 Play"]
+			types = ["rent", "buy", "flatrate", "ads"]
+			options = []
+			for type in types:
+				if type in providersInMyCountry:
+					for option in providersInMyCountry[type]:
+						providerName = option["provider_name"]
+						if providerName in myProviders and providerName not in options:
+							options.append(providerName)
+			return options
+
+		return self.cache.getOrAddWithLifetime("TheMovieDb_WatchProvidersByMovieId_" + str(movieId), _get, 3600 * 24 * 7)
 
 	def getRecommendedMoviesByMovieTitle(self, movieTitle):
 		movieId = self.getBestMatchingMovieId(movieTitle)
@@ -117,7 +120,18 @@ class TmdbService:
 		def _get():
 			return tmdb.Trending(media_type = "movie", time_window = "day").info()["results"]
 		return self.cache.getOrAddWithLifetime("TheMovieDb_TrendingMovies", _get, 3600 * 24)
+	
+	def getTrendingMoviesThatIHaveAccessToWatch(self):
+		for movie in self.getTrendingMovies():
+			watchProviders = self.getWatchProvidersByMovieId(movie["id"])
+			if len(watchProviders) > 0:
+				movie["watchProviders"] = watchProviders
+				yield movie
 
 def test_getTrendingMovies():
 	import json
 	print(json.dumps(TmdbService().getTrendingMovies())[:2000])
+
+def test_getTrendingMoviesThatIHaveAccessToWatch():
+	for movie in TmdbService().getTrendingMoviesThatIHaveAccessToWatch():
+		print(movie["title"], movie["watchProviders"])

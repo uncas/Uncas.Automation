@@ -1,3 +1,13 @@
+def getMoviesOnDate(date):
+	for movie in getMovies():
+		title = movie["title"]
+		cinema = movie["cinema"]
+		matchingDates = [
+			movieDate for movieDate in movie["dates"]
+			if int(movieDate["month"]) == date.month and int(movieDate["day"]) == date.day]
+		if len(matchingDates) > 0:
+			yield {"title": title, "cinema": cinema, "dates": matchingDates}
+
 def getMovies():
 	cinemas = [
 		{"name": "Vue Bruuns", "url": "https://kino.dk/biografer/Vue-Bruuns"},
@@ -49,4 +59,10 @@ def getMoviesInCinema_NonCached(cinema):
 def test_getMovies():
 	import json
 	for movie in getMovies():
+		print(movie["title"], movie["cinema"], json.dumps(movie["dates"]))
+
+def test_getMoviesOnDate():
+	import datetime
+	import json
+	for movie in getMoviesOnDate(datetime.date(2024, 7, 14)):
 		print(movie["title"], movie["cinema"], json.dumps(movie["dates"]))

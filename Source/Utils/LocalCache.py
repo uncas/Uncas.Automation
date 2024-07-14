@@ -15,18 +15,18 @@ class LocalCache:
 		return value
 	
 	def getOrAddWithLifetime(self, key, getValue, lifetimeSeconds):
-		import time
+		import json, time
 		nowTimestamp = time.time()
 		mustBeCreatedAfterTimestamp = nowTimestamp - lifetimeSeconds
 		self.db.execute("CREATE TABLE IF NOT EXISTS CacheWithLifetime (Key TEXT PRIMARY KEY, Value TEXT, Timestamp INTEGER)")
 		existingValue = self.db.execute("SELECT Value FROM CacheWithLifetime WHERE Key = ? AND Timestamp > ?", (key,mustBeCreatedAfterTimestamp,)).fetchone()
 		if existingValue:
-			return existingValue[0]
+			return json.loads(existingValue[0])
 		
 		value = getValue()
 		self.db.execute(
 			"INSERT OR REPLACE INTO CacheWithLifetime (Key, Value, Timestamp) VALUES (?, ?, ?)",
-			(key, value, nowTimestamp))
+			(key, json.dumps(value), nowTimestamp))
 		self.db.commit()
 		return value
 

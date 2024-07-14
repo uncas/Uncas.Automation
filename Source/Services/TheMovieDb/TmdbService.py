@@ -20,7 +20,7 @@ class TmdbService:
 
 	def getBestMatchingMovieId(self, movieTitle):
 		search = tmdb.Search()
-		results = search.movie(query=movieTitle)["results"]
+		results = search.movie(query = movieTitle)["results"]
 		return results[0]["id"] if len(results) > 0 else None
 
 	def getWatchProvidersByMovieTitle(self, movieTitle):
@@ -112,3 +112,12 @@ class TmdbService:
 		account = tmdb.Account(sessionId)
 		account.info()
 		return account.rated_movies()["results"]
+
+	def getTrendingMovies(self):
+		def _get():
+			return tmdb.Trending(media_type = "movie", time_window = "day").info()["results"]
+		return self.cache.getOrAddWithLifetime("TheMovieDb_TrendingMovies", _get, 3600 * 24)
+
+def test_getTrendingMovies():
+	import json
+	print(json.dumps(TmdbService().getTrendingMovies())[:2000])

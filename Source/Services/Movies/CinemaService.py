@@ -20,12 +20,11 @@ def getMovies():
 			yield movie
 
 def getMoviesInCinema(cinema):
-	import json
 	from Utils.LocalCache import LocalCache
 	cache = LocalCache()
 	key = "getMoviesInCinema: " + cinema["name"]
 	lifetimeSeconds = 3600 * 3
-	return json.loads(cache.getOrAddWithLifetime(key, lambda: json.dumps(getMoviesInCinema_NonCached(cinema)), lifetimeSeconds))
+	return cache.getOrAddWithLifetime(key, lambda: getMoviesInCinema_NonCached(cinema), lifetimeSeconds)
 
 def getMoviesInCinema_NonCached(cinema):
 	import urllib.request

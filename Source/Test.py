@@ -7,11 +7,13 @@
 #test_getOrAddWithLifetime()
 
 from Services.TheMovieDb.TmdbService import test_getTrendingMovies, test_getGoodMoviesThatIHaveAccessToWatch, test_getPopularMovies, test_getMoviesPlayingNow, test_getTopRatedMovies
-from Services.TheMovieDb.TmdbService import test_getMoviesIHaveWatched, test_getMyFavoriteMovies
+from Services.TheMovieDb.TmdbService import test_getMoviesIHaveWatched, test_getMyFavoriteMovies, test_getAllMoviesIHaveWatched, getUnwatchedGoodWatchableMovies
 #test_getTrendingMovies()
 #test_getGoodMoviesThatIHaveAccessToWatch()
 #test_getPopularMovies()
 #test_getMoviesPlayingNow()
 #test_getTopRatedMovies()
 #test_getMoviesIHaveWatched()
-test_getMyFavoriteMovies()
+#test_getMyFavoriteMovies()
+#test_getAllMoviesIHaveWatched()
+getUnwatchedGoodWatchableMovies()

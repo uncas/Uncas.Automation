@@ -101,20 +101,32 @@ class TmdbService:
 		sessionResponse = requests.post(createSesssionUrl, json={ "request_token": requestToken }, headers=headers)
 		return sessionResponse.json()["session_id"]
 	
-	def getMyFavoriteMovies(self):
-		sessionId = self.getSessionId()
-		account = tmdb.Account(sessionId)
-		account.info()
-		return account.favorite_movies()["results"]
+	def getMyFavoriteMovies(self, page = 1):
+		def _get():
+			sessionId = self.getSessionId()
+			account = tmdb.Account(sessionId)
+			account.info()
+			return account.favorite_movies(page = page)["results"]
+		return self.cache.getOrAddWithLifetime("TheMovieDb_MyFavoriteMovies-page" + str(page), _get, 60 * 5)
 
-	def getMoviesIHaveWatched(self):
-		return self.getMoviesIHaveRated()
+	def getAllMoviesIHaveWatched(self):
+		for page in range(1, 100):
+			movies = self.getMoviesIHaveWatched(page)
+			if len(movies) == 0:
+				return
+			for movie in movies:
+				yield movie
 
-	def getMoviesIHaveRated(self):
-		sessionId = self.getSessionId()
-		account = tmdb.Account(sessionId)
-		account.info()
-		return account.rated_movies()["results"]
+	def getMoviesIHaveWatched(self, page = 1):
+		return self.getMoviesIHaveRated(page)
+
+	def getMoviesIHaveRated(self, page = 1):
+		def _get():
+			sessionId = self.getSessionId()
+			account = tmdb.Account(sessionId)
+			account.info()
+			return account.rated_movies(page = page)["results"]
+		return self.cache.getOrAddWithLifetime("TheMovieDb_MoviesIHaveRated-page" + str(page), _get, 60 * 5)
 
 	def getMoviesPlayingNow(self):
 		def _get():
@@ -129,7 +141,7 @@ class TmdbService:
 	def getTopRatedMovies(self, page = 1):
 		def _get():
 			return tmdb.Movies().top_rated(page = page)["results"]
-		return self.cache.getOrAddWithLifetime("TheMovieDb_TopRatedMovies-page" + str(page), _get, 3600 * 24 * 3)
+		return self.cache.getOrAddWithLifetime("TheMovieDb_TopRatedMovies-page-" + str(page), _get, 3600 * 24 * 3)
 
 	def getTrendingMovies(self):
 		def _get():
@@ -149,6 +161,14 @@ class TmdbService:
 			if len(watchProviders) > 0:
 				movie["watchProviders"] = watchProviders
 				yield movie
+	
+	def getUnwatchedGoodWatchableMovies(self, minRating = 7, minVoteCount = 10):
+		goodWatchableMovies = list(self.getGoodMoviesThatIHaveAccessToWatch(minRating, minVoteCount))
+		watchedMovies = list(self.getAllMoviesIHaveWatched())
+		for goodWatchableMovie in goodWatchableMovies:
+			if any(watchedMovie['id'] == goodWatchableMovie["id"] for watchedMovie in watchedMovies):
+				continue
+			yield goodWatchableMovie
 
 def test_getMoviesPlayingNow():
 	import json
@@ -179,6 +199,16 @@ def test_getMyFavoriteMovies():
 		print(movie["title"])
 
 def test_getMoviesIHaveWatched():
-	movies = TmdbService().getMoviesIHaveWatched()
+	movies = TmdbService().getMoviesIHaveWatched(1)
 	for movie in movies:
 		print(movie["title"])
+
+def test_getAllMoviesIHaveWatched():
+	movies = TmdbService().getAllMoviesIHaveWatched()
+	for movie in movies:
+		print(movie["title"])
+
+def getUnwatchedGoodWatchableMovies():
+	movies = TmdbService().getUnwatchedGoodWatchableMovies()
+	for movie in movies:
+		print(movie["title"], movie["vote_average"], movie["watchProviders"])

@@ -136,14 +136,14 @@ class TmdbService:
 			return tmdb.Trending(media_type = "movie", time_window = "week").info()["results"]
 		return self.cache.getOrAddWithLifetime("TheMovieDb_TrendingMovies", _get, 3600 * 24 * 7)
 	
-	def getGoodMoviesThatIHaveAccessToWatch(self, minRating = 5.0):
+	def getGoodMoviesThatIHaveAccessToWatch(self, minRating = 7, minVoteCount = 10):
 		movies = self.getTrendingMovies() + self.getMoviesPlayingNow() + self.getPopularMovies()
-		for page in range(1, 5):
+		for page in range(1, 7):
 			movies += self.getTopRatedMovies(page)
 		uniqueMovies = list({movie["id"]:movie for movie in movies}.values())
 		sortedMovies = sorted(uniqueMovies, key = lambda movie: movie['vote_average'], reverse = True)
 		for movie in sortedMovies:
-			if movie["vote_average"] < minRating:
+			if movie["vote_average"] < minRating or movie["vote_count"] < minVoteCount:
 				continue
 			watchProviders = self.getWatchProvidersByMovieId(movie["id"])
 			if len(watchProviders) > 0:
@@ -168,5 +168,17 @@ def test_getTrendingMovies():
 	print(json.dumps(TmdbService().getTrendingMovies())[:2000])
 
 def test_getGoodMoviesThatIHaveAccessToWatch():
-	for movie in TmdbService().getGoodMoviesThatIHaveAccessToWatch():
+	movies = list(TmdbService().getGoodMoviesThatIHaveAccessToWatch())
+	for movie in movies:
 		print(movie["title"], movie["vote_average"], movie["watchProviders"])
+	print(movies[0])
+
+def test_getMyFavoriteMovies():
+	movies = TmdbService().getMyFavoriteMovies()
+	for movie in movies:
+		print(movie["title"])
+
+def test_getMoviesIHaveWatched():
+	movies = TmdbService().getMoviesIHaveWatched()
+	for movie in movies:
+		print(movie["title"])

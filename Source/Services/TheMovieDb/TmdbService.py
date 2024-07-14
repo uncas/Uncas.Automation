@@ -10,12 +10,13 @@
 
 import os
 import tmdbsimple as tmdb
-from Utils.LocalCache import getOrAdd
+from Utils.LocalCache import LocalCache
 
 class TmdbService:
 
 	def __init__(self):
 		tmdb.API_KEY = os.getenv('THEMOVIEDB_API_KEY')
+		self.cache = LocalCache()
 
 	def getBestMatchingMovieId(self, movieTitle):
 		search = tmdb.Search()
@@ -69,7 +70,7 @@ class TmdbService:
 		movie.rating(session_id = sessionId, value = rating)
 
 	def getSessionId(self):
-		return getOrAdd("TheMovieDb_SessionId", self.createSessionId)
+		return self.cache.getOrAdd("TheMovieDb_SessionId", self.createSessionId)
 
 	def createSessionId(self):
 		import requests

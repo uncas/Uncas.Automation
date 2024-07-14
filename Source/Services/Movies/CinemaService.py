@@ -21,10 +21,11 @@ def getMovies():
 
 def getMoviesInCinema(cinema):
 	import json
-	from Utils.LocalCache import getOrAddWithLifetime
+	from Utils.LocalCache import LocalCache
+	cache = LocalCache()
 	key = "getMoviesInCinema: " + cinema["name"]
 	lifetimeSeconds = 3600 * 3
-	return json.loads(getOrAddWithLifetime(key, lambda: json.dumps(getMoviesInCinema_NonCached(cinema)), lifetimeSeconds))
+	return json.loads(cache.getOrAddWithLifetime(key, lambda: json.dumps(getMoviesInCinema_NonCached(cinema)), lifetimeSeconds))
 
 def getMoviesInCinema_NonCached(cinema):
 	import urllib.request

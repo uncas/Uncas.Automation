@@ -9,12 +9,14 @@ The assistant can perform the following actions:
 - Get the current date and time
 - Retrieve Jira issues
 - Create Jira issues
-- Search documents (currently hard-coded to my locally cached documents)
-- Search arXiv.org
-- Get the news (from Danish news site https://www.dr.dk/nyheder)
+- Search documents (**NB! Limitation: Hard-coded to my locally cached documents**)
+- Search research articles ([arXiv.org](https://www.arxiv.org))
+- Get the news (**NB! Limitation: From Danish news site [DR](https://www.dr.dk/nyheder)**)
 - Get the current location (based on IP address)
-- Get the weather at a given location
-- Find out where a certain movie can be streamed (currently hard-coded to Denmark and my streaming providers)
+- Get the weather at a given location ([Open Weather](https://openweathermap.org/api/))
+- Find out where a certain movie can be streamed
+([The Movie Db](https://developer.themoviedb.org/docs/getting-started);
+**NB! Limitation: Hard-coded to Denmark and my streaming providers**)
 - Read the text of a web page
 
 The assistant can reason about how to do a sequence of actions, for example if I ask about the weather it will first find my location and then find the weather at that location. (See example conversation + more in the Examples section below.)
@@ -107,11 +109,10 @@ You can track these tasks with the given Jira issue keys:
 - `Summarize https://blog.bilbasen.dk/elbiler-i-danmark-2021-353560/'
 
 
-### Example 5: Questions or instructions that it can *not* handle
+### Example 5: Questions or instructions that it, somewhat suprisingly, can *not* handle
 
 - `Suggest some fun outdoor activities.` (For some reason it cannot figure out to call the functions to get my current location and the current weather.)
 - `Find latest research about biology` followed up by `Can you summarize more information about article 2?` (Results in an error because it calls the DR news details method with a URL from an arXiv article.)
-
 
 
 ## How to use it
@@ -175,56 +176,3 @@ This script leverages Open AI functions to enable the LLM to decide on different
 * [The section about "Build Apps with LangChain" in the AI Engineering course on Scrimba](https://v2.scrimba.com/the-ai-engineer-path-c02v)
 * [Youtube video about the different levels of AI](https://www.youtube.com/watch?v=F5nlMBVZxb4)
 * [Fabric, a framework and prompts to augment human intelligence](https://github.com/danielmiessler/fabric)
-
-
-## TODOs & Draft notes & thoughts
-
-Completing ongoing work:
-- Implement sync of documentation (currently it only uses documents that I downloaded in a separate thread).
-
-Improving functionality:
-- Properly extract email body for all kinds of messages (currently some are missing).
-
-Generic ideas:
-- Fetching Google resources from two+ different Google accounts.
-- Unit testing.
-
-Work-related Use case ideas:
-- Create calendar event
-- Prepare meetings for the following week... (research + people styles)
-
-Private time / Leisure time Use case ideas:
-- Find movies available on my streaming services.
-  - Bonus 1: Only movies that I have not yet seen.
-  - Bonus 2: Filtering by: New movies, Genre, Language, Actors, Directors.
-  - Bonus 2: Highlight movies that might match my favorite movies.
-
-Resource ideas (to improve the data that the assistant can use):
-- Include the personal "about me" google doc I have
-- Include my company readme
-
-Misc notes & random thoughts, that are not yet sorted:
-- Some idea about stuff specific to the local machine.
-- For each start: A session starts, with the messages saved to a json file.
-- A HTML page that can list the sessions, viewing the conversations.
-- Get books
-- Taking input and saving to journal
-- Based on conversation, suggest tasks to be added to Trello, or information to be added to tasks in Trello.
-- Find events (for example, I searched for friluftsspil at Moesgaard; Ragnarok or Snedronningen; but I did not find anything coherent overview)
-- Write something to the assistent and have it added to diary, journal, log, knowledge bank, idea bank, rain log, or similar.
-- Based on the different resources and data: Produce inbox tasks for my approval
-- A log of which items have been processed already (can be used by the agent to avoid doing the same thing twice, or to lookup later what has been done about some thing already, can also be used as a knowledge base)
-
-
-### Things that I typically do manually
-
-- Check my calendar for the day (work + family)
-- Check the weather for the day
-- Check email (work + private)
-- Check slack (work)
-- Registering rain fall in my garden
-- Checking the climate / typical weather in holiday target locations
-- Researching holiday options
-- Find a picture of someone at some specific place (or at a specific age). Could search google photos
-- Categorize pictures...
-- Summarize stuff from Miro or Slack

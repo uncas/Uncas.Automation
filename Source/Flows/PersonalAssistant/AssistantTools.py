@@ -10,7 +10,7 @@ def getTools():
 	from Flows.PersonalAssistant.Functions.readEmail import writeEmail
 	from Flows.PersonalAssistant.Functions.createJiraIssue import createJiraIssue
 	from Flows.PersonalAssistant.Functions.createJiraIssue import getMyJiraIssues
-	from Flows.PersonalAssistant.Functions.getCalendarEvents import getCalendarEvents
+	from Flows.PersonalAssistant.Functions.getCalendarEvents import getTodaysCalendarEvents
 	from Flows.PersonalAssistant.Functions.getDateAndTime import getDateAndTime
 	from Flows.PersonalAssistant.Functions.readWebPage import readWebPage
 
@@ -140,8 +140,8 @@ def getTools():
 			"parameters": {}
 		},
 		{
-			"method": getCalendarEvents,
-			"description": "Get events from the user's calendar",
+			"method": getTodaysCalendarEvents,
+			"description": "Get today's events from the user's calendar",
 			"parameters": {}
 		},
 		{

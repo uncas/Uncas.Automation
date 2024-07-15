@@ -14,6 +14,8 @@ def getTodaysCalendarEvents(maxResults = 20):
 	return getCalendarEvents(maxResults, fromDaysInFuture, toDaysInFuture)
 
 def getCalendarEvents(maxResults = 20, fromDaysInFuture = 0, toDaysInFuture = 1):
+	import json
+	from Utils.FileUtils import writeText
 	creds = getCredentials()
 	try:
 		service = build("calendar", "v3", credentials=creds)
@@ -30,6 +32,7 @@ def getCalendarEvents(maxResults = 20, fromDaysInFuture = 0, toDaysInFuture = 1)
 			).execute())
 		events = events_result.get("items", [])
 		for event in events:
+			writeText("Data/Calendar", event["id"] + ".json", json.dumps(event, indent = 4))
 			start = event["start"].get("dateTime", event["start"].get("date"))
 			status = getEventStatus(event)
 			if status == "declined":
@@ -39,7 +42,8 @@ def getCalendarEvents(maxResults = 20, fromDaysInFuture = 0, toDaysInFuture = 1)
 				"title": event["summary"],
 				"start": start,
 				"status": status,
-				"eventType": event["eventType"]
+				"eventType": event["eventType"],
+				"description": event["description"] if "description" in event else None
 			}
 	except HttpError as err:
 		print(err)

@@ -1,6 +1,6 @@
 def getStore():
 	from Flows.PersonalAssistant.EmbeddingVectorStore import EmbeddingVectorStore
-	return EmbeddingVectorStore("Output/GoogleSheetList.db")
+	return EmbeddingVectorStore("Data/GoogleSheetList.db")
 
 def syncDocs():
 	# TODO: Read list of docs from sheet

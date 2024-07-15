@@ -32,3 +32,7 @@ def getMyFavoriteMovies():
 
 def getMoviesIHaveWatched():
 	return ["The Godfather", "Ashes of time"]
+
+def getUnwatchedGoodWatchableMovies():
+	tmdb = TmdbService()
+	return list(tmdb.getUnwatchedGoodWatchableMovies())

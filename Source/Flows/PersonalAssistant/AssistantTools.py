@@ -1,7 +1,7 @@
 def getTools():
 	from Flows.PersonalAssistant.Functions.getLocation import getLocation
 	from Flows.PersonalAssistant.Functions.getCurrentWeather import getCurrentWeather
-	from Flows.PersonalAssistant.Functions.theMovieDb import getWatchProviders
+	from Flows.PersonalAssistant.Functions.theMovieDb import getWatchProviders, getUnwatchedGoodWatchableMovies
 	from Flows.PersonalAssistant.Functions.findInfoInDocs import findInfoInDocs
 	from Flows.PersonalAssistant.Functions.getLatestNews import getLatestNews
 	from Flows.PersonalAssistant.Functions.getLatestNews import getNewsDetails
@@ -158,5 +158,10 @@ def getTools():
 					"description": "The URL of the web page to read"
 				}
 			}
+		},
+		{
+			"method": getUnwatchedGoodWatchableMovies,
+			"description": "Get unwatched good watchable movies",
+			"parameters": {}
 		}
 	]

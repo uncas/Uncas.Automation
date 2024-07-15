@@ -168,7 +168,17 @@ class TmdbService:
 		for goodWatchableMovie in goodWatchableMovies:
 			if any(watchedMovie['id'] == goodWatchableMovie["id"] for watchedMovie in watchedMovies):
 				continue
-			yield goodWatchableMovie
+			yield self.withGenres(goodWatchableMovie)
+	
+	def withGenres(self, movie):
+		genres = self.getGenres()
+		movie["genres"] = [genre["name"] for genre in genres if genre["id"] in movie["genre_ids"]]
+		return movie
+
+	def getGenres(self):
+		def _get():
+			return tmdb.Genres().movie_list()
+		return self.cache.getOrAddWithLifetime("TheMovieDb_Genres", _get, 3600 * 24 * 7)["genres"]
 
 def test_getMoviesPlayingNow():
 	import json
@@ -208,7 +218,12 @@ def test_getAllMoviesIHaveWatched():
 	for movie in movies:
 		print(movie["title"])
 
-def getUnwatchedGoodWatchableMovies():
+def test_getUnwatchedGoodWatchableMovies():
 	movies = TmdbService().getUnwatchedGoodWatchableMovies()
 	for movie in movies:
-		print(movie["title"], movie["vote_average"], movie["watchProviders"])
+		print(movie["title"], "(", movie["genres"], movie["release_date"], ")", movie["vote_average"], movie["vote_count"], movie["watchProviders"])
+
+def test_getGenres():
+	genres = TmdbService().getGenres()
+	for genre in genres:
+		print(genre)

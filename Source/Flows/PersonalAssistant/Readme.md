@@ -164,6 +164,34 @@ For the Google integration (gmail, docs):
 - Save Google credentials file as `Config/GoogleCredentials.json` (i.e. in the `Config` folder which is a sub folder of the root folder of the repository).
 
 
+### Scheduling
+
+`crontab -e`
+
+`vi` editing:
+- `i`: start INSERT mode
+- Add CRON jobs like (for example, run once every hour, change into the folder with the repo, and run the scheduled stuff):
+````
+13 * * * * cd Code/Uncas.Automation ; ./scheduled.sh
+````
+- Press `ESC`
+- Type `:wq` and press `Enter` to write the changes and quit.
+
+CRON expression guidance:
+````
+* * * * * /path/to/command
+- - - - -
+| | | | |
+| | | | +---- Day of the week (0 - 7) (Sunday = 0 or 7)
+| | | +------ Month (1 - 12)
+| | +-------- Day of the month (1 - 31)
+| +---------- Hour (0 - 23)
++------------ Minute (0 - 59)
+````
+
+* [Test CRON expressions at crontab guru.](https://crontab.guru)
+
+
 ## How it works
 
 This script leverages Open AI functions to enable the LLM to decide on different actions to take.

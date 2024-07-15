@@ -25,6 +25,8 @@ def runAssistantLoop(model="gpt-3.5-turbo"):
 	toolMethods = {tool["method"].__name__: tool["method"] for tool in toolList}
 	client = OpenAI()
 	messages = []
+	systemPrompt = readSystemPromptFromFile()
+	messages.append({ "role": "system", "content": systemPrompt })
 	while True:
 		prompt = input(background.BLUE + foreground.WHITE + "  You        " + style.RESET_ALL + " : ")
 		print()
@@ -33,6 +35,10 @@ def runAssistantLoop(model="gpt-3.5-turbo"):
 			return
 		messages.append({ "role": "user", "content": prompt })
 		messages = runToolLoop(client, model, tools, toolMethods, messages)
+
+def readSystemPromptFromFile():
+	with open("Source/Flows/PersonalAssistant/Prompts/TaskCalendarMailAssistant.md", "r") as file:
+		return file.read()
 
 def printAssistantMessage(content):
 	print(background.GREEN + foreground.WHITE + "  Assistant  " + style.RESET_ALL + " :", content)
@@ -83,6 +89,4 @@ def runToolLoop(client, model, tools, toolMethods, messages):
 					})
 
 def runPersonalAssistant():
-	#from Flows.PersonalAssistant.TestPersonalAssistant import testIt
-	#testIt()
 	runAssistantLoop()

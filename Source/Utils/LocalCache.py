@@ -1,7 +1,7 @@
 class LocalCache:
 	def __init__(self, cacheDbName = "LocalCache"):
 		import sqlite3
-		self.db = sqlite3.connect("Output/" + cacheDbName + ".db")
+		self.db = sqlite3.connect("Data/" + cacheDbName + ".db")
 
 	def getOrAdd(self, key, getValue):
 		self.db.execute("CREATE TABLE IF NOT EXISTS Cache (key TEXT PRIMARY KEY, value TEXT)")

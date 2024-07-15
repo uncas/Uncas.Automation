@@ -1,7 +1,7 @@
 class AiLog:
 	def __init__(self):
 		import sqlite3
-		self.db = sqlite3.connect("Output/AiLog.db")
+		self.db = sqlite3.connect("Data/AiLog.db")
 		self.db.execute("CREATE TABLE IF NOT EXISTS AiLog (AiLogId INTEGER PRIMARY KEY, Date TEXT, Model TEXT, PromptTokens INTEGER, CompletionTokens INTEGER, Messages TEXT, TimeStamp INTEGER)")
 
 	def log(self, model, promptTokens, completionTokens, messages):

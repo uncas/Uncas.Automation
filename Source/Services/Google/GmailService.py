@@ -15,7 +15,8 @@ gmailService = build("gmail", "v1", credentials=creds)
 def getInboxMessages():
   try:
     results = getMessagesInfo(QUERY_INBOX)
-    for message in results["messages"]:
+    messages = results["messages"] if "messages" in results else []
+    for message in messages:
         internalMessageId = message["id"]
         yield getMessageContent(internalMessageId)
     return

@@ -7,7 +7,7 @@
 #test_getOrAddWithLifetime()
 
 #from Services.TheMovieDb.TmdbService import test_getTrendingMovies, test_getGoodMoviesThatIHaveAccessToWatch, test_getPopularMovies, test_getMoviesPlayingNow, test_getTopRatedMovies
-#from Services.TheMovieDb.TmdbService import test_getMoviesIHaveWatched, test_getMyFavoriteMovies, test_getAllMoviesIHaveWatched, getUnwatchedGoodWatchableMovies
+from Services.TheMovieDb.TmdbService import test_getMoviesIHaveWatched, test_getMyFavoriteMovies, test_getAllMoviesIHaveWatched, test_getUnwatchedGoodWatchableMovies, test_getGenres
 #test_getTrendingMovies()
 #test_getGoodMoviesThatIHaveAccessToWatch()
 #test_getPopularMovies()
@@ -16,8 +16,8 @@
 #test_getMoviesIHaveWatched()
 #test_getMyFavoriteMovies()
 #test_getAllMoviesIHaveWatched()
-#getUnwatchedGoodWatchableMovies()
+test_getUnwatchedGoodWatchableMovies()
+#test_getGenres()
 
-
-from Services.Google.GoogleCalendarService import test_getCalendarEvents
-test_getCalendarEvents()
+#from Services.Google.GoogleCalendarService import test_getCalendarEvents
+#test_getCalendarEvents()

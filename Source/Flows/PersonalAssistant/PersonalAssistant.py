@@ -111,4 +111,10 @@ def runToolLoop(client, model, toolList, messages):
 					})
 
 def runPersonalAssistant():
+	import logging
+	from Flows.PersonalAssistant.LoggerSetup import initLogger
+	initLogger()
+	logger = logging.getLogger(__name__)
+	logger.info("Running Personal Assistant")
 	runInteractiveChatLoop()
+	logger.info("Exiting Personal Assistant")

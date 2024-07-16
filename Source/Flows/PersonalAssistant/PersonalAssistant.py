@@ -1,38 +1,28 @@
 from dotenv import load_dotenv
 from Flows.PersonalAssistant.Logger import foreground, background, style
 from Flows.PersonalAssistant.Utility.AiLog import AiLog
+from Flows.PersonalAssistant.Agents.AgentDefinition import AgentDefinition
 
 load_dotenv(override = True)
 aiLog = AiLog()
 
-def runTaskedAgent(model = "gpt-3.5-turbo"):
-	import datetime
-	systemPromptFile = "TaskCalendarMailAssistant.md"
-	from Flows.PersonalAssistant.Functions.getCalendarEvents import getTodaysCalendarEvents
-	from Flows.PersonalAssistant.Functions.createJiraIssue import getMyJiraIssues, createJiraIssue
-	from Flows.PersonalAssistant.Functions.readEmail import readEmail
-	inputTasks = []
-	inputTasks.append({ "task": lambda: getTodaysCalendarEvents(), "prompt": "Today's calendar events" })
-	inputTasks.append({ "task": lambda: getMyJiraIssues(), "prompt": "My jira issues" })
-	inputTasks.append({ "task": lambda: readEmail(), "prompt": "My mails" })
-	taskSummary = "Task/Calendar/Mail assistant summary, " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-	actionOnResult = lambda result : createJiraIssue({"summary": taskSummary, "description": result})
-
+def runTaskedAgent(agentDefinition: AgentDefinition, model : str = "gpt-3.5-turbo"):
 	from openai import OpenAI
 	from Flows.PersonalAssistant.AssistantTools import getTools
 	import json
+
 	toolList = getTools()
 	client = OpenAI()
 	messages = []
-	messages.append(getSystemPrompt(systemPromptFile))
+	messages.append(getSystemPrompt(agentDefinition.systemPromptFile))
 	userMessageContent = ""
-	for inputTask in inputTasks:
+	for inputTask in agentDefinition.inputTasks:
 		taskResult = json.dumps(inputTask["task"]())
 		userMessageContent += inputTask["prompt"] + ": " + taskResult + "\n\n"
 	messages.append(getUserPrompt(userMessageContent))
 	messages = runToolLoop(client, model, toolList, messages)
 	assistantMessage = messages[-1].content
-	actionOnResult(assistantMessage)
+	agentDefinition.actionOnResult(assistantMessage)
 
 def runInteractiveChatLoop(model = "gpt-3.5-turbo"):
 	from openai import OpenAI
@@ -122,4 +112,3 @@ def runToolLoop(client, model, toolList, messages):
 
 def runPersonalAssistant():
 	runInteractiveChatLoop()
-	#runTaskedAgent()

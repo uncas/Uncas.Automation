@@ -22,7 +22,7 @@ def initLogger():
 class SQLiteHandler(logging.Handler):
 	def initial_sql(self):
 		return """CREATE TABLE IF NOT EXISTS log(
-		TimeStamp TEXT,
+		Created TEXT,
 		Source TEXT,
 		LogLevel INT,
 		LogLevelName TEXT,
@@ -34,12 +34,13 @@ class SQLiteHandler(logging.Handler):
 		Exception TEXT,
 		Process INT,
 		Thread TEXT,
-		ThreadName TEXT
+		ThreadName TEXT,
+		TimeStamp INTEGER
 	)"""
 
 	def insertion_sql(self):
 		return """INSERT INTO log(
-		TimeStamp,
+		Created,
 		Source,
 		LogLevel,
 		LogLevelName,
@@ -51,7 +52,8 @@ class SQLiteHandler(logging.Handler):
 		Exception,
 		Process,
 		Thread,
-		ThreadName
+		ThreadName,
+		TimeStamp
 	)
 	VALUES (
 		'%(dbtime)s',
@@ -66,7 +68,8 @@ class SQLiteHandler(logging.Handler):
 		'%(exc_text)s',
 		%(process)d,
 		'%(thread)s',
-		'%(threadName)s'
+		'%(threadName)s',
+		%(timestamp)d
 	);
 	"""
 
@@ -82,6 +85,7 @@ class SQLiteHandler(logging.Handler):
 		Create a time stamp
 		"""
 		record.dbtime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(record.created))
+		record.timestamp = record.created
 
 	def emit(self, record):
 		self.format(record)

@@ -12,6 +12,9 @@ def readDocument(documentId):
     document = service.documents().get(documentId=documentId).execute()
     title = document.get('title')
     content = document.get('body').get('content')
+    #from Utils.FileUtils import writeText
+    #import json
+    #writeText("Test", "GoogleDocContent.json", json.dumps(content, indent = 4))
     text = read_structural_elements(content)
     return {"title": title, "text": text};
   except HttpError as err:
@@ -36,22 +39,32 @@ def read_structural_elements(elements):
         Args:
             elements: a list of Structural Elements.
     """
-    text = ''
+    return "".join([item["text"] for item in getListOfTextContent(elements)])
+
+def getListOfTextContent(elements):
+    """Recurses through a list of Structural Elements to read a document's text where text may be
+        in nested elements.
+
+        Args:
+            elements: a list of Structural Elements.
+    """
+    result = []
     for value in elements:
         if 'paragraph' in value:
-            elements = value.get('paragraph').get('elements')
+            paragraph = value.get('paragraph')
+            elements = paragraph.get('elements')
+            paragraphStyle = paragraph.get('paragraphStyle').get('namedStyleType')
             for elem in elements:
-                text += read_paragraph_element(elem)
+                result.append({"text": read_paragraph_element(elem), "type": "paragraph", "style": paragraphStyle})
         elif 'table' in value:
-            # The text in table cells are in nested Structural Elements and tables may be
-            # nested.
+            # The text in table cells are in nested Structural Elements and tables may be nested.
             table = value.get('table')
             for row in table.get('tableRows'):
                 cells = row.get('tableCells')
                 for cell in cells:
-                    text += read_structural_elements(cell.get('content'))
+                    result.append({"text": read_structural_elements(cell.get('content')), "type": "cell"})
         elif 'tableOfContents' in value:
             # The text in the TOC is also in a Structural Element.
             toc = value.get('tableOfContents')
-            text += read_structural_elements(toc.get('content'))
-    return text
+            result.append({"text": read_structural_elements(toc.get('content')), "type": "toc"})
+    return result

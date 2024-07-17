@@ -1,0 +1,163 @@
+[
+    {
+        "endIndex": 1,
+        "sectionBreak": {
+            "sectionStyle": {
+                "columnSeparatorStyle": "NONE",
+                "contentDirection": "LEFT_TO_RIGHT",
+                "sectionType": "CONTINUOUS"
+            }
+        }
+    },
+    {
+        "startIndex": 1,
+        "endIndex": 17,
+        "paragraph": {
+            "elements": [
+                {
+                    "startIndex": 1,
+                    "endIndex": 17,
+                    "textRun": {
+                        "content": "Journal entries\n",
+                        "textStyle": {}
+                    }
+                }
+            ],
+            "paragraphStyle": {
+                "headingId": "h.kc42qzon4i3o",
+                "namedStyleType": "HEADING_2",
+                "direction": "LEFT_TO_RIGHT"
+            }
+        }
+    },
+    {
+        "startIndex": 17,
+        "endIndex": 28,
+        "paragraph": {
+            "elements": [
+                {
+                    "startIndex": 17,
+                    "endIndex": 28,
+                    "textRun": {
+                        "content": "2024-03-01\n",
+                        "textStyle": {}
+                    }
+                }
+            ],
+            "paragraphStyle": {
+                "headingId": "h.7t0ybu2ehku5",
+                "namedStyleType": "HEADING_3",
+                "direction": "LEFT_TO_RIGHT"
+            }
+        }
+    },
+    {
+        "startIndex": 28,
+        "endIndex": 45,
+        "paragraph": {
+            "elements": [
+                {
+                    "startIndex": 28,
+                    "endIndex": 45,
+                    "textRun": {
+                        "content": "How it is going?\n",
+                        "textStyle": {}
+                    }
+                }
+            ],
+            "paragraphStyle": {
+                "namedStyleType": "NORMAL_TEXT",
+                "direction": "LEFT_TO_RIGHT",
+                "indentFirstLine": {
+                    "magnitude": 18,
+                    "unit": "PT"
+                },
+                "indentStart": {
+                    "magnitude": 36,
+                    "unit": "PT"
+                }
+            },
+            "bullet": {
+                "listId": "kix.jzfa2yf1fts3",
+                "textStyle": {
+                    "underline": false
+                }
+            }
+        }
+    },
+    {
+        "startIndex": 45,
+        "endIndex": 56,
+        "paragraph": {
+            "elements": [
+                {
+                    "startIndex": 45,
+                    "endIndex": 56,
+                    "textRun": {
+                        "content": "2024-02-20\n",
+                        "textStyle": {}
+                    }
+                }
+            ],
+            "paragraphStyle": {
+                "headingId": "h.4pdv10k2yq7m",
+                "namedStyleType": "HEADING_3",
+                "direction": "LEFT_TO_RIGHT"
+            }
+        }
+    },
+    {
+        "startIndex": 56,
+        "endIndex": 77,
+        "paragraph": {
+            "elements": [
+                {
+                    "startIndex": 56,
+                    "endIndex": 77,
+                    "textRun": {
+                        "content": "It is going forward.\n",
+                        "textStyle": {}
+                    }
+                }
+            ],
+            "paragraphStyle": {
+                "namedStyleType": "NORMAL_TEXT",
+                "direction": "LEFT_TO_RIGHT",
+                "indentFirstLine": {
+                    "magnitude": 18,
+                    "unit": "PT"
+                },
+                "indentStart": {
+                    "magnitude": 36,
+                    "unit": "PT"
+                }
+            },
+            "bullet": {
+                "listId": "kix.tqiq1rqo8ql9",
+                "textStyle": {
+                    "underline": false
+                }
+            }
+        }
+    },
+    {
+        "startIndex": 77,
+        "endIndex": 78,
+        "paragraph": {
+            "elements": [
+                {
+                    "startIndex": 77,
+                    "endIndex": 78,
+                    "textRun": {
+                        "content": "\n",
+                        "textStyle": {}
+                    }
+                }
+            ],
+            "paragraphStyle": {
+                "namedStyleType": "NORMAL_TEXT",
+                "direction": "LEFT_TO_RIGHT"
+            }
+        }
+    }
+]

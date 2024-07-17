@@ -19,70 +19,20 @@ def initLogger():
 
 # Derived from https://gist.github.com/gormih/09d18e7da67271b79b6cb3537ebfa4f3
 class SQLiteLoggingHandler(logging.Handler):
-	def initial_sql(self):
-		return """CREATE TABLE IF NOT EXISTS log(
-		Created TEXT,
-		Source TEXT,
-		LogLevel INT,
-		LogLevelName TEXT,
-		Message TEXT,
-		Args TEXT,
-		Module TEXT,
-		FuncName TEXT,
-		LineNo INT,
-		Exception TEXT,
-		Process INT,
-		Thread TEXT,
-		ThreadName TEXT,
-		TimeStamp INTEGER
-	)"""
-
-	def insertion_sql(self):
-		return """INSERT INTO log(
-		Created,
-		Source,
-		LogLevel,
-		LogLevelName,
-		Message,
-		Args,
-		Module,
-		FuncName,
-		LineNo,
-		Exception,
-		Process,
-		Thread,
-		ThreadName,
-		TimeStamp
-	)
-	VALUES (
-		'%(dbtime)s',
-		'%(name)s',
-		%(levelno)d,
-		'%(levelname)s',
-		'%(msg)s',
-		'%(args)s',
-		'%(module)s',
-		'%(funcName)s',
-		%(lineno)d,
-		'%(exc_text)s',
-		%(process)d,
-		'%(thread)s',
-		'%(threadName)s',
-		%(timestamp)d
-	);
-	"""
-
 	def __init__(self, db='app.db'):
 		logging.Handler.__init__(self)
 		self.db = db
+		sql = """
+CREATE TABLE IF NOT EXISTS log (
+	Created TEXT, Source TEXT, LogLevel INT, LogLevelName TEXT, Message TEXT,
+	Args TEXT, Module TEXT, FuncName TEXT, LineNo INT, Exception TEXT,
+	Process INT, Thread TEXT, ThreadName TEXT, TimeStamp INTEGER
+);"""
 		with sqlite3.connect(self.db) as conn:
-			conn.execute(self.initial_sql())
+			conn.execute(sql)
 			conn.commit()
 
 	def format_time(self, record):
-		"""
-		Create a time stamp
-		"""
 		record.dbtime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(record.created))
 		record.timestamp = record.created
 
@@ -93,12 +43,23 @@ class SQLiteLoggingHandler(logging.Handler):
 			record.exc_text = logging._defaultFormatter.formatException(record.exc_info)
 		else:
 			record.exc_text = ""
-
-        # Insert the log record
-		sql = self.insertion_sql() % record.__dict__
+		sql = """
+INSERT INTO log (
+	Created, Source, LogLevel, LogLevelName, Message,
+	Args, Module, FuncName, LineNo, Exception, 
+	Process, Thread, ThreadName, TimeStamp
+)
+VALUES (
+	?, ?, ?, ?, ?, 
+	?, ?, ?, ?, ?, 
+	?, ?, ?, ?
+);"""
 		try:
 			with sqlite3.connect(self.db) as conn:
-				conn.execute(sql)
+				conn.execute(sql, (
+					record.dbtime, record.name, record.levelno, record.levelname, record.msg, 
+					str(record.args), record.module, record.funcName, record.lineno, record.exc_text, 
+					record.process, record.thread, record.threadName, record.timestamp))
 				conn.commit()  # not efficient, but hopefully thread-safe
 		except Exception as e:
 			print(e)

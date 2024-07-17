@@ -7,7 +7,7 @@ def initLogger():
 	#defaultFormat = "%(levelname)s:%(name)s:%(message)s"
 	advancedFormat = "[%(asctime)s] %(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s"
 	logging.basicConfig(
-		level = logging.DEBUG,
+		level = logging.INFO,
 		format = advancedFormat,
 		datefmt = "%Y-%m-%d %H:%M:%S",
 		handlers = [

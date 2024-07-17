@@ -39,3 +39,6 @@ pillow
 
 # For accessing Jira:
 jira
+
+# For converting Google Docs -> Html -> Markdown:
+html2text

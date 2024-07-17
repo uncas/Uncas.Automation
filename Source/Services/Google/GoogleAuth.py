@@ -7,7 +7,7 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 
 def getCredentials():
-  scopes = ["documents.readonly", "spreadsheets.readonly", "presentations.readonly", "gmail.readonly", "gmail.compose", "calendar.readonly"]
+  scopes = ["documents.readonly", "spreadsheets.readonly", "presentations.readonly", "gmail.readonly", "gmail.compose", "calendar.readonly", "drive.readonly"]
   tokenFile = "Config/GoogleToken_" + "-".join(scopes) + ".json"
   credentialsFile = "Config/GoogleCredentials.json"
   if not os.path.exists(credentialsFile):

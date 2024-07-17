@@ -34,3 +34,6 @@ load_dotenv(override = True)
 #print(transcription)
 #from Utils.FileUtils import writeText
 #writeText("Output", textFileName, transcription)
+
+from Services.Google.GoogleDriveServiceTests import test_exportDocumentAsMarkdown
+test_exportDocumentAsMarkdown()

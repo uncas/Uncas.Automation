@@ -14,6 +14,8 @@ def exportDocumentAsHtml(documentId):
 		print(err)
 
 def exportDocumentAsMarkdown(documentId):
+	# https://github.com/Alir3z4/html2text/blob/master/docs/usage.md
 	import html2text
+	textMaker = html2text.HTML2Text()
 	html = exportDocumentAsHtml(documentId).decode("utf-8")
-	return html2text.html2text(html)
+	return textMaker.handle(html)

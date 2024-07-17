@@ -7,17 +7,15 @@ def initLogger():
 	#defaultFormat = "%(levelname)s:%(name)s:%(message)s"
 	advancedFormat = "[%(asctime)s] %(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s"
 	logging.basicConfig(
-		level = logging.INFO,
+		level = logging.DEBUG,
 		format = advancedFormat,
 		datefmt = "%Y-%m-%d %H:%M:%S",
 		handlers = [
-			logging.StreamHandler(),
-			logging.FileHandler("Data/Log.log", "a"),
+			SQLiteLoggingHandler(db = "Data/Log.db"),
+			#logging.StreamHandler(),
+			#logging.FileHandler("Data/Log.log", "a"),
 		]
 	)
-	sqliteHandler = SQLiteLoggingHandler(db = "Data/Log.db")
-	sqliteHandler.setLevel(logging.INFO)
-	logging.getLogger().addHandler(sqliteHandler)
 
 # Derived from https://gist.github.com/gormih/09d18e7da67271b79b6cb3537ebfa4f3
 class SQLiteLoggingHandler(logging.Handler):
@@ -98,6 +96,9 @@ class SQLiteLoggingHandler(logging.Handler):
 
         # Insert the log record
 		sql = self.insertion_sql() % record.__dict__
-		with sqlite3.connect(self.db) as conn:
-			conn.execute(sql)
-			conn.commit()  # not efficient, but hopefully thread-safe
+		try:
+			with sqlite3.connect(self.db) as conn:
+				conn.execute(sql)
+				conn.commit()  # not efficient, but hopefully thread-safe
+		except Exception as e:
+			print(e)

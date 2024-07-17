@@ -1,4 +1,10 @@
 def runScheduledAgents():
-	import datetime
-	from Utils.FileUtils import appendText
-	appendText("Data", "LastRun.txt", "\nLast run at " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+	from Flows.PersonalAssistant.Agents.MailCalendarTaskAgent import MailCalendarTaskAgent
+	from Flows.PersonalAssistant.PersonalAssistant import runTaskedAgent
+	import logging
+	from Flows.PersonalAssistant.LoggerSetup import initLogger
+	initLogger()
+	logger = logging.getLogger(__name__)
+	logger.info("Starting scheduled agents")
+	runTaskedAgent(MailCalendarTaskAgent())
+	logger.info("Completed scheduled agents")

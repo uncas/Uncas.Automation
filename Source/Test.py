@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+load_dotenv(override = True)
+
 #from Services.Movies.CinemaService import test_getMovies, test_getMoviesOnDate
 #test_getMovies()
 #test_getMoviesOnDate()
@@ -7,7 +10,7 @@
 #test_getOrAddWithLifetime()
 
 #from Services.TheMovieDb.TmdbService import test_getTrendingMovies, test_getGoodMoviesThatIHaveAccessToWatch, test_getPopularMovies, test_getMoviesPlayingNow, test_getTopRatedMovies
-from Services.TheMovieDb.TmdbService import test_getMoviesIHaveWatched, test_getMyFavoriteMovies, test_getAllMoviesIHaveWatched, test_getUnwatchedGoodWatchableMovies, test_getGenres
+#from Services.TheMovieDb.TmdbService import test_getMoviesIHaveWatched, test_getMyFavoriteMovies, test_getAllMoviesIHaveWatched, test_getUnwatchedGoodWatchableMovies, test_getGenres
 #test_getTrendingMovies()
 #test_getGoodMoviesThatIHaveAccessToWatch()
 #test_getPopularMovies()
@@ -16,8 +19,21 @@ from Services.TheMovieDb.TmdbService import test_getMoviesIHaveWatched, test_get
 #test_getMoviesIHaveWatched()
 #test_getMyFavoriteMovies()
 #test_getAllMoviesIHaveWatched()
-test_getUnwatchedGoodWatchableMovies()
+#test_getUnwatchedGoodWatchableMovies()
 #test_getGenres()
 
 #from Services.Google.GoogleCalendarService import test_getCalendarEvents
 #test_getCalendarEvents()
+
+#from Services.HuggingFace.HuggingFaceTranscriber import transcribe
+#from Utils.AudioUtils import convertToMp3
+#fileName = "../../../Downloads/test.m4a"
+#mp3FileName = convertToMp3(fileName)
+#textFileName ="transcription-test.txt"
+#transcription = transcribe(mp3FileName)
+#print(transcription)
+#from Utils.FileUtils import writeText
+#writeText("Output", textFileName, transcription)
+
+from Services.Google.GoogleDriveServiceTests import test_exportDocumentAsMarkdown
+test_exportDocumentAsMarkdown()

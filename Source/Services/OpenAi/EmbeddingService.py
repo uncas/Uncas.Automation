@@ -1,8 +1,6 @@
 def getEmbedding(text):
 	from openai import OpenAI
-	from Utils.Settings import getSetting
-	apiKey = getSetting("openAi")["apiKey"]
-	client = OpenAI(api_key=apiKey)
+	client = OpenAI()
 	return client.embeddings.create(
 	  model="text-embedding-ada-002",
 	  input=text,

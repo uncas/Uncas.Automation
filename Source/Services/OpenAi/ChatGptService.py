@@ -1,8 +1,6 @@
 def askChatGpt(messages):
 	from openai import OpenAI
-	from Utils.Settings import getSetting
-	apiKey = getSetting("openAi")["apiKey"]
-	client = OpenAI(api_key=apiKey)
+	client = OpenAI()
 	chat = client.chat.completions.create( 
 		model="gpt-3.5-turbo", messages = messages 
 	)

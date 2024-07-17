@@ -22,7 +22,6 @@ def getResources():
 	return getSetting("assistant")["resources"]
 
 def getResourceData(resourceId):
-	print("Called " + resourceId)
 	resources = [resource for resource in getResources() if resource["id"] == resourceId]
 	if len(resources) == 0:
 		return None

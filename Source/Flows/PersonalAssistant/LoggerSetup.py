@@ -15,11 +15,12 @@ def initLogger():
 			logging.FileHandler("Data/Log.log", "a"),
 		]
 	)
-	sqliteHandler = SQLiteHandler(db = "Data/Log.db")
+	sqliteHandler = SQLiteLoggingHandler(db = "Data/Log.db")
 	sqliteHandler.setLevel(logging.INFO)
 	logging.getLogger().addHandler(sqliteHandler)
 
-class SQLiteHandler(logging.Handler):
+# Derived from https://gist.github.com/gormih/09d18e7da67271b79b6cb3537ebfa4f3
+class SQLiteLoggingHandler(logging.Handler):
 	def initial_sql(self):
 		return """CREATE TABLE IF NOT EXISTS log(
 		Created TEXT,
@@ -76,9 +77,9 @@ class SQLiteHandler(logging.Handler):
 	def __init__(self, db='app.db'):
 		logging.Handler.__init__(self)
 		self.db = db
-		conn = sqlite3.connect(self.db)
-		conn.execute(self.initial_sql())
-		conn.commit()
+		with sqlite3.connect(self.db) as conn:
+			conn.execute(self.initial_sql())
+			conn.commit()
 
 	def format_time(self, record):
 		"""

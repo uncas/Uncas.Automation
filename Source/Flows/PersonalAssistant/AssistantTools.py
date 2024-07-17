@@ -13,8 +13,9 @@ def getTools():
 	from Flows.PersonalAssistant.Functions.getCalendarEvents import getTodaysCalendarEvents
 	from Flows.PersonalAssistant.Functions.getDateAndTime import getDateAndTime
 	from Flows.PersonalAssistant.Functions.readWebPage import readWebPage
+	from Flows.PersonalAssistant.Resources.ResourceTools import getResourceTools
 
-	return [
+	tools = [
 		{
 			"method": getCurrentWeather,
 			"description": "Gets the current weather",
@@ -165,3 +166,8 @@ def getTools():
 			"parameters": {}
 		}
 	]
+
+	for tool in getResourceTools():
+		tools.append(tool)
+	
+	return tools

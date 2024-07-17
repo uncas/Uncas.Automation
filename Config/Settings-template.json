@@ -12,10 +12,29 @@
 			 	"cellRange": "(insert cell range with links here, for example: Sheet1!D2:D)"}
 		]
 	},
-	"openAi": {
-		"apiKey": "(insert OpenAI API key here)"
-	},
 	"huggingFace": {
 		"token": "(insert Hugging Face token here)"
+	},
+	"assistant": {
+		"resources": [
+			{
+				"id": "Journal",
+				"description": "My journal where I note down my thoughts.",
+				"sourceType": "Google Doc",
+				"sourceDetails": {
+					"docId": "ID OF GOOGLE DOC"
+				},
+				"resourceType": "OneText"
+			},
+			{
+				"id": "MarketReport",
+				"description": "Market report that describes how the customers operate and what trends there are.",
+				"sourceType": "Google Doc",
+				"sourceDetails": {
+					"docId": "ID OF GOOGLE DOC"
+				},
+				"resourceType": "OneText"
+			}
+		]
 	}
 }

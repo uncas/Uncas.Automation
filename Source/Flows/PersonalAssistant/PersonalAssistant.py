@@ -41,12 +41,24 @@ def runInteractiveChatLoop(model = "gpt-3.5-turbo"):
 		messages = runToolLoop(client, model, toolList, messages)
 
 def getUserPrompt(content):
-	return { "role": "user", "content": content }
+	return { "role": "user", "content": limitMessageContent(content) }
+
+def limitMessageContent(content):
+	maxMessageContentLength = 5000
+	if len(content) > maxMessageContentLength:
+		import logging
+		logger = logging.getLogger(__name__)
+		logger.warning(
+			"Message content %s was too long, truncating to %d characters.",
+			content[:50] + " ... " + content[-50:],
+			maxMessageContentLength)
+		return content[:maxMessageContentLength] + "..."
+	return content
 
 def getSystemPrompt(fileName):
 	with open("Source/Flows/PersonalAssistant/Prompts/" + fileName, "r") as file:
 		systemPrompt = file.read()
-		return { "role": "system", "content": systemPrompt }
+		return { "role": "system", "content": limitMessageContent(systemPrompt) }
 
 def printAssistantMessage(content):
 	print(background.GREEN + foreground.WHITE + "  Assistant  " + style.RESET_ALL + " :", content)
@@ -62,7 +74,7 @@ def runToolLoop(client, model, toolList, messages):
 		{
 			"type": "function",
 			"function": {
-				"name": tool["method"].__name__,
+				"name": tool["name"] if "name" in tool else tool["method"].__name__,
 				"description": tool["description"],
 				"parameters": {
 					"type": "object",
@@ -71,7 +83,7 @@ def runToolLoop(client, model, toolList, messages):
 			}
 		} for tool in toolList
 	]
-	toolMethods = {tool["method"].__name__: tool["method"] for tool in toolList}
+	toolMethods = {tool["name"] if "name" in tool else tool["method"].__name__: tool["method"] for tool in toolList}
 	maxIterations = 5
 	messageCountAtLastLog = len(messages) - 1
 	for _ in range(maxIterations):
@@ -107,7 +119,7 @@ def runToolLoop(client, model, toolList, messages):
 						"role": "tool",
 						"name": functionName,
 						"tool_call_id": toolCall.id,
-						"content": json.dumps(functionResponse)
+						"content": limitMessageContent(json.dumps(functionResponse))
 					})
 
 def runPersonalAssistant():

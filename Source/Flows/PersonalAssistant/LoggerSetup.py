@@ -1,6 +1,5 @@
 import logging
 import sqlite3
-import time
 
 def initLogger():
 	# Formats: https://stackoverflow.com/a/16759818
@@ -17,23 +16,25 @@ def initLogger():
 		]
 	)
 
-# Derived from https://gist.github.com/gormih/09d18e7da67271b79b6cb3537ebfa4f3
 class SQLiteLoggingHandler(logging.Handler):
+	# Derived from https://gist.github.com/gormih/09d18e7da67271b79b6cb3537ebfa4f3
+
 	def __init__(self, db='app.db'):
 		logging.Handler.__init__(self)
 		self.db = db
 		sql = """
-CREATE TABLE IF NOT EXISTS log (
-	Created TEXT, Source TEXT, LogLevel INT, LogLevelName TEXT, Message TEXT,
-	Args TEXT, Module TEXT, FuncName TEXT, LineNo INT, Exception TEXT,
-	Process INT, Thread TEXT, ThreadName TEXT, TimeStamp INTEGER
-);"""
+			CREATE TABLE IF NOT EXISTS log (
+				Created TEXT, Source TEXT, LogLevel INT, LogLevelName TEXT, Message TEXT,
+				Args TEXT, Module TEXT, FuncName TEXT, LineNo INT, Exception TEXT,
+				Process INT, Thread TEXT, ThreadName TEXT, TimeStamp INTEGER
+			);"""
 		with sqlite3.connect(self.db) as conn:
 			conn.execute(sql)
 			conn.commit()
 
 	def format_time(self, record):
-		record.dbtime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(record.created))
+		import datetime
+		record.dbtime = datetime.datetime.fromtimestamp(record.created).strftime("%Y-%m-%d %H:%M:%S.%f")
 		record.timestamp = record.created
 
 	def emit(self, record):
@@ -44,16 +45,16 @@ CREATE TABLE IF NOT EXISTS log (
 		else:
 			record.exc_text = ""
 		sql = """
-INSERT INTO log (
-	Created, Source, LogLevel, LogLevelName, Message,
-	Args, Module, FuncName, LineNo, Exception, 
-	Process, Thread, ThreadName, TimeStamp
-)
-VALUES (
-	?, ?, ?, ?, ?, 
-	?, ?, ?, ?, ?, 
-	?, ?, ?, ?
-);"""
+			INSERT INTO log (
+				Created, Source, LogLevel, LogLevelName, Message,
+				Args, Module, FuncName, LineNo, Exception, 
+				Process, Thread, ThreadName, TimeStamp
+			)
+			VALUES (
+				?, ?, ?, ?, ?, 
+				?, ?, ?, ?, ?, 
+				?, ?, ?, ?
+			);"""
 		try:
 			with sqlite3.connect(self.db) as conn:
 				conn.execute(sql, (
@@ -62,4 +63,4 @@ VALUES (
 					record.process, record.thread, record.threadName, record.timestamp))
 				conn.commit()  # not efficient, but hopefully thread-safe
 		except Exception as e:
-			print(e)
+			print("Error in logging:", e)

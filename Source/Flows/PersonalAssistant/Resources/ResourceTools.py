@@ -1,5 +1,6 @@
 def getResourceTools():
 	import re
+	from Flows.PersonalAssistant.AssistantTools import AssistantTool
 	resources = getResources()
 	idPattern = re.compile("^[a-zA-Z0-9_-]+$")
 	for resource in resources:
@@ -10,12 +11,7 @@ def getResourceTools():
 			logger.fatal("Resource id %s is not valid. Please fix in Settings.json.", id)
 			print("Resource id %s is not valid. Please fix in Settings.json:", id)
 			exit(1)
-		yield {
-			"method": lambda: getResourceData(id),
-			"name": "getResourceData_" + id,
-			"description": resource["description"],
-			"parameters": {}
-		}
+		yield AssistantTool(lambda: getResourceData(id), resource["description"], name = "getResourceData_" + id)
 
 def getResources():
 	from Utils.Settings import getSetting

@@ -70,20 +70,8 @@ def printToolMessage(content):
 
 def runToolLoop(client, model, toolList, messages):
 	import json
-	tools = [
-		{
-			"type": "function",
-			"function": {
-				"name": tool["name"] if "name" in tool else tool["method"].__name__,
-				"description": tool["description"],
-				"parameters": {
-					"type": "object",
-					"properties": tool["parameters"]
-				}
-			}
-		} for tool in toolList
-	]
-	toolMethods = {tool["name"] if "name" in tool else tool["method"].__name__: tool["method"] for tool in toolList}
+	tools = [tool.mapToOpenAiTool() for tool in toolList]
+	toolMethods = {tool.name: tool.method for tool in toolList}
 	maxIterations = 5
 	messageCountAtLastLog = len(messages) - 1
 	for _ in range(maxIterations):

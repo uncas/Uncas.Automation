@@ -8,4 +8,5 @@ fi
 source .venv/bin/activate
 python -m pip install --upgrade pip -q
 pip install -r requirements.txt -q
-python Source/Test.py
+#python Source/Test.py
+python -m unittest discover -s Source -p *UnitTests.py

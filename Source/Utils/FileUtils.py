@@ -10,3 +10,9 @@ def writeOrAppendText(folder, file, text, mode):
 	f = open(folder + "/" + file, mode)
 	f.write(text)
 	f.close()
+
+def getFilePath(pathRelativeToSourceFolder):
+	import os
+	thisPath = os.path.realpath(__file__)
+	sourcePath = os.path.join(os.path.dirname(thisPath), "..")
+	return os.path.join(sourcePath, pathRelativeToSourceFolder)

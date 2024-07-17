@@ -38,5 +38,5 @@ load_dotenv(override = True)
 #from Services.Google.GoogleDriveServiceTests import test_exportDocumentAsMarkdown
 #test_exportDocumentAsMarkdown()
 
-from Services.Google.GoogleDocsServiceTests import test_getListOfTextContent
-test_getListOfTextContent()
+from Services.Google.GoogleDocsServiceTests import test_readDocument
+test_readDocument()

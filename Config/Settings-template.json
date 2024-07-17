@@ -22,9 +22,11 @@
 				"description": "My journal where I note down my thoughts.",
 				"sourceType": "Google Doc",
 				"sourceDetails": {
-					"docId": "ID OF GOOGLE DOC"
+					"docId": "ID OF GOOGLE DOC",
+					"headingLevel": 2,
+					"headingText": "Journal entries"
 				},
-				"resourceType": "OneText"
+				"resourceType": "DatedEntries"
 			},
 			{
 				"id": "MarketReport",

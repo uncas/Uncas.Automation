@@ -18,6 +18,47 @@
                     "startIndex": 1,
                     "endIndex": 17,
                     "textRun": {
+                        "content": "An introduction\n",
+                        "textStyle": {}
+                    }
+                }
+            ],
+            "paragraphStyle": {
+                "headingId": "h.8oq60rdap37c",
+                "namedStyleType": "HEADING_2",
+                "direction": "LEFT_TO_RIGHT"
+            }
+        }
+    },
+    {
+        "startIndex": 17,
+        "endIndex": 36,
+        "paragraph": {
+            "elements": [
+                {
+                    "startIndex": 17,
+                    "endIndex": 36,
+                    "textRun": {
+                        "content": "This is a journal!\n",
+                        "textStyle": {}
+                    }
+                }
+            ],
+            "paragraphStyle": {
+                "namedStyleType": "NORMAL_TEXT",
+                "direction": "LEFT_TO_RIGHT"
+            }
+        }
+    },
+    {
+        "startIndex": 36,
+        "endIndex": 52,
+        "paragraph": {
+            "elements": [
+                {
+                    "startIndex": 36,
+                    "endIndex": 52,
+                    "textRun": {
                         "content": "Journal entries\n",
                         "textStyle": {}
                     }
@@ -31,13 +72,13 @@
         }
     },
     {
-        "startIndex": 17,
-        "endIndex": 28,
+        "startIndex": 52,
+        "endIndex": 63,
         "paragraph": {
             "elements": [
                 {
-                    "startIndex": 17,
-                    "endIndex": 28,
+                    "startIndex": 52,
+                    "endIndex": 63,
                     "textRun": {
                         "content": "2024-03-01\n",
                         "textStyle": {}
@@ -52,13 +93,13 @@
         }
     },
     {
-        "startIndex": 28,
-        "endIndex": 45,
+        "startIndex": 63,
+        "endIndex": 80,
         "paragraph": {
             "elements": [
                 {
-                    "startIndex": 28,
-                    "endIndex": 45,
+                    "startIndex": 63,
+                    "endIndex": 80,
                     "textRun": {
                         "content": "How it is going?\n",
                         "textStyle": {}
@@ -86,13 +127,13 @@
         }
     },
     {
-        "startIndex": 45,
-        "endIndex": 56,
+        "startIndex": 80,
+        "endIndex": 91,
         "paragraph": {
             "elements": [
                 {
-                    "startIndex": 45,
-                    "endIndex": 56,
+                    "startIndex": 80,
+                    "endIndex": 91,
                     "textRun": {
                         "content": "2024-02-20\n",
                         "textStyle": {}
@@ -107,13 +148,13 @@
         }
     },
     {
-        "startIndex": 56,
-        "endIndex": 77,
+        "startIndex": 91,
+        "endIndex": 112,
         "paragraph": {
             "elements": [
                 {
-                    "startIndex": 56,
-                    "endIndex": 77,
+                    "startIndex": 91,
+                    "endIndex": 112,
                     "textRun": {
                         "content": "It is going forward.\n",
                         "textStyle": {}
@@ -141,15 +182,70 @@
         }
     },
     {
-        "startIndex": 77,
-        "endIndex": 78,
+        "startIndex": 112,
+        "endIndex": 141,
         "paragraph": {
             "elements": [
                 {
-                    "startIndex": 77,
-                    "endIndex": 78,
+                    "startIndex": 112,
+                    "endIndex": 141,
                     "textRun": {
-                        "content": "\n",
+                        "content": "But sometimes also backwards\n",
+                        "textStyle": {}
+                    }
+                }
+            ],
+            "paragraphStyle": {
+                "namedStyleType": "NORMAL_TEXT",
+                "direction": "LEFT_TO_RIGHT",
+                "indentFirstLine": {
+                    "magnitude": 18,
+                    "unit": "PT"
+                },
+                "indentStart": {
+                    "magnitude": 36,
+                    "unit": "PT"
+                }
+            },
+            "bullet": {
+                "listId": "kix.tqiq1rqo8ql9",
+                "textStyle": {
+                    "underline": false
+                }
+            }
+        }
+    },
+    {
+        "startIndex": 141,
+        "endIndex": 162,
+        "paragraph": {
+            "elements": [
+                {
+                    "startIndex": 141,
+                    "endIndex": 162,
+                    "textRun": {
+                        "content": "Something irrelevant\n",
+                        "textStyle": {}
+                    }
+                }
+            ],
+            "paragraphStyle": {
+                "headingId": "h.o6gosqvm8nza",
+                "namedStyleType": "HEADING_2",
+                "direction": "LEFT_TO_RIGHT"
+            }
+        }
+    },
+    {
+        "startIndex": 162,
+        "endIndex": 174,
+        "paragraph": {
+            "elements": [
+                {
+                    "startIndex": 162,
+                    "endIndex": 174,
+                    "textRun": {
+                        "content": "Bla bla bla\n",
                         "textStyle": {}
                     }
                 }

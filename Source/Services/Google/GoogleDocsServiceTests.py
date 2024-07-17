@@ -1,14 +1,6 @@
 from Services.Google.GoogleDocsService import readDocument, read_structural_elements, getListOfTextContent
 
-def testGoogleDocsService():
-	id = "16dKNw3t1YTIpYiypDDZ-_eYgWbEovSxxyhfzJml98YE"
-	doc = readDocument(id)
-	title = doc["title"]
-	text = doc["text"]
-	print("The title of the document is: " + title)
-	print("The text content of the document is: " + text)
-
-def test_readDocumentPartitionedByHeadings():
+def test_readDocument():
 	id = "16dKNw3t1YTIpYiypDDZ-_eYgWbEovSxxyhfzJml98YE"
 	doc = readDocument(id)
 	title = doc["title"]
@@ -25,8 +17,10 @@ def test_read_structural_elements():
 
 def test_getListOfTextContent():
 	import json
-	file = "Test/GoogleDocContent.json"
-	content = json.load(open(file))
+	file = "Tests/GoogleDocContent.json"
+	fileStream = open(file)
+	content = json.load(fileStream)
+	fileStream.close()
 	items = getListOfTextContent(content)
 	for item in items:
 		print(item)

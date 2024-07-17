@@ -5,7 +5,7 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from Services.Google.GoogleAuth import getCredentials
 
-def readDocument(documentId):
+def getDocumentTexts(documentId):
   creds = getCredentials()
   try:
     service = build("docs", "v1", credentials=creds)
@@ -15,10 +15,14 @@ def readDocument(documentId):
     #from Utils.FileUtils import writeText
     #import json
     #writeText("Test", "GoogleDocContent.json", json.dumps(content, indent = 4))
-    text = read_structural_elements(content)
-    return {"title": title, "text": text};
+    return {"title": title, "texts": getListOfTextContent(content)}
   except HttpError as err:
     print(err)
+
+def readDocument(documentId):
+    texts = getDocumentTexts(documentId)
+    text = "".join([item["text"] for item in texts["texts"]])
+    return {"title": texts["title"], "text": text};
 
 def read_paragraph_element(element):
     """Returns the text in the given ParagraphElement.
@@ -30,7 +34,6 @@ def read_paragraph_element(element):
     if not text_run:
         return ''
     return text_run.get('content')
-
 
 def read_structural_elements(elements):
     """Recurses through a list of Structural Elements to read a document's text where text may be

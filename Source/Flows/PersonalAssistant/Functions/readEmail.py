@@ -1,7 +1,5 @@
-from Services.Google.GmailService import getInboxMessages
-from Services.Google.GmailSendService import createDraft
-
 def readEmail():
+	from Services.Google.GmailService import getInboxMessages
 	messages = getInboxMessages()
 	result = [{
 		"sender": message["sender"], 
@@ -13,6 +11,7 @@ def readEmail():
 	return result
 
 def writeEmail(data):
+	from Services.Google.GmailSendService import createDraft
 	body = data["body"]
 	subject = data["subject"]
 	recipient = data["recipient"]

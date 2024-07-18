@@ -1,6 +1,6 @@
 #!/bin/bash
 
-./init.sh
+source init.sh
 
 #python Source/Run.py
 python Source/RunPersonalAssistant.py

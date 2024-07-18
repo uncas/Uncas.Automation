@@ -1,5 +1,5 @@
 #!/bin/bash
 
-./init.sh
+source init.sh
 
 python Source/Scheduled.py

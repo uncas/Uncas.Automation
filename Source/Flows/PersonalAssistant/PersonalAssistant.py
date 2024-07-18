@@ -31,7 +31,7 @@ def runInteractiveChatLoop(model = "gpt-3.5-turbo"):
 	from Utils.Settings import getSetting
 	toolList = getTools()
 	if not os.getenv("OPENAI_API_KEY"):
-		print('FATAL ERROR: OPENAI_API_KEY needed. Set the value in a .env file: echo "OPENAI_API_KEY=YOUR_API_KEY_VALUE" > .env')
+		print('FATAL ERROR: OPENAI_API_KEY needed. Set the value in a .env file: echo "OPENAI_API_KEY=YOUR_API_KEY_VALUE" >> .env')
 		exit(1)
 	client = OpenAI()
 	messages = []

@@ -42,14 +42,6 @@ class AssistantUnitTests(unittest.TestCase):
 		entries = mapListOfTextContentToDatedEntries(items, 2, "Journal entries", lastNDays = daysSinceDate)
 		self.assertEqual(len(entries), 1)
 
-	def test_downloadGoogleDocTestContent(self):
-		from Services.Google.GoogleDocsService import downloadDocumentContent
-		from Utils.FileUtils import writeText, getFilePath
-		import json
-		testDocId = "16dKNw3t1YTIpYiypDDZ-_eYgWbEovSxxyhfzJml98YE"
-		content = downloadDocumentContent(testDocId)["content"]
-		writeText(getFilePath("Tests"), "GoogleDocContent.json", json.dumps(content, indent = 4))
-
 	def getListOfTexts(self):
 		import json
 		from Services.Google.GoogleDocsService import getListOfTextContent

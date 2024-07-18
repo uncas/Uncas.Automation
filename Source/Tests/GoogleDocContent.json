@@ -128,12 +128,58 @@
     },
     {
         "startIndex": 80,
-        "endIndex": 91,
+        "endIndex": 92,
         "paragraph": {
             "elements": [
                 {
                     "startIndex": 80,
-                    "endIndex": 91,
+                    "endIndex": 81,
+                    "person": {
+                        "personId": "kix.x4nzal5o6fu9",
+                        "textStyle": {},
+                        "personProperties": {
+                            "name": "Ole Lynge S\u00f8rensen",
+                            "email": "ole.lynge.soerensen@schibsted.com"
+                        }
+                    }
+                },
+                {
+                    "startIndex": 81,
+                    "endIndex": 92,
+                    "textRun": {
+                        "content": " was there\n",
+                        "textStyle": {}
+                    }
+                }
+            ],
+            "paragraphStyle": {
+                "namedStyleType": "NORMAL_TEXT",
+                "direction": "LEFT_TO_RIGHT",
+                "indentFirstLine": {
+                    "magnitude": 18,
+                    "unit": "PT"
+                },
+                "indentStart": {
+                    "magnitude": 36,
+                    "unit": "PT"
+                }
+            },
+            "bullet": {
+                "listId": "kix.jzfa2yf1fts3",
+                "textStyle": {
+                    "underline": false
+                }
+            }
+        }
+    },
+    {
+        "startIndex": 92,
+        "endIndex": 103,
+        "paragraph": {
+            "elements": [
+                {
+                    "startIndex": 92,
+                    "endIndex": 103,
                     "textRun": {
                         "content": "2024-02-20\n",
                         "textStyle": {}
@@ -148,13 +194,13 @@
         }
     },
     {
-        "startIndex": 91,
-        "endIndex": 112,
+        "startIndex": 103,
+        "endIndex": 124,
         "paragraph": {
             "elements": [
                 {
-                    "startIndex": 91,
-                    "endIndex": 112,
+                    "startIndex": 103,
+                    "endIndex": 124,
                     "textRun": {
                         "content": "It is going forward.\n",
                         "textStyle": {}
@@ -182,13 +228,13 @@
         }
     },
     {
-        "startIndex": 112,
-        "endIndex": 141,
+        "startIndex": 124,
+        "endIndex": 153,
         "paragraph": {
             "elements": [
                 {
-                    "startIndex": 112,
-                    "endIndex": 141,
+                    "startIndex": 124,
+                    "endIndex": 153,
                     "textRun": {
                         "content": "But sometimes also backwards\n",
                         "textStyle": {}
@@ -216,13 +262,13 @@
         }
     },
     {
-        "startIndex": 141,
-        "endIndex": 162,
+        "startIndex": 153,
+        "endIndex": 174,
         "paragraph": {
             "elements": [
                 {
-                    "startIndex": 141,
-                    "endIndex": 162,
+                    "startIndex": 153,
+                    "endIndex": 174,
                     "textRun": {
                         "content": "Something irrelevant\n",
                         "textStyle": {}
@@ -237,13 +283,13 @@
         }
     },
     {
-        "startIndex": 162,
-        "endIndex": 174,
+        "startIndex": 174,
+        "endIndex": 186,
         "paragraph": {
             "elements": [
                 {
-                    "startIndex": 162,
-                    "endIndex": 174,
+                    "startIndex": 174,
+                    "endIndex": 186,
                     "textRun": {
                         "content": "Bla bla bla\n",
                         "textStyle": {}

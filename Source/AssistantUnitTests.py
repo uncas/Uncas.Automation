@@ -8,7 +8,7 @@ class AssistantUnitTests(unittest.TestCase):
 
 	def test_getListOfTextContent(self):
 		items = self.getListOfTexts()
-		self.assertEqual(len(items), 10)
+		self.assertEqual(len(items), 12)
 	
 	def test_mapListOfTextContentToDatedEntries(self):
 		from Flows.PersonalAssistant.Resources.ResourceTools import mapListOfTextContentToDatedEntries
@@ -16,7 +16,7 @@ class AssistantUnitTests(unittest.TestCase):
 		entries = mapListOfTextContentToDatedEntries(items, 2, "Journal entries")
 		self.assertEqual(len(entries), 2)
 		self.assertEqual(entries[0]["date"], {'year': 2024, 'month': 3, 'day': 1})
-		self.assertEqual(entries[0]["text"], "How it is going?\n")
+		self.assertEqual(entries[0]["text"], "How it is going?\nOle Lynge Sørensen was there\n")
 		self.assertEqual(entries[1]["date"], {'year': 2024, 'month': 2, 'day': 20})
 		self.assertEqual(entries[1]["text"], "It is going forward.\nBut sometimes also backwards\n")
 
@@ -41,6 +41,14 @@ class AssistantUnitTests(unittest.TestCase):
 		daysSinceDate = (datetime.datetime.now() - sinceDate).days
 		entries = mapListOfTextContentToDatedEntries(items, 2, "Journal entries", lastNDays = daysSinceDate)
 		self.assertEqual(len(entries), 1)
+
+	def test_downloadGoogleDocTestContent(self):
+		from Services.Google.GoogleDocsService import downloadDocumentContent
+		from Utils.FileUtils import writeText, getFilePath
+		import json
+		testDocId = "16dKNw3t1YTIpYiypDDZ-_eYgWbEovSxxyhfzJml98YE"
+		content = downloadDocumentContent(testDocId)["content"]
+		writeText(getFilePath("Tests"), "GoogleDocContent.json", json.dumps(content, indent = 4))
 
 	def getListOfTexts(self):
 		import json

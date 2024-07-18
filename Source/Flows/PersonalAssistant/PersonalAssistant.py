@@ -25,10 +25,14 @@ def runTaskedAgent(agentDefinition: AgentDefinition, model : str = "gpt-3.5-turb
 	agentDefinition.actionOnResult(assistantMessage)
 
 def runInteractiveChatLoop(model = "gpt-3.5-turbo"):
+	import os
 	from openai import OpenAI
 	from Flows.PersonalAssistant.AssistantTools import getTools
 	from Utils.Settings import getSetting
 	toolList = getTools()
+	if not os.getenv("OPENAI_API_KEY"):
+		print('FATAL ERROR: OPENAI_API_KEY needed. Set the value in a .env file: echo "OPENAI_API_KEY=YOUR_API_KEY_VALUE" > .env')
+		exit(1)
 	client = OpenAI()
 	messages = []
 	messages.append(getSystemPrompt("InteractiveAssistantLoop.md"))

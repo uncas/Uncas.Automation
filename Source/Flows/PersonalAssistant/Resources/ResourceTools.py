@@ -3,7 +3,6 @@ def getResourceTools():
 	from Flows.PersonalAssistant.AssistantTools import AssistantTool
 	resources = getResources()
 	idPattern = re.compile("^[a-zA-Z0-9_-]+$")
-	tools = []
 	for resource in resources:
 		id = resource["id"]
 		if not idPattern.match(id):
@@ -13,11 +12,12 @@ def getResourceTools():
 			print("Resource id %s is not valid. Please fix in Settings.json:", id)
 			exit(1)
 		#resourceType = resource["type"]
-		tool = AssistantTool(lambda x = resource: getResourceData(x["id"]), resource["description"], name = "getResourceData_" + id)
-		tools.append(tool)
+		yield AssistantTool(
+			lambda res = resource: getResourceData(res["id"]), 
+			resource["description"], 
+			name = "getResourceData_" + id)
 		#if resourceType == "DatedEntries":
 		#	yield AssistantTool(lambda: getDatedEntries(id, maxCount, lastNDays), resource["description"], name = "getDatedEntries_" + id)
-	return tools
 
 def getResources():
 	from Utils.Settings import getSetting

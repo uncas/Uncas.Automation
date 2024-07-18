@@ -27,18 +27,23 @@ def runTaskedAgent(agentDefinition: AgentDefinition, model : str = "gpt-3.5-turb
 def runInteractiveChatLoop(model = "gpt-3.5-turbo"):
 	from openai import OpenAI
 	from Flows.PersonalAssistant.AssistantTools import getTools
+	from Utils.Settings import getSetting
 	toolList = getTools()
 	client = OpenAI()
 	messages = []
 	messages.append(getSystemPrompt("InteractiveAssistantLoop.md"))
+	callName = getSetting("assistant", {}).get("callName", "You")
 	while True:
-		prompt = input(background.BLUE + foreground.WHITE + "  You        " + style.RESET_ALL + " : ")
+		prompt = input(background.BLUE + foreground.WHITE + getRoleConsoleLine(callName) + " ")
 		print()
 		if prompt == "bye":
 			printAssistantMessage("Good bye!")
 			return
 		messages.append(getUserPrompt(prompt))
 		messages = runToolLoop(client, model, toolList, messages)
+
+def getRoleConsoleLine(role : str):
+	return "  " + role.ljust(11) + style.RESET_ALL + " : "
 
 def getUserPrompt(content):
 	return { "role": "user", "content": limitMessageContent(content) }
@@ -61,11 +66,11 @@ def getSystemPrompt(fileName):
 		return { "role": "system", "content": limitMessageContent(systemPrompt) }
 
 def printAssistantMessage(content):
-	print(background.GREEN + foreground.WHITE + "  Assistant  " + style.RESET_ALL + " :", content)
+	print(background.GREEN + foreground.WHITE + getRoleConsoleLine("Assistant"), content)
 	print()
 
 def printToolMessage(content):
-	print(background.YELLOW + foreground.WHITE + "  Tool       " + style.RESET_ALL + " :", content)
+	print(background.YELLOW + foreground.WHITE + getRoleConsoleLine("Tool"), content)
 	print()
 
 def runToolLoop(client, model, toolList, messages):

@@ -16,6 +16,7 @@
 		"token": "(insert Hugging Face token here)"
 	},
 	"assistant": {
+		"callName": "INSERT YOUR CALL NAME THAT YOU WANT PRINTED IN THE CONSOLE",
 		"resources": [
 			{
 				"id": "Journal",

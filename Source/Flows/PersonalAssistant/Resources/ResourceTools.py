@@ -29,7 +29,8 @@ def getResourceTools():
 
 def getResources():
 	from Utils.Settings import getSetting
-	return getSetting("assistant")["resources"]
+	assistant = getSetting("assistant")
+	return assistant.get("resources", []) if assistant else []
 
 def getResourceData(resourceId):
 	resources = [resource for resource in getResources() if resource["id"] == resourceId]

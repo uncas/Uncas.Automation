@@ -1,5 +1,9 @@
-def getSetting(key):
+def getSetting(key, defaultValue = None):
 	import json
-	with open("Config/Settings.json") as settingsFile:
+	import os.path
+	fileName = "Config/Settings.json"
+	if not os.path.isfile(fileName):
+		return defaultValue
+	with open(fileName) as settingsFile:
 		settings = json.load(settingsFile)
-		return settings[key]
+		return settings.get(key, defaultValue)

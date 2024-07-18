@@ -6,33 +6,26 @@ class AssistantUnitTests(unittest.TestCase):
 		path = getFilePath("../Data/test.db")
 		self.assertIn("Source/Utils/../../Data/test.db", path)
 
+	def test_getListOfTextContent(self):
+		items = self.getListOfTexts()
+		self.assertEqual(len(items), 10)
+	
+	def test_mapListOfTextContentToDatedEntries(self):
+		from Flows.PersonalAssistant.Resources.ResourceTools import mapListOfTextContentToDatedEntries
+		items = self.getListOfTexts()
+		entries = mapListOfTextContentToDatedEntries(items, 2, "Journal entries")
+		self.assertEqual(len(entries), 2)
+		self.assertEqual(entries[0]["date"], {'year': 2024, 'month': 3, 'day': 1})
+		self.assertEqual(entries[0]["text"], "How it is going?\n")
+		self.assertEqual(entries[1]["date"], {'year': 2024, 'month': 2, 'day': 20})
+		self.assertEqual(entries[1]["text"], "It is going forward.\nBut sometimes also backwards\n")
+
 	def getListOfTexts(self):
-		from Services.Google.GoogleDocsService import getListOfTextContent
 		import json
+		from Services.Google.GoogleDocsService import getListOfTextContent
 		from Utils.FileUtils import getFilePath
 		file = getFilePath("Tests/GoogleDocContent.json")
 		fileStream = open(file)
 		content = json.load(fileStream)
 		fileStream.close()
 		return getListOfTextContent(content)
-
-	def test_getListOfTextContent(self):
-		items = self.getListOfTexts()
-		self.assertEqual(len(items), 10)
-	
-	def test_mapListOfTextContentToDatedEntries(self):
-		import datetime
-		items = self.getListOfTexts()
-		from Flows.PersonalAssistant.Resources.ResourceTools import mapListOfTextContentToDatedEntries
-		entries = mapListOfTextContentToDatedEntries(items, 2, "Journal entries")
-		self.assertEqual(len(entries), 2)
-		self.assertEqual(entries[0]["date"], datetime.datetime(2024, 3, 1))
-		self.assertIn("How it is going?", entries[0]["text"])
-		self.assertEqual(entries[1]["date"], datetime.datetime(2024, 2, 20))
-		self.assertIn("It is going forward.", entries[1]["text"])
-		self.assertIn("But sometimes also backwards", entries[1]["text"])
-		self.assertNotIn("Something irrelevant", entries[1]["text"])
-		self.assertNotIn("Bla bla bla", entries[1]["text"])
-	
-if __name__ == '__main__':
-    unittest.main()

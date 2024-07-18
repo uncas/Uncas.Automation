@@ -1,6 +1,8 @@
 from Services.Google.GoogleDocsService import readDocument, read_structural_elements, getListOfTextContent
 
 def test_readDocument():
+	# Here's a test docoment that I have used for testing a certain structure:
+	# https://docs.google.com/document/d/16dKNw3t1YTIpYiypDDZ-_eYgWbEovSxxyhfzJml98YE/edit
 	id = "16dKNw3t1YTIpYiypDDZ-_eYgWbEovSxxyhfzJml98YE"
 	doc = readDocument(id)
 	title = doc["title"]
@@ -26,4 +28,4 @@ def test_getListOfTextContent():
 		print(item)
 
 if __name__ == "__main__":
-	testGoogleDocsService()
+	test_readDocument()

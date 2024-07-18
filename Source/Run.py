@@ -90,11 +90,11 @@ def run():
 			testGooglePresentationsService()
 
 			from QuestionGoogleDocTests import testQuestionGoogleDoc
-			from Services.Google.GoogleDocsServiceTests import testGoogleDocsService
+			from Services.Google.GoogleDocsServiceTests import test_readDocument
 			from Services.Google.GoogleSheetsServiceTests import testGoogleSheetsService
 			from Tools.Ai.QaPipelineTests import testQaPipeline
 			from Tools.Ai.QueryLMTests import testQueryLM
-			testGoogleDocsService()
+			test_readDocument()
 			testGoogleSheetsService()
 			testQueryLM()
 			testQaPipeline()

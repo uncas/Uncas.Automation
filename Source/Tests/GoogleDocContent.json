@@ -1,0 +1,305 @@
+[
+    {
+        "endIndex": 1,
+        "sectionBreak": {
+            "sectionStyle": {
+                "columnSeparatorStyle": "NONE",
+                "contentDirection": "LEFT_TO_RIGHT",
+                "sectionType": "CONTINUOUS"
+            }
+        }
+    },
+    {
+        "startIndex": 1,
+        "endIndex": 17,
+        "paragraph": {
+            "elements": [
+                {
+                    "startIndex": 1,
+                    "endIndex": 17,
+                    "textRun": {
+                        "content": "An introduction\n",
+                        "textStyle": {}
+                    }
+                }
+            ],
+            "paragraphStyle": {
+                "headingId": "h.8oq60rdap37c",
+                "namedStyleType": "HEADING_2",
+                "direction": "LEFT_TO_RIGHT"
+            }
+        }
+    },
+    {
+        "startIndex": 17,
+        "endIndex": 36,
+        "paragraph": {
+            "elements": [
+                {
+                    "startIndex": 17,
+                    "endIndex": 36,
+                    "textRun": {
+                        "content": "This is a journal!\n",
+                        "textStyle": {}
+                    }
+                }
+            ],
+            "paragraphStyle": {
+                "namedStyleType": "NORMAL_TEXT",
+                "direction": "LEFT_TO_RIGHT"
+            }
+        }
+    },
+    {
+        "startIndex": 36,
+        "endIndex": 52,
+        "paragraph": {
+            "elements": [
+                {
+                    "startIndex": 36,
+                    "endIndex": 52,
+                    "textRun": {
+                        "content": "Journal entries\n",
+                        "textStyle": {}
+                    }
+                }
+            ],
+            "paragraphStyle": {
+                "headingId": "h.kc42qzon4i3o",
+                "namedStyleType": "HEADING_2",
+                "direction": "LEFT_TO_RIGHT"
+            }
+        }
+    },
+    {
+        "startIndex": 52,
+        "endIndex": 63,
+        "paragraph": {
+            "elements": [
+                {
+                    "startIndex": 52,
+                    "endIndex": 63,
+                    "textRun": {
+                        "content": "2024-03-01\n",
+                        "textStyle": {}
+                    }
+                }
+            ],
+            "paragraphStyle": {
+                "headingId": "h.7t0ybu2ehku5",
+                "namedStyleType": "HEADING_3",
+                "direction": "LEFT_TO_RIGHT"
+            }
+        }
+    },
+    {
+        "startIndex": 63,
+        "endIndex": 80,
+        "paragraph": {
+            "elements": [
+                {
+                    "startIndex": 63,
+                    "endIndex": 80,
+                    "textRun": {
+                        "content": "How it is going?\n",
+                        "textStyle": {}
+                    }
+                }
+            ],
+            "paragraphStyle": {
+                "namedStyleType": "NORMAL_TEXT",
+                "direction": "LEFT_TO_RIGHT",
+                "indentFirstLine": {
+                    "magnitude": 18,
+                    "unit": "PT"
+                },
+                "indentStart": {
+                    "magnitude": 36,
+                    "unit": "PT"
+                }
+            },
+            "bullet": {
+                "listId": "kix.jzfa2yf1fts3",
+                "textStyle": {
+                    "underline": false
+                }
+            }
+        }
+    },
+    {
+        "startIndex": 80,
+        "endIndex": 92,
+        "paragraph": {
+            "elements": [
+                {
+                    "startIndex": 80,
+                    "endIndex": 81,
+                    "person": {
+                        "personId": "kix.x4nzal5o6fu9",
+                        "textStyle": {},
+                        "personProperties": {
+                            "name": "Ole Lynge S\u00f8rensen",
+                            "email": "ole.lynge.soerensen@schibsted.com"
+                        }
+                    }
+                },
+                {
+                    "startIndex": 81,
+                    "endIndex": 92,
+                    "textRun": {
+                        "content": " was there\n",
+                        "textStyle": {}
+                    }
+                }
+            ],
+            "paragraphStyle": {
+                "namedStyleType": "NORMAL_TEXT",
+                "direction": "LEFT_TO_RIGHT",
+                "indentFirstLine": {
+                    "magnitude": 18,
+                    "unit": "PT"
+                },
+                "indentStart": {
+                    "magnitude": 36,
+                    "unit": "PT"
+                }
+            },
+            "bullet": {
+                "listId": "kix.jzfa2yf1fts3",
+                "textStyle": {
+                    "underline": false
+                }
+            }
+        }
+    },
+    {
+        "startIndex": 92,
+        "endIndex": 103,
+        "paragraph": {
+            "elements": [
+                {
+                    "startIndex": 92,
+                    "endIndex": 103,
+                    "textRun": {
+                        "content": "2024-02-20\n",
+                        "textStyle": {}
+                    }
+                }
+            ],
+            "paragraphStyle": {
+                "headingId": "h.4pdv10k2yq7m",
+                "namedStyleType": "HEADING_3",
+                "direction": "LEFT_TO_RIGHT"
+            }
+        }
+    },
+    {
+        "startIndex": 103,
+        "endIndex": 124,
+        "paragraph": {
+            "elements": [
+                {
+                    "startIndex": 103,
+                    "endIndex": 124,
+                    "textRun": {
+                        "content": "It is going forward.\n",
+                        "textStyle": {}
+                    }
+                }
+            ],
+            "paragraphStyle": {
+                "namedStyleType": "NORMAL_TEXT",
+                "direction": "LEFT_TO_RIGHT",
+                "indentFirstLine": {
+                    "magnitude": 18,
+                    "unit": "PT"
+                },
+                "indentStart": {
+                    "magnitude": 36,
+                    "unit": "PT"
+                }
+            },
+            "bullet": {
+                "listId": "kix.tqiq1rqo8ql9",
+                "textStyle": {
+                    "underline": false
+                }
+            }
+        }
+    },
+    {
+        "startIndex": 124,
+        "endIndex": 153,
+        "paragraph": {
+            "elements": [
+                {
+                    "startIndex": 124,
+                    "endIndex": 153,
+                    "textRun": {
+                        "content": "But sometimes also backwards\n",
+                        "textStyle": {}
+                    }
+                }
+            ],
+            "paragraphStyle": {
+                "namedStyleType": "NORMAL_TEXT",
+                "direction": "LEFT_TO_RIGHT",
+                "indentFirstLine": {
+                    "magnitude": 18,
+                    "unit": "PT"
+                },
+                "indentStart": {
+                    "magnitude": 36,
+                    "unit": "PT"
+                }
+            },
+            "bullet": {
+                "listId": "kix.tqiq1rqo8ql9",
+                "textStyle": {
+                    "underline": false
+                }
+            }
+        }
+    },
+    {
+        "startIndex": 153,
+        "endIndex": 174,
+        "paragraph": {
+            "elements": [
+                {
+                    "startIndex": 153,
+                    "endIndex": 174,
+                    "textRun": {
+                        "content": "Something irrelevant\n",
+                        "textStyle": {}
+                    }
+                }
+            ],
+            "paragraphStyle": {
+                "headingId": "h.o6gosqvm8nza",
+                "namedStyleType": "HEADING_2",
+                "direction": "LEFT_TO_RIGHT"
+            }
+        }
+    },
+    {
+        "startIndex": 174,
+        "endIndex": 186,
+        "paragraph": {
+            "elements": [
+                {
+                    "startIndex": 174,
+                    "endIndex": 186,
+                    "textRun": {
+                        "content": "Bla bla bla\n",
+                        "textStyle": {}
+                    }
+                }
+            ],
+            "paragraphStyle": {
+                "namedStyleType": "NORMAL_TEXT",
+                "direction": "LEFT_TO_RIGHT"
+            }
+        }
+    }
+]

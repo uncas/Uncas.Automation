@@ -1,12 +1,13 @@
 function summarizeAndSlackSummary() {
 	const summary = getSummaryFromChatGpt();
-	slackSummary(summary)
+	slackSummary(summary);
 }
 
 function getSummaryFromChatGpt() {
-	const journal = extractSingleTextFromGoogleDoc()
-	const prompt = "Please summarize the following journal: " + journal;
-	const answer = askChatGpt(prompt)
+	const journal = getTextFromLastNDays(6);
+	const userPrompt = "Please summarize the following journal entries: " + journal;
+	const systemPrompt = getSystemPrompt();
+	const answer = askChatGpt(userPrompt, systemPrompt);
 	return answer;
 }
 
@@ -17,12 +18,18 @@ function extractSingleTextFromGoogleDoc() {
 	return text
 }
 
+function getTextFromLastNDays(numberOfDays = 6) {
+	const entries = getDatedEntriesFromLastNDays(numberOfDays);
+	const text = entries.map(entry => entry.texts.join("\n")).join("\n\n");
+	return text;
+}
+
 function getDatedEntriesFromLastNDays(numberOfDays) {
 	const datedEntries = getDatedEntries();
 	const lastNDays = datedEntries.filter(entry => entry.date > new Date() - numberOfDays * 24 * 60 * 60 * 1000);
-	lastNDays.forEach(function(entry) {
-		Logger.log(entry)
-	})
+	//lastNDays.forEach(function(entry) {
+	//	Logger.log(entry)
+	//})
 	return lastNDays;
 }
 
@@ -78,7 +85,7 @@ function slackSummary(summary) {
 }
 
 // Pricing: https://openai.com/api/pricing/
-function askChatGpt(question) {
+function askChatGpt(userPrompt, systemPrompt = null) {
 	const scriptProperties = PropertiesService.getScriptProperties();
 	const apiKey = scriptProperties.getProperty("ChatGpt.ApiKey");
 	const url = "https://api.openai.com/v1/chat/completions";
@@ -86,9 +93,14 @@ function askChatGpt(question) {
 		"Content-Type": "application/json",
 		"Authorization": "Bearer " + apiKey
 	};
+	const messages = [];
+	if (systemPrompt) {
+		messages.push({ role: "system", content: systemPrompt });
+	}
+	messages.push({ role: "user", content: userPrompt });
 	const payload = {
 		"model": "gpt-4o-mini",
-		"messages": [{"role": "user", "content": question}]
+		"messages": messages
 	};
 	const options = {
 		"method": "post",
@@ -98,4 +110,27 @@ function askChatGpt(question) {
 	const response = UrlFetchApp.fetch(url, options);
 	const jsonResponse = JSON.parse(response);
 	return jsonResponse.choices[0].message.content;
+}
+
+function getSystemPrompt() {
+	return "\
+# IDENTITY and PURPOSE\
+You are an expert journal summarizer. You take content in and output a summary formatted for slacking in the team's slack channel.\
+Take a deep breath and think step by step about how to best accomplish this goal using the following steps.\
+\
+# OUTPUT SECTIONS\
+- Combine all of your understanding of the content into a single, 20-word sentence in a section called SHORT SUMMARY.\
+- Output the 10 most important points of the content as a list with no more than 15 words per point into a section called MAIN POINTS.\
+- Output a list of any actions that appear important from the content in a section called ACTION POINTS.\
+\
+# OUTPUT INSTRUCTIONS\
+- Create the output using the formatting above.\
+- You only output human readable content suitable for a slack message.\
+- Output bullets.\
+- Do not output warnings or notes—just the requested sections.\
+- Do not repeat items in the output sections.\
+- Do not start items with the same opening words.\
+\
+# INPUT:\
+INPUT:";
 }

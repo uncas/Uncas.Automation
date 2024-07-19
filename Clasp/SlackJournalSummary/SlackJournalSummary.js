@@ -5,6 +5,9 @@ function summarizeAndSlackSummary() {
 
 function getSummaryFromChatGpt() {
 	const journal = getTextFromLastNDays(6);
+	if (journal === null) {
+		return "No journal entries from the last 6 days.";
+	}
 	const userPrompt = "Please summarize the following journal entries: " + journal;
 	const systemPrompt = getSystemPrompt();
 	const answer = askChatGpt(userPrompt, systemPrompt);
@@ -20,6 +23,9 @@ function extractSingleTextFromGoogleDoc() {
 
 function getTextFromLastNDays(numberOfDays = 6) {
 	const entries = getDatedEntriesFromLastNDays(numberOfDays);
+	if (entries.length === 0) {
+		return null;
+	}
 	const text = entries.map(entry => entry.texts.join("\n")).join("\n\n");
 	return text;
 }

@@ -1,51 +1,59 @@
 function summarizeAndSlackSummary() {
-	summary = getSummaryFromChatGpt();
+	const summary = getSummaryFromChatGpt();
 	slackSummary(summary)
 }
 
 function getSummaryFromChatGpt() {
-	var journal = extractTextFromGoogleDoc()
-	var prompt = "Please summarize the following journal: " + journal;
-	var answer = askChatGpt(prompt)
+	const journal = extractSingleTextFromGoogleDoc()
+	const prompt = "Please summarize the following journal: " + journal;
+	const answer = askChatGpt(prompt)
 	return answer;
 }
 
-function extractTextFromGoogleDoc() {
-	var doc = DocumentApp.getActiveDocument();
-	var body = doc.getBody();
-	var text = body.getText();
+function extractSingleTextFromGoogleDoc() {
+	const doc = DocumentApp.getActiveDocument();
+	const body = doc.getBody();
+	const text = body.getText();
 	return text
 }
 
+function getDatedEntriesFromLastNDays(numberOfDays) {
+	const datedEntries = getDatedEntries();
+	const lastNDays = datedEntries.filter(entry => entry.date > new Date() - numberOfDays * 24 * 60 * 60 * 1000);
+	lastNDays.forEach(function(entry) {
+		Logger.log(entry)
+	})
+	return lastNDays;
+}
+
 function getDatedEntries() {
-	var paragraphs = extractParagraphsFromGoogleDoc();
-	var datedEntries = [];
+	const paragraphs = extractParagraphsFromGoogleDoc();
+	const datedEntries = [];
 	var entry = null;
 	paragraphs.forEach(function(paragraph) {
 		if (paragraph.heading === DocumentApp.ParagraphHeading.HEADING1) {
 			// Skip this one
 		}
 		else if (paragraph.heading === DocumentApp.ParagraphHeading.HEADING2) {
-			entry = {date: paragraph.text, texts: []};
+			const dateString = paragraph.text.slice(0, 10);
+			const date = new Date(dateString);
+			entry = {date: date, texts: [paragraph.text]};
 			datedEntries.push(entry);
 		}
 		else {
 			entry.texts.push(paragraph.text);
 		}
 	});
-	datedEntries.forEach(function(entry) {
-		Logger.log(entry)
-	})
 	return datedEntries;
 }
 
 function extractParagraphsFromGoogleDoc() {
-	var doc = DocumentApp.getActiveDocument()
-	var body = doc.getBody();
-	var paragraphs = body.getParagraphs();
-	var paragraphObjects = [];
+	const doc = DocumentApp.getActiveDocument()
+	const body = doc.getBody();
+	const paragraphs = body.getParagraphs();
+	const paragraphObjects = [];
 	paragraphs.forEach(function(paragraph) {
-		var text = paragraph.getText();
+		const text = paragraph.getText();
 		paragraphObjects.push({ text: text, heading: paragraph.getHeading() });
 	});
 	return paragraphObjects;

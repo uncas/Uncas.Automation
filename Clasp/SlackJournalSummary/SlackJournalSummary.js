@@ -48,8 +48,14 @@ function getDatedEntries() {
 			// Skip this one
 		}
 		else if (paragraph.heading === DocumentApp.ParagraphHeading.HEADING2) {
-			const dateString = paragraph.text.slice(0, 10);
-			const date = new Date(dateString);
+			let date = new Date();
+			try {
+				const dateString = paragraph.text.slice(0, 10);
+				date = new Date(dateString);
+			}
+			catch (error) {
+				Logger.log(error);
+			}
 			entry = {date: date, texts: [paragraph.text]};
 			datedEntries.push(entry);
 		}

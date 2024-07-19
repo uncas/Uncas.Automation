@@ -201,6 +201,11 @@ This script leverages Open AI functions to enable the LLM to decide on different
 
 ## Inspirations
 
-* [The section about "Build Apps with LangChain" in the AI Engineering course on Scrimba](https://v2.scrimba.com/the-ai-engineer-path-c02v)
-* [Youtube video about the different levels of AI](https://www.youtube.com/watch?v=F5nlMBVZxb4)
+* [AI Engineering course / The section about "Build Apps with LangChain"](https://v2.scrimba.com/the-ai-engineer-path-c02v)
+   * Here I learned about assistants, langchain, and agents.
+* [Video about Different levels of AI](https://www.youtube.com/watch?v=F5nlMBVZxb4)
+   * Here I learned about retrieval-augmented generation (RAG) and agents.
 * [Fabric, a framework and prompts to augment human intelligence](https://github.com/danielmiessler/fabric)
+   * Here I got inspiration to good system prompts, and chaining prompts.
+* [CrewAI](https://github.com/crewAIInc/crewAI)
+   * This seems pretty related, and has inspired me about chaining agents + having a repertoire of tools.

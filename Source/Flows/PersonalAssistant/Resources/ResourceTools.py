@@ -83,7 +83,12 @@ def mapListOfTextContentToDatedEntries(
 		if "style" in text and text["style"] == parentStyle and text["text"] == headingText + "\n":
 			withinParentParagraph = True
 		elif withinParentParagraph and "style" in text and text["style"] == childStyle:
-			date = datetime.strptime(text["text"][:10], "%Y-%m-%d")
+			date = None
+			try:
+				date = datetime.strptime(text["text"][:10], "%Y-%m-%d")
+			except ValueError:
+				print("WARNING: Could not parse date, including entry in previous entry:", text["text"][:10])
+				continue
 			if startDate is not None and date < startDate:
 				break
 			entry = {"date": {"year":date.year, "month":date.month, "day":date.day}, "texts": []}

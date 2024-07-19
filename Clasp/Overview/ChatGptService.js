@@ -13,15 +13,7 @@ function askChatGptAboutEmail(subject, body, sender) {
 	return askChatGpt(question);
 }
 
-/* Cost:
- GPT 3.5: 	$0.0015 / 1K input tokens	$0.0020 / 1K output tokens
- GPT 4: $0.03 / 1K input tokens	$0.06 / 1K output tokens
- Typical mail:
-	500 tokens input: 3.5 cost: $0.00075, 4 cost: $0.015
-	200 tokens output: 3.5 cost: $0.0004, 4 cost: $0.012
-	Total cost for 1 mail: 3.5 cost: $0.00115 (0.008 DKK), 4 cost: $0.027 (0.18 DKK)
-	Mails per DKK: GPT 3.5: 25 mails/DKK. GPT 4: 5 mails/DKK
-*/
+// Pricing: https://openai.com/api/pricing/
 function askChatGpt(question) {
 	const scriptProperties = PropertiesService.getScriptProperties();
 	const apiKey = scriptProperties.getProperty("ChatGpt.ApiKey");

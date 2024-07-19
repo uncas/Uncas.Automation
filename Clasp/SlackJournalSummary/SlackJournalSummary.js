@@ -41,23 +41,23 @@ function getDatedEntriesFromLastNDays(numberOfDays) {
 
 function getDatedEntries() {
 	const paragraphs = extractParagraphsFromGoogleDoc();
-	const datedEntries = [];
-	var entry = null;
+	var entry = {date: new Date(), texts: []};
+	const datedEntries = [entry];
 	paragraphs.forEach(function(paragraph) {
 		if (paragraph.heading === DocumentApp.ParagraphHeading.HEADING1) {
 			// Skip this one
 		}
 		else if (paragraph.heading === DocumentApp.ParagraphHeading.HEADING2) {
-			let date = new Date();
 			try {
 				const dateString = paragraph.text.slice(0, 10);
-				date = new Date(dateString);
+				const date = new Date(dateString);
+				entry = {date: date, texts: []};
+				datedEntries.push(entry);
 			}
 			catch (error) {
 				Logger.log(error);
 			}
-			entry = {date: date, texts: [paragraph.text]};
-			datedEntries.push(entry);
+			entry.texts.push(paragraph.text);
 		}
 		else {
 			entry.texts.push(paragraph.text);

@@ -32,7 +32,9 @@ def runInteractiveChatLoop(model = defaultModel):
 	from Utils.Settings import getSetting
 	toolList = getTools()
 	if not os.getenv("OPENAI_API_KEY"):
-		print('FATAL ERROR: OPENAI_API_KEY needed. Set the value in a .env file: echo "OPENAI_API_KEY=YOUR_API_KEY_VALUE" >> .env')
+		import logging
+		logger = logging.getLogger(__name__)
+		logger.critical('FATAL ERROR: OPENAI_API_KEY needed. Set the value in a .env file: echo "OPENAI_API_KEY=YOUR_API_KEY_VALUE" >> .env')
 		exit(1)
 	client = OpenAI()
 	messages = []

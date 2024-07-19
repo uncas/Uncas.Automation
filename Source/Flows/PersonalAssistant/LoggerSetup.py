@@ -1,6 +1,7 @@
 def initLogger():
 	import logging
 	from Utils.SQLiteLoggingHandler import SQLiteLoggingHandler
+	from Utils.ColoredLoggingFormatter import ColoredLoggingFormatter
 
 	# 1. Create root logger
 	logger = logging.getLogger()
@@ -20,7 +21,7 @@ def initLogger():
 	# Formats: https://stackoverflow.com/a/16759818
 	#defaultFormat = "%(levelname)s:%(name)s:%(message)s"
 	advancedFormat = "[%(asctime)s] %(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s"
-	consoleHandler.setFormatter(logging.Formatter(advancedFormat))
+	consoleHandler.setFormatter(ColoredLoggingFormatter(advancedFormat))
 	fileHandler.setFormatter(logging.Formatter(advancedFormat))
 
 	# 5. Add handlers to the logger

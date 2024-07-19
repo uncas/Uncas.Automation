@@ -58,7 +58,7 @@ def getTools():
 		},
 	]
 
-def chat_with_chatgpt(prompt, model="gpt-3.5-turbo"):
+def chat_with_chatgpt(prompt, model="gpt-4o-mini"):
 	from openai import OpenAI
 	import json
 

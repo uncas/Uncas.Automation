@@ -3,10 +3,11 @@ from Flows.PersonalAssistant.Logger import foreground, background, style
 from Flows.PersonalAssistant.Utility.AiLog import AiLog
 from Flows.PersonalAssistant.Agents.AgentDefinition import AgentDefinition
 
+defaultModel = "gpt-4o-mini"
 load_dotenv(override = True)
 aiLog = AiLog()
 
-def runTaskedAgent(agentDefinition: AgentDefinition, model : str = "gpt-3.5-turbo"):
+def runTaskedAgent(agentDefinition: AgentDefinition, model : str = defaultModel):
 	from openai import OpenAI
 	from Flows.PersonalAssistant.AssistantTools import getTools
 	import json
@@ -24,7 +25,7 @@ def runTaskedAgent(agentDefinition: AgentDefinition, model : str = "gpt-3.5-turb
 	assistantMessage = messages[-1].content
 	agentDefinition.actionOnResult(assistantMessage)
 
-def runInteractiveChatLoop(model = "gpt-3.5-turbo"):
+def runInteractiveChatLoop(model = defaultModel):
 	import os
 	from openai import OpenAI
 	from Flows.PersonalAssistant.AssistantTools import getTools
@@ -53,7 +54,7 @@ def getUserPrompt(content):
 	return { "role": "user", "content": limitMessageContent(content) }
 
 def limitMessageContent(content):
-	maxMessageContentLength = 5000
+	maxMessageContentLength = 100 * 1000
 	if len(content) > maxMessageContentLength:
 		import logging
 		logger = logging.getLogger(__name__)

@@ -2,7 +2,7 @@ def askChatGpt(messages):
 	from openai import OpenAI
 	client = OpenAI()
 	chat = client.chat.completions.create( 
-		model="gpt-3.5-turbo", messages = messages 
+		model="gpt-4o-mini", messages = messages 
 	)
 	reply = chat.choices[0].message.content 
 	return reply

@@ -9,7 +9,7 @@ def getLlm():
 		sys.exit("*** ERROR: You need to set the environment variable LlmType, for example in an .env file.")
 	if llmType == "OpenAi":
 		from langchain_openai import ChatOpenAI # type: ignore
-		model = "gpt-3.5-turbo"
+		model = "gpt-4o-mini"
 		print(" *** Using OpenAI with model " + model + ".")
 		return ChatOpenAI(model=model)
 	

@@ -6,5 +6,5 @@ def runScheduledAgents():
 	initLogger()
 	logger = logging.getLogger(__name__)
 	logger.info("Starting scheduled agents")
-	runTaskedAgent(MailCalendarTaskAgent())
+	#runTaskedAgent(MailCalendarTaskAgent())
 	logger.info("Completed scheduled agents")

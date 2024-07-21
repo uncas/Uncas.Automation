@@ -1,4 +1,4 @@
-from Flows.PersonalAssistant.Agents.AgentDefinition import AgentDefinition
+from Flows.PersonalAssistant.Agents.agent_definition import AgentDefinition
 
 class ActivityPlannerAgent(AgentDefinition):
 	def __init__(self):
@@ -13,29 +13,29 @@ class ActivityPlannerAgent(AgentDefinition):
 			exit(1)
 		scenario = open(userPromptFile, "r").read()
 		systemPromptFile = "HolidayActivityPlanner-system.md"
-		systemPrompt = AgentDefinition.getSystemPromptFromFile(systemPromptFile)
+		systemPrompt = AgentDefinition.get_system_prompt_from_file(systemPromptFile)
 		inputTasks = []
 		inputTasks.append({ "task": lambda: scenario, "prompt": "The scenario for the activities" })
 		actionOnResult = lambda plan : super().write_output_to_file("HolidayPlan", plan)
 		super().__init__(systemPrompt, inputTasks, actionOnResult, tools = self.getTools())
 
 	def getTools(self):
-		from Flows.PersonalAssistant.Functions.getCurrentWeather import getCurrentWeatherTool
-		from Flows.PersonalAssistant.Functions.getDateAndTime import getDateAndTimeTool
-		from Flows.PersonalAssistant.Functions.getLocation import getLocationTool
-		from Flows.PersonalAssistant.Functions.getTravelDirections import getTravelDirectionsTool
-		from Flows.PersonalAssistant.Functions.getLatestNews import get_latest_news_tool, get_news_details_tool
+		from Flows.PersonalAssistant.Functions.query_weather import get_current_weather_tool
+		from Flows.PersonalAssistant.Functions.query_date_and_time import get_date_and_time_tool
+		from Flows.PersonalAssistant.Functions.query_location import get_location_tool
+		from Flows.PersonalAssistant.Functions.get_travel_directions import get_travel_directions_tool
+		from Flows.PersonalAssistant.Functions.get_latest_news import get_latest_news_tool, get_news_details_tool
 		from Flows.PersonalAssistant.Functions.read_web_page import read_web_page_text_tool
 		from Flows.PersonalAssistant.Functions.search_wikipedia import search_wikipedia_tool
 		from Flows.PersonalAssistant.Functions.search_internet import search_internet_tool
 
 		return [
-			getCurrentWeatherTool(),
-			getDateAndTimeTool(),
+			get_current_weather_tool(),
+			get_date_and_time_tool(),
 			get_latest_news_tool(),
-			getLocationTool(),
+			get_location_tool(),
 			get_news_details_tool(),
-			getTravelDirectionsTool(),
+			get_travel_directions_tool(),
 			read_web_page_text_tool(),
 			search_wikipedia_tool(),
 			search_internet_tool()

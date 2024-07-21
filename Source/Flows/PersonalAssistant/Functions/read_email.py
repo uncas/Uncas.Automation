@@ -18,7 +18,7 @@ def writeEmail(data):
 	internalMessageId = data["internalMessageId"] if "internalMessageId" in data else None
 	createDraft(recipient, subject, body, internalMessageId)
 
-def writeEmailTool():
+def write_email_tool():
 	from Flows.PersonalAssistant.AssistantTools import AssistantTool, AssistantToolParameter
 	return AssistantTool(writeEmail, "Write an email", [
 		AssistantToolParameter("recipient", "The recipient of the email"),
@@ -27,6 +27,6 @@ def writeEmailTool():
 		AssistantToolParameter("internalMessageId", "The internal id of the message that should be replied to (used only when replying to an email)")
 	])
 
-def readEmailTool():
+def read_email_tool():
 	from Flows.PersonalAssistant.AssistantTools import AssistantTool
 	return AssistantTool(readEmail, "Read email")

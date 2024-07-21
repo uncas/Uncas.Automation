@@ -20,7 +20,7 @@ def findInfoInDocs(input):
 	result = "\n\n".join(doc.page_content for doc in docs)
 	return result
 
-def findInfoInDocsTool():
+def find_info_in_docs_tool():
 	from Flows.PersonalAssistant.AssistantTools import AssistantTool, AssistantToolParameter
 	return AssistantTool(findInfoInDocs, "Find info in work-related documentation", [
 		AssistantToolParameter("query", "The thing to search for in the documentation")

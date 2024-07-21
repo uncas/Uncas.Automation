@@ -1,4 +1,4 @@
-def getResourceTools():
+def get_resource_tools():
 	import re
 	from Flows.PersonalAssistant.AssistantTools import AssistantTool, AssistantToolParameter
 	resources = getResources()

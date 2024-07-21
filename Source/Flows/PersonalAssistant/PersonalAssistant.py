@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 from Flows.PersonalAssistant.Logger import foreground, background, style
 from Flows.PersonalAssistant.Utility.AiLog import AiLog
-from Flows.PersonalAssistant.Agents.AgentDefinition import AgentDefinition
+from Flows.PersonalAssistant.Agents.agent_definition import AgentDefinition
 from openai import OpenAI
 
 defaultModel = "gpt-4o-mini"
@@ -25,7 +25,7 @@ def runTaskedAgent(agent: AgentDefinition, model: str = defaultModel):
 def runInteractiveChatLoop(model = defaultModel):
 	import os
 	from openai import OpenAI
-	from Flows.PersonalAssistant.AssistantTools import getAllTools
+	from Flows.PersonalAssistant.AssistantTools import get_all_tools
 	from Utils.Settings import getSetting
 	if not os.getenv("OPENAI_API_KEY"):
 		import logging
@@ -35,7 +35,7 @@ def runInteractiveChatLoop(model = defaultModel):
 	client = OpenAI()
 	messages = [getSystemPromptFromFile("InteractiveAssistantLoop.md")]
 	callName = getSetting("assistant", {}).get("callName", "You")
-	tools = getAllTools()
+	tools = get_all_tools()
 	while True:
 		prompt = input(background.BLUE + foreground.WHITE + getRoleConsoleLine(callName) + " ")
 		print()
@@ -81,7 +81,7 @@ def printToolMessage(content):
 
 def runToolLoop(client: OpenAI, model: str, tools: list, messages):
 	import json
-	openAiTools = [tool.mapToOpenAiTool() for tool in tools]
+	openAiTools = [tool.map_to_open_ai_tool() for tool in tools]
 	toolMethods = {tool.name: tool.method for tool in tools}
 	maxIterations = 5
 	messageCountAtLastLog = len(messages) - 1

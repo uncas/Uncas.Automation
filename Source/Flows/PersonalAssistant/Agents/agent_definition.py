@@ -5,7 +5,7 @@ class AgentDefinition:
 		self.actionOnResult = actionOnResult
 		self.tools = tools
 
-	def getSystemPromptFromFile(fileName):
+	def get_system_prompt_from_file(fileName):
 		with open("Source/Flows/PersonalAssistant/Prompts/" + fileName, "r") as file:
 			return file.read()
 

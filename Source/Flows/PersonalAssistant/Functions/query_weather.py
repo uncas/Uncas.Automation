@@ -59,7 +59,7 @@ def getCurrentWeather(data):
 		"forecast": [mapWeatherObjectToMyDesiredOutput(item) for item in forecast[:8]]
 	}
 
-def getCurrentWeatherTool():
+def get_current_weather_tool():
 	from Flows.PersonalAssistant.AssistantTools import AssistantTool, AssistantToolParameter
 	return AssistantTool(getCurrentWeather, "Gets the current weather", [
 		AssistantToolParameter("countryCode", "The country code of the country where to get the weather"),

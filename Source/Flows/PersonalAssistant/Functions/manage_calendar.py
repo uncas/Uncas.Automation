@@ -6,6 +6,6 @@ def getTodaysCalendarEvents():
 	from Services.Google.GoogleCalendarService import getTodaysCalendarEvents
 	return list(getTodaysCalendarEvents(20))
 
-def getTodaysCalendarEventsTool():
+def get_todays_calendar_events_tool():
 	from Flows.PersonalAssistant.AssistantTools import AssistantTool
 	return AssistantTool(getTodaysCalendarEvents, "Get todays calendar events")

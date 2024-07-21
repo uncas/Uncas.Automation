@@ -67,8 +67,8 @@ def run():
 			from Services.HuggingFace.HuggingFaceService import search
 			search()
 		elif task == "12":
-			from Flows.ReadCarsFromBilbasenBlog import readCars
-			readCars()
+			from Source.Services.eletric_cars_service import get_electric_cars_in_denmark
+			get_electric_cars_in_denmark()
 		elif task == "13":
 			from Services.OpenAi.EmbeddingService import runGetEmbedding
 			runGetEmbedding()

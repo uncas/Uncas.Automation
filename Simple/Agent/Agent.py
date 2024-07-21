@@ -1,24 +1,29 @@
 # Started from https://github.com/rabbitmetrics/langchain-agents-explained
 
+from typing import Any, Dict
+from langchain_core.tools import BaseTool
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv(override=True)
 
-def askAgent(tools, question):
-    print("Tools loaded:")
-    for tool in tools:
-        print(tool.name)
+from langchain_core.callbacks import BaseCallbackHandler
+from langchain_core.outputs import LLMResult
+class MyCustomHandler(BaseCallbackHandler):
+    def on_llm_end(self, result: LLMResult, **kwargs) -> Any:
+        print(f"My custom handler, response: {result}, kwargs: {kwargs}")
+
+def askAgent(tools : list[BaseTool], question : str) -> Dict[str, Any]:
     from langchain import hub
     from langchain.agents import AgentExecutor, create_react_agent
-    from langchain.chat_models import ChatOpenAI
-    chat = ChatOpenAI(model_name="gpt-4o",temperature=0.2)
+    from langchain_openai import ChatOpenAI
+    chat = ChatOpenAI(model="gpt-4o-mini",temperature=0.2, callbacks=[MyCustomHandler()])
     #from langchain_community.chat_models import ChatOllama
     #chat = ChatOllama(model="llama3", temperature=0)
     prompt = hub.pull("hwchase17/react")
     agent = create_react_agent(chat, tools, prompt)
-    agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True, max_iterations=5)
+    agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=False, max_iterations=5)
     return agent_executor.invoke({"input": question})
 
-def askRealAgent(question):
+def askRealAgent(question : str) -> Dict[str, Any]:
     from langchain_community.tools import WikipediaQueryRun
     from langchain_community.utilities import WikipediaAPIWrapper
     from langchain_community.agent_toolkits.load_tools import load_tools
@@ -34,8 +39,8 @@ def askRealAgent(question):
 
     return askAgent(tools, question)
 
-input = input("Question: ")
-print(askRealAgent(input))
+question = input("Question: ")
+print(askRealAgent(question)["output"])
 
 
 

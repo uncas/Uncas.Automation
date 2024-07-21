@@ -1,27 +1,28 @@
-def getStore():
-	from Flows.PersonalAssistant.EmbeddingVectorStore import EmbeddingVectorStore
+from Flows.PersonalAssistant.embedding_vector_store import EmbeddingVectorStore
+
+def get_store() -> EmbeddingVectorStore:
 	return EmbeddingVectorStore("Data/GoogleSheetList.db")
 
-def syncDocs():
+def sync_docs():
 	# TODO: Read list of docs from sheet
 	print("Syncing docs")
-	store = getStore()
+	store = get_store()
 	import glob
 	for file in glob.glob("Data/GoogleSheetList/TODO/*.txt"):
 		print("Storing file ", file)
 		store.save(file)
 
-def findInfoInDocs(input):
+def find_info_in_docs(input):
 	query = input["query"]
 	# TODO: Check when docs were last synced
 	# TODO: If sync was more than X days ago, then sync again
-	store = getStore()
-	docs = store.getSimilarities(query)
+	store = get_store()
+	docs = store.get_similarities(query)
 	result = "\n\n".join(doc.page_content for doc in docs)
 	return result
 
 def find_info_in_docs_tool():
 	from Flows.PersonalAssistant.assistant_tools import AssistantTool, AssistantToolParameter
-	return AssistantTool(findInfoInDocs, "Find info in work-related documentation", [
+	return AssistantTool(find_info_in_docs, "Find info in work-related documentation", [
 		AssistantToolParameter("query", "The thing to search for in the documentation")
 	])

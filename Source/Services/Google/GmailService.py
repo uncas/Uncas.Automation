@@ -3,7 +3,7 @@
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from Services.Google.GoogleAuth import getCredentials
-from Utils.FileUtils import writeText
+from Utils.FileUtils import write_text
 import json
 
 QUERY_INBOX = "in:inbox"
@@ -79,7 +79,7 @@ def getThread(threadId):
 def getMessageContent(internalMessageId):
   content = gmailService.users().messages().get(userId = "me", id = internalMessageId, format = "full").execute()
   contentText = json.dumps(content, indent = 2)
-  writeText("Data/Gmail", internalMessageId + ".json", contentText)
+  write_text("Data/Gmail", internalMessageId + ".json", contentText)
   payload = content["payload"]
   headers = payload["headers"]
   sender = getHeaderValue(headers, "From")

@@ -3,7 +3,7 @@ from Services.Google.GoogleDocsService import readDocument
 from Services.Google.GooglePresentationsService import readPresentation
 from Utils.Settings import getSetting
 from Tools.Ai.QaPipeline import questionDocuments
-from Utils.FileUtils import writeText
+from Utils.FileUtils import write_text
 
 def runQuestionGoogleDocsFromSheetList():
 	sheets = getSheetsFromSettings()
@@ -66,5 +66,5 @@ def downloadLinksToFiles(sheetId, rangeWithDocLinks, folder):
 			if doc == None:
 				print("WARNING: DOCUMENT NOT FOUND OR NOT ACCESSIBLE: " + link)
 			else:
-				writeText(folder, file, doc["text"])
+				write_text(folder, file, doc["text"])
 			break

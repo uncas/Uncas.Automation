@@ -10,19 +10,19 @@ class AiLog:
 		now = datetime.now()
 		timeStamp = int(now.timestamp())
 		isoString = now.isoformat()
-		messagesString = json.dumps([self.extractMessageValues(message) for message in messages])
+		messagesString = json.dumps([self.extract_message_values(message) for message in messages])
 		self.db.execute(
 			"INSERT INTO AiLog (AiLogId, Date, Model, PromptTokens, CompletionTokens, Messages, TimeStamp) VALUES (?, ?, ?, ?, ?, ?, ?)", 
 			(None, isoString, model, promptTokens, completionTokens, messagesString, timeStamp))
 		self.db.commit()
 
-	def extractMessageValues(self, message):
+	def extract_message_values(self, message):
 		from openai.types.chat.chat_completion_message import ChatCompletionMessage
 		if isinstance(message, ChatCompletionMessage):
 			return {
 				"role": message.role, 
 				"content": message.content,
-				"tool_calls": [self.extractToolCallValues(toolCall) for toolCall in message.tool_calls] if message.tool_calls else None
+				"tool_calls": [self.extract_tool_call_values(toolCall) for toolCall in message.tool_calls] if message.tool_calls else None
 			}
 		return {
 			"role": message["role"],
@@ -31,7 +31,7 @@ class AiLog:
 			"tool_call_id": message["tool_call_id"] if "tool_call_id" in message else None
 		}
 	
-	def extractToolCallValues(self, toolCall):
+	def extract_tool_call_values(self, toolCall):
 		return {
 			"id": toolCall.id,
 			"functionName": toolCall.function.name, 

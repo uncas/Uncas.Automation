@@ -3,21 +3,21 @@ from Flows.PersonalAssistant.Agents.agent_definition import AgentDefinition
 class ActivityPlannerAgent(AgentDefinition):
 	def __init__(self):
 		import os
-		userPromptFile = "Data/Prompts/HolidayActivityPlanner-user.md"
-		if not os.path.exists(userPromptFile):
+		user_prompt_file = "Data/Prompts/HolidayActivityPlanner-user.md"
+		if not os.path.exists(user_prompt_file):
 			import logging
 			logger = logging.getLogger(__name__)
-			userPromptExampleFile = "Source/Flows/PersonalAssistant/Prompts/HolidayActivityPlanner-user.md"
-			logger.critical("User prompt file not found at " + userPromptFile + 
-				   ". You can see an example prompt file here, that you could copy and modify: " + userPromptExampleFile)
+			user_prompt_example_file = "Source/Flows/PersonalAssistant/Prompts/HolidayActivityPlanner-user.md"
+			logger.critical("User prompt file not found at " + user_prompt_file + 
+				   ". You can see an example prompt file here, that you could copy and modify: " + user_prompt_example_file)
 			exit(1)
-		scenario = open(userPromptFile, "r").read()
-		systemPromptFile = "HolidayActivityPlanner-system.md"
-		systemPrompt = AgentDefinition.get_system_prompt_from_file(systemPromptFile)
-		inputTasks = []
-		inputTasks.append({ "task": lambda: scenario, "prompt": "The scenario for the activities" })
-		actionOnResult = lambda plan : super().write_output_to_file("HolidayPlan", plan)
-		super().__init__(systemPrompt, inputTasks, actionOnResult, tools = self.getTools())
+		scenario = open(user_prompt_file, "r").read()
+		system_prompt_file = "HolidayActivityPlanner-system.md"
+		system_prompt = AgentDefinition.get_system_prompt_from_file(system_prompt_file)
+		input_tasks = []
+		input_tasks.append({ "task": lambda: scenario, "prompt": "The scenario for the activities" })
+		action_on_result = lambda plan : super().write_output_to_file("HolidayPlan", plan)
+		super().__init__(system_prompt, input_tasks, action_on_result, tools = self.getTools())
 
 	def getTools(self):
 		from Flows.PersonalAssistant.Functions.query_weather import get_current_weather_tool

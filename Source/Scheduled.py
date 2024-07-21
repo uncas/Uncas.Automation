@@ -1,3 +1,3 @@
-from Flows.PersonalAssistant.ScheduledAgents import runScheduledAgents
+from Flows.PersonalAssistant.scheduled_agents import runScheduledAgents
 
 runScheduledAgents()

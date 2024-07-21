@@ -1,8 +1,11 @@
+import logging
 from dotenv import load_dotenv
-from Flows.PersonalAssistant.Logger import foreground, background, style
-from Flows.PersonalAssistant.Utility.AiLog import AiLog
-from Flows.PersonalAssistant.Agents.agent_definition import AgentDefinition
+
 from openai import OpenAI
+
+from Flows.PersonalAssistant.old_logger import foreground, background, style
+from Flows.PersonalAssistant.Utility.ai_log import AiLog
+from Flows.PersonalAssistant.Agents.agent_definition import AgentDefinition
 
 defaultModel = "gpt-4o-mini"
 load_dotenv(override = True)
@@ -12,15 +15,15 @@ def runTaskedAgent(agent: AgentDefinition, model: str = defaultModel):
 	import json
 
 	client = OpenAI()
-	messages = [getSystemPrompt(agent.systemPrompt)]
+	messages = [getSystemPrompt(agent.system_prompt)]
 	userMessageContent = ""
-	for inputTask in agent.inputTasks:
+	for inputTask in agent.input_tasks:
 		taskResult = json.dumps(inputTask["task"]())
 		userMessageContent += inputTask["prompt"] + ": " + taskResult + "\n\n"
 	messages.append(getUserPrompt(userMessageContent))
 	messages = runToolLoop(client, model, agent.tools, messages)
 	assistantMessage = messages[-1].content
-	agent.actionOnResult(assistantMessage)
+	agent.action_on_result(assistantMessage)
 
 def runInteractiveChatLoop(model = defaultModel):
 	import os
@@ -83,7 +86,7 @@ def runToolLoop(client: OpenAI, model: str, tools: list, messages):
 	import json
 	openAiTools = [tool.map_to_open_ai_tool() for tool in tools]
 	toolMethods = {tool.name: tool.method for tool in tools}
-	maxIterations = 5
+	maxIterations = 10
 	messageCountAtLastLog = len(messages) - 1
 	for _ in range(maxIterations):
 		chatCompletion = client.chat.completions.create(
@@ -120,10 +123,13 @@ def runToolLoop(client: OpenAI, model: str, tools: list, messages):
 						"tool_call_id": toolCall.id,
 						"content": limitMessageContent(json.dumps(functionResponse))
 					})
+	logger = logging.getLogger(__name__)
+	logger.error("ERROR: Tool loop exited without stop reason, most likely due to too many iterations.")
+	return messages
 
 def runPersonalAssistant():
 	import logging
-	from Flows.PersonalAssistant.LoggerSetup import initLogger
+	from Flows.PersonalAssistant.logger_setup import initLogger
 	initLogger()
 	logger = logging.getLogger(__name__)
 	logger.info("Running Personal Assistant")
@@ -131,9 +137,9 @@ def runPersonalAssistant():
 	if mode == "1":
 		runInteractiveChatLoop()
 	elif mode == "2":
-		from Flows.PersonalAssistant.Agents.ActivityPlannerAgent import ActivityPlannerAgent
+		from Flows.PersonalAssistant.Agents.activity_planner_agent import ActivityPlannerAgent
 		runTaskedAgent(ActivityPlannerAgent())
 	elif mode == "3":
-		from Flows.PersonalAssistant.Agents.BlogWriterAgent import BlogWriterAgent
+		from Flows.PersonalAssistant.Agents.blog_writer_agent import BlogWriterAgent
 		runTaskedAgent(BlogWriterAgent())
 	logger.info("Exiting Personal Assistant")

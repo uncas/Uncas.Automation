@@ -1,4 +1,4 @@
-def readEmail():
+def read_email():
 	from Services.Google.GmailService import getInboxMessages
 	messages = getInboxMessages()
 	result = [{
@@ -29,4 +29,4 @@ def write_email_tool():
 
 def read_email_tool():
 	from Flows.PersonalAssistant.assistant_tools import AssistantTool
-	return AssistantTool(readEmail, "Read email")
+	return AssistantTool(read_email, "Read email")

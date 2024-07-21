@@ -1,6 +1,6 @@
 # RAG = Retrieval-Augmented Generation
 
-from Logger import Logger
+from Flows.PersonalAssistant.old_logger import Logger
 from dotenv import load_dotenv # type: ignore
 load_dotenv()
 import os
@@ -25,7 +25,7 @@ def combineDocs(docs):
 
 def askQuestion(question, conversationHistory):
 	logger.debug("A")
-	from EmbeddingVectorStore import getVectorStore
+	from Flows.PersonalAssistant.embedding_vector_store import getVectorStore
 	logger.debug("B")
 	from langchain_core.prompts import PromptTemplate
 	logger.debug("C")

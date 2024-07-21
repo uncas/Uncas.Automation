@@ -2,7 +2,7 @@
 
 class EmbeddingVectorStore:
     def __init__(self, directory):
-        from Flows.PersonalAssistant.Logger import Logger
+        from Flows.PersonalAssistant.old_logger import Logger
         self.directory = directory
         self.textSplitter = None
         self.embeddingFunction = None
@@ -34,6 +34,6 @@ class EmbeddingVectorStore:
         from langchain_chroma import Chroma # type: ignore
         return Chroma(persist_directory = self.directory, embedding_function = self.getEmbeddingFunction())
 
-    def getSimilarities(self, query):
+    def get_similarities(self, query):
         db = self.load()
         return db.similarity_search(query)

@@ -11,7 +11,7 @@ def initJira():
 	jiraServer = os.getenv("JIRA_SERVER") # The base URL of your Jira installation, for example if a link to an issue is https://example-jira.atlassian.net/browse/MYPROJ-123, then Jira server is https://example-jira.atlassian.net
 	return JIRA(jiraServer, basic_auth=(jiraUser, apiToken))
 
-def getMyJiraIssues():
+def get_my_jira_issues():
 	jira = initJira()
 	jql = os.getenv("JIRA_JQL_MY_ISSUES")
 	if not jql:
@@ -30,7 +30,7 @@ def getMyJiraIssues():
 def getFieldValue(issue, fieldName):
 	return issue.raw['fields'][fieldName]
 
-def createJiraIssue(data):
+def create_jira_issue(data):
 	summary = data["summary"]
 	description = data["description"]
 	jira = initJira()
@@ -44,11 +44,11 @@ def createJiraIssue(data):
 
 def create_jira_issue_tool():
 	from Flows.PersonalAssistant.assistant_tools import AssistantTool, AssistantToolParameter
-	return AssistantTool(createJiraIssue, "Create a Jira issue", [
+	return AssistantTool(create_jira_issue, "Create a Jira issue", [
 		AssistantToolParameter("summary", "The summary of the issue"),
 		AssistantToolParameter("description", "The description of the issue")
 	])
 
 def get_my_jira_issues_tool():
 	from Flows.PersonalAssistant.assistant_tools import AssistantTool
-	return AssistantTool(getMyJiraIssues, "Get all my Jira issues")
+	return AssistantTool(get_my_jira_issues, "Get all my Jira issues")

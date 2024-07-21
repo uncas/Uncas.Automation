@@ -52,13 +52,14 @@ def getAllTools():
 	from Flows.PersonalAssistant.Functions.theMovieDb import getWatchProvidersTool, getUnwatchedGoodWatchableMoviesTool
 	from Flows.PersonalAssistant.Resources.ResourceTools import getResourceTools
 	from Flows.PersonalAssistant.Functions.search_wikipedia import search_wikipedia_tool
-	from Flows.PersonalAssistant.Functions.search_internet import search_internet_tool
+	from Flows.PersonalAssistant.Functions.search_internet import search_internet_tool, find_images_tool
 	from Flows.PersonalAssistant.Functions.ask_user import ask_user_tool
 
 	tools = [
 		ask_user_tool(),
 		createJiraIssueTool(),
 		findInfoInDocsTool(),
+		find_images_tool(),
 		getCurrentWeatherTool(),
 		getDateAndTimeTool(),
 		get_latest_news_tool(),

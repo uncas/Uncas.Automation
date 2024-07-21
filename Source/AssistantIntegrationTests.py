@@ -44,3 +44,9 @@ class AssistantIntegrationTests(unittest.TestCase):
 		result = search_internet("Covid-19", top_results_to_return = 10, country_code = "dk", language_code = "da")
 		for item in result:
 			print(item["title"], item["href"])
+
+	def test_read_web_page(self):
+		from Services.web_page_reader import read_web_page_text, read_web_page_markdown
+		from Utils.FileUtils import writeText
+		writeText("Output", "google_com.txt", read_web_page_text("https://www.google.com"))
+		writeText("Output", "google_com.md", read_web_page_markdown("https://www.google.com"))

@@ -4,8 +4,13 @@ class NewAssistantIntegrationTests(unittest.TestCase):
 	def test_pass(self):
 		pass
 
-	def test_read_web_page(self):
-		from Services.web_page_reader import read_web_page_text, read_web_page_markdown
+	def test_find_images(self):
+		import json
+		from Services.internet_search_service import find_images
 		from Utils.FileUtils import writeText
-		writeText("Output", "google_com.txt", read_web_page_text("https://www.google.com"))
-		writeText("Output", "google_com.md", read_web_page_markdown("https://www.google.com"))
+
+		images = list(find_images("python", top_results_to_return = 5))
+		self.assertEqual(len(images), 5)
+		for image in images:
+			print(image)
+		writeText("Output", "images.json", json.dumps(images, indent = 4))

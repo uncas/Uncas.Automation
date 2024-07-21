@@ -1,7 +1,6 @@
 import unittest
 
 class AssistantIntegrationTests(unittest.TestCase):
-	@unittest.skip("Skipping for now")
 	def test_downloadGoogleDocTestContent(self):
 		from Services.Google.GoogleDocsService import downloadDocumentContent
 		from Utils.FileUtils import writeText, getFilePath
@@ -12,21 +11,18 @@ class AssistantIntegrationTests(unittest.TestCase):
 		content = downloadDocumentContent(testDocId)["content"]
 		writeText(getFilePath("Tests"), "GoogleDocContent.json", json.dumps(content, indent = 4))
 
-	@unittest.skip("Skipping for now")
 	def test_GoogleMapsDirections(self):
 		from Services.Google.GoogleMapsService import GoogleMapsService
 		result = GoogleMapsService.GetDirections("Berlin, Germany", "Paris, France")
 		self.assertGreater(result["distanceInKm"], 1000)
 		self.assertGreater(result["durationInMinutes"], 500)
 
-	@unittest.skip("Skipping for now")
 	def test_getMails(self):
 		from Services.Google.GmailService import getInboxMessages
 		messages = getInboxMessages()
 		for message in messages:
 			print("From " + message["sender"] + ": " + message["subject"])
 	
-	@unittest.skip("Skipping for now")
 	def test_get_electric_cars_in_denmark(self):
 		from Services.eletric_cars_service import get_electric_cars_in_denmark
 		cars = get_electric_cars_in_denmark()
@@ -42,3 +38,9 @@ class AssistantIntegrationTests(unittest.TestCase):
 		from Services.wikipedia_service import search_wikipedia_langchain
 		result = search_wikipedia_langchain("Covid-19")
 		print("wikipedia_langchain: " + result)
+
+	def test_search_internet(self):
+		from Services.internet_search_service import search_internet
+		result = search_internet("Covid-19", top_results_to_return = 10, country_code = "dk", language_code = "da")
+		for item in result:
+			print(item["title"], item["href"])

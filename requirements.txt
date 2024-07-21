@@ -48,3 +48,6 @@ googlemaps
 
 # For looking up in wikipedia:
 wikipedia
+
+# For finding web pages on the internet:
+duckduckgo_search

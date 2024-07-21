@@ -52,28 +52,28 @@ def getAllTools():
 	from Flows.PersonalAssistant.Functions.theMovieDb import getWatchProvidersTool, getUnwatchedGoodWatchableMoviesTool
 	from Flows.PersonalAssistant.Resources.ResourceTools import getResourceTools
 	from Flows.PersonalAssistant.Functions.search_wikipedia import search_wikipedia_tool
+	from Flows.PersonalAssistant.Functions.search_internet import search_internet_tool
 
-	tools = []
-
-	tools.append(createJiraIssueTool())
-	tools.append(findInfoInDocsTool())
-
-	tools.append(getCurrentWeatherTool())
-	tools.append(getDateAndTimeTool())
-	tools.append(getLatestNewsTool())
-	tools.append(getLocationTool())
-	tools.append(getMyJiraIssuesTool())
-	tools.append(getNewsDetailsTool())
-	tools.append(getTodaysCalendarEventsTool())
-	tools.append(getTravelDirectionsTool())
-	tools.append(getUnwatchedGoodWatchableMoviesTool())
-	tools.append(getWatchProvidersTool())
-
-	tools.append(readEmailTool())
-	tools.append(readWebPageTool())
-	tools.append(search_wikipedia_tool())
-	tools.append(searchArxivTool())
-	tools.append(writeEmailTool())
+	tools = [
+		createJiraIssueTool(),
+		findInfoInDocsTool(),
+		getCurrentWeatherTool(),
+		getDateAndTimeTool(),
+		getLatestNewsTool(),
+		getLocationTool(),
+		getMyJiraIssuesTool(),
+		getNewsDetailsTool(),
+		getTodaysCalendarEventsTool(),
+		getTravelDirectionsTool(),
+		getUnwatchedGoodWatchableMoviesTool(),
+		getWatchProvidersTool(),
+		readEmailTool(),
+		readWebPageTool(),
+		search_internet_tool(),
+		search_wikipedia_tool(),
+		searchArxivTool(),
+		writeEmailTool()
+	]
 
 	for tool in getResourceTools():
 		tools.append(tool)

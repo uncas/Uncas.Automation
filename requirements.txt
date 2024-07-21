@@ -45,3 +45,6 @@ html2text
 
 # For route planning and driving directions:
 googlemaps
+
+# For looking up in wikipedia:
+wikipedia

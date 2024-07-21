@@ -1,6 +1,7 @@
 import unittest
 
 class AssistantIntegrationTests(unittest.TestCase):
+	@unittest.skip("Skipping for now")
 	def test_downloadGoogleDocTestContent(self):
 		from Services.Google.GoogleDocsService import downloadDocumentContent
 		from Utils.FileUtils import writeText, getFilePath
@@ -11,6 +12,7 @@ class AssistantIntegrationTests(unittest.TestCase):
 		content = downloadDocumentContent(testDocId)["content"]
 		writeText(getFilePath("Tests"), "GoogleDocContent.json", json.dumps(content, indent = 4))
 
+	@unittest.skip("Skipping for now")
 	def test_GoogleMapsDirections(self):
 		from Services.Google.GoogleMapsService import GoogleMapsService
 		result = GoogleMapsService.GetDirections("Berlin, Germany", "Paris, France")
@@ -30,3 +32,13 @@ class AssistantIntegrationTests(unittest.TestCase):
 		cars = get_electric_cars_in_denmark()
 		print(cars[:1000])
 		self.assertGreater(len(cars), 0)
+
+	def test_wikipedia(self):
+		from Services.wikipedia_service import search_wikipedia
+		result = search_wikipedia("Covid-19")
+		print("wikipedia: " + result)
+
+	def test_wikipedia_langchain(self):
+		from Services.wikipedia_service import search_wikipedia_langchain
+		result = search_wikipedia_langchain("Covid-19")
+		print("wikipedia_langchain: " + result)

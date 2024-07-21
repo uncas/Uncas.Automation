@@ -51,6 +51,7 @@ def getAllTools():
 	from Flows.PersonalAssistant.Functions.searchArxiv import searchArxivTool
 	from Flows.PersonalAssistant.Functions.theMovieDb import getWatchProvidersTool, getUnwatchedGoodWatchableMoviesTool
 	from Flows.PersonalAssistant.Resources.ResourceTools import getResourceTools
+	from Flows.PersonalAssistant.Functions.search_wikipedia import search_wikipedia_tool
 
 	tools = []
 
@@ -70,6 +71,7 @@ def getAllTools():
 
 	tools.append(readEmailTool())
 	tools.append(readWebPageTool())
+	tools.append(search_wikipedia_tool())
 	tools.append(searchArxivTool())
 	tools.append(writeEmailTool())
 

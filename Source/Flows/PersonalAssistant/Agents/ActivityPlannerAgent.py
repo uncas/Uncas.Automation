@@ -33,6 +33,7 @@ class ActivityPlannerAgent(AgentDefinition):
 		from Flows.PersonalAssistant.Functions.getTravelDirections import getTravelDirectionsTool
 		from Flows.PersonalAssistant.Functions.getLatestNews import getLatestNewsTool, getNewsDetailsTool
 		from Flows.PersonalAssistant.Functions.readWebPage import readWebPageTool
+		from Flows.PersonalAssistant.Functions.search_wikipedia import search_wikipedia_tool
 
 		tools = []
 		tools.append(getCurrentWeatherTool())
@@ -42,4 +43,5 @@ class ActivityPlannerAgent(AgentDefinition):
 		tools.append(getNewsDetailsTool())
 		tools.append(getTravelDirectionsTool())
 		tools.append(readWebPageTool())
+		tools.append(search_wikipedia_tool())
 		return tools

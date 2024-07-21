@@ -17,7 +17,7 @@ def searchArxiv(data):
 	# https://info.arxiv.org/help/api/user-manual.html#52-details-of-atom-results-returned
 	return [{"summary": r.summary, "title": r.title} for r in results]
 
-def searchArxivTool():
+def search_arxiv_tool():
 	from Flows.PersonalAssistant.AssistantTools import AssistantTool, AssistantToolParameter
 	return AssistantTool(searchArxiv, "Search arXiv.org for articles on physics, mathematics, computer science, quantitative biology, quantitative finance, statistics, electrical engineering and systems science, and economics", [
 		AssistantToolParameter("query", "The query to search for"),

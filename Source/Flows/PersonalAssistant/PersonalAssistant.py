@@ -127,10 +127,13 @@ def runPersonalAssistant():
 	initLogger()
 	logger = logging.getLogger(__name__)
 	logger.info("Running Personal Assistant")
-	mode = input("How can I help you? Select: 1 = Chat, 2 = Holiday planner : ")
+	mode = input("How can I help you? Select: 1 = Chat, 2 = Holiday planner, 3 = Blog writer : ")
 	if mode == "1":
 		runInteractiveChatLoop()
 	elif mode == "2":
 		from Flows.PersonalAssistant.Agents.ActivityPlannerAgent import ActivityPlannerAgent
 		runTaskedAgent(ActivityPlannerAgent())
+	elif mode == "3":
+		from Flows.PersonalAssistant.Agents.BlogWriterAgent import BlogWriterAgent
+		runTaskedAgent(BlogWriterAgent())
 	logger.info("Exiting Personal Assistant")

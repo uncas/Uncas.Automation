@@ -10,6 +10,14 @@ This repository contains various automations scripts.
   - [View the readme](Source/Flows/PersonalAssistant/Readme.md)
 
 
+## Style guide
+
+Follow the standard [Python style guide](https://pep8.org/).
+
+(I started this repo using a C# influenced style guide,
+but will change to the Python style along the way.)
+
+
 ## Other things
 
 Besides the personal AI assistant, there are various experiments and minor scripts (finished, unfinished, or abandoned), primarily located in the following folders:

@@ -16,34 +16,27 @@ class ActivityPlannerAgent(AgentDefinition):
 		systemPrompt = AgentDefinition.getSystemPromptFromFile(systemPromptFile)
 		inputTasks = []
 		inputTasks.append({ "task": lambda: scenario, "prompt": "The scenario for the activities" })
-		actionOnResult = self.writePlan
+		actionOnResult = lambda plan : super().write_output_to_file("HolidayPlan", plan)
 		super().__init__(systemPrompt, inputTasks, actionOnResult, tools = self.getTools())
 
-	def writePlan(self, plan):
-		from Utils.FileUtils import writeText
-		import datetime
-		dateString = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
-		fileName = "HolidayPlan-" + dateString + ".md"
-		writeText("Output", fileName, plan)
-	
 	def getTools(self):
 		from Flows.PersonalAssistant.Functions.getCurrentWeather import getCurrentWeatherTool
 		from Flows.PersonalAssistant.Functions.getDateAndTime import getDateAndTimeTool
 		from Flows.PersonalAssistant.Functions.getLocation import getLocationTool
 		from Flows.PersonalAssistant.Functions.getTravelDirections import getTravelDirectionsTool
-		from Flows.PersonalAssistant.Functions.getLatestNews import getLatestNewsTool, getNewsDetailsTool
-		from Flows.PersonalAssistant.Functions.readWebPage import readWebPageTool
+		from Flows.PersonalAssistant.Functions.getLatestNews import get_latest_news_tool, get_news_details_tool
+		from Flows.PersonalAssistant.Functions.readWebPage import read_web_page_tool
 		from Flows.PersonalAssistant.Functions.search_wikipedia import search_wikipedia_tool
 		from Flows.PersonalAssistant.Functions.search_internet import search_internet_tool
 
 		return [
 			getCurrentWeatherTool(),
 			getDateAndTimeTool(),
-			getLatestNewsTool(),
+			get_latest_news_tool(),
 			getLocationTool(),
-			getNewsDetailsTool(),
+			get_news_details_tool(),
 			getTravelDirectionsTool(),
-			readWebPageTool(),
+			read_web_page_tool(),
 			search_wikipedia_tool(),
 			search_internet_tool()
 		]

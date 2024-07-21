@@ -5,7 +5,7 @@ def readWebPage(data):
 	soup = bs4.BeautifulSoup(response.text, 'html.parser')
 	return soup.body.get_text(' ', strip = True)
 
-def readWebPageTool():
+def read_web_page_tool():
 	from Flows.PersonalAssistant.AssistantTools import AssistantTool, AssistantToolParameter
 	return AssistantTool(readWebPage, "Read web page", [
 		AssistantToolParameter("url", "The url of the web page")

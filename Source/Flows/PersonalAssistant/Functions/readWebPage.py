@@ -1,9 +1,7 @@
 def readWebPage(data):
+	from Services.web_page_reader import read_web_page
 	url = data["url"]
-	import bs4, requests
-	response = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
-	soup = bs4.BeautifulSoup(response.text, 'html.parser')
-	return soup.body.get_text(' ', strip = True)
+	return read_web_page(url)
 
 def read_web_page_tool():
 	from Flows.PersonalAssistant.AssistantTools import AssistantTool, AssistantToolParameter

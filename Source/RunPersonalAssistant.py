@@ -1,3 +1,3 @@
-from Flows.PersonalAssistant.PersonalAssistant import runPersonalAssistant
+from Flows.PersonalAssistant.personal_assistant import runPersonalAssistant
 
 runPersonalAssistant()

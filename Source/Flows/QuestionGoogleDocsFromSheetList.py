@@ -1,7 +1,7 @@
 from Services.Google.GoogleSheetsService import readSheet
 from Services.Google.GoogleDocsService import readDocument
 from Services.Google.GooglePresentationsService import readPresentation
-from Source.Utils.Settings import getSetting
+from Utils.Settings import getSetting
 from Tools.Ai.QaPipeline import questionDocuments
 from Utils.FileUtils import writeText
 

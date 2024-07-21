@@ -43,12 +43,12 @@ def createJiraIssue(data):
 	return {"key": issue.key, "summary": issue.fields.summary, "description": issue.fields.description}
 
 def create_jira_issue_tool():
-	from Flows.PersonalAssistant.AssistantTools import AssistantTool, AssistantToolParameter
+	from Flows.PersonalAssistant.assistant_tools import AssistantTool, AssistantToolParameter
 	return AssistantTool(createJiraIssue, "Create a Jira issue", [
 		AssistantToolParameter("summary", "The summary of the issue"),
 		AssistantToolParameter("description", "The description of the issue")
 	])
 
 def get_my_jira_issues_tool():
-	from Flows.PersonalAssistant.AssistantTools import AssistantTool
+	from Flows.PersonalAssistant.assistant_tools import AssistantTool
 	return AssistantTool(getMyJiraIssues, "Get all my Jira issues")

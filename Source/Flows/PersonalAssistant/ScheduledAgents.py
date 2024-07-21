@@ -1,6 +1,6 @@
 def runScheduledAgents():
 	from Flows.PersonalAssistant.Agents.MailCalendarTaskAgent import MailCalendarTaskAgent
-	from Flows.PersonalAssistant.PersonalAssistant import runTaskedAgent
+	from Flows.PersonalAssistant.personal_assistant import runTaskedAgent
 	import logging
 	from Flows.PersonalAssistant.LoggerSetup import initLogger
 	initLogger()

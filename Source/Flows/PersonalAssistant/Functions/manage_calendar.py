@@ -7,5 +7,5 @@ def getTodaysCalendarEvents():
 	return list(getTodaysCalendarEvents(20))
 
 def get_todays_calendar_events_tool():
-	from Flows.PersonalAssistant.AssistantTools import AssistantTool
+	from Flows.PersonalAssistant.assistant_tools import AssistantTool
 	return AssistantTool(getTodaysCalendarEvents, "Get todays calendar events")

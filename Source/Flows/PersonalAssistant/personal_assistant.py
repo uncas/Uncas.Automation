@@ -25,7 +25,7 @@ def runTaskedAgent(agent: AgentDefinition, model: str = defaultModel):
 def runInteractiveChatLoop(model = defaultModel):
 	import os
 	from openai import OpenAI
-	from Flows.PersonalAssistant.AssistantTools import get_all_tools
+	from Flows.PersonalAssistant.assistant_tools import get_all_tools
 	from Utils.Settings import getSetting
 	if not os.getenv("OPENAI_API_KEY"):
 		import logging

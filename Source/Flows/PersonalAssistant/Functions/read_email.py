@@ -19,7 +19,7 @@ def writeEmail(data):
 	createDraft(recipient, subject, body, internalMessageId)
 
 def write_email_tool():
-	from Flows.PersonalAssistant.AssistantTools import AssistantTool, AssistantToolParameter
+	from Flows.PersonalAssistant.assistant_tools import AssistantTool, AssistantToolParameter
 	return AssistantTool(writeEmail, "Write an email", [
 		AssistantToolParameter("recipient", "The recipient of the email"),
 		AssistantToolParameter("subject", "The subject of the email"),
@@ -28,5 +28,5 @@ def write_email_tool():
 	])
 
 def read_email_tool():
-	from Flows.PersonalAssistant.AssistantTools import AssistantTool
+	from Flows.PersonalAssistant.assistant_tools import AssistantTool
 	return AssistantTool(readEmail, "Read email")

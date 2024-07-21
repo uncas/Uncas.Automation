@@ -1,6 +1,6 @@
 def get_resource_tools():
 	import re
-	from Flows.PersonalAssistant.AssistantTools import AssistantTool, AssistantToolParameter
+	from Flows.PersonalAssistant.assistant_tools import AssistantTool, AssistantToolParameter
 	resources = getResources()
 	idPattern = re.compile("^[a-zA-Z0-9_-]+$")
 	for resource in resources:

@@ -21,7 +21,7 @@ def findInfoInDocs(input):
 	return result
 
 def find_info_in_docs_tool():
-	from Flows.PersonalAssistant.AssistantTools import AssistantTool, AssistantToolParameter
+	from Flows.PersonalAssistant.assistant_tools import AssistantTool, AssistantToolParameter
 	return AssistantTool(findInfoInDocs, "Find info in work-related documentation", [
 		AssistantToolParameter("query", "The thing to search for in the documentation")
 	])

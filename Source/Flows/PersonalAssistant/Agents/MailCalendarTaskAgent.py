@@ -11,7 +11,7 @@ class MailCalendarTaskAgent(AgentDefinition):
 		from Flows.PersonalAssistant.Functions.manage_calendar import getTodaysCalendarEvents
 		from Flows.PersonalAssistant.Functions.manage_jira import getMyJiraIssues, createJiraIssue
 		from Flows.PersonalAssistant.Functions.read_email import readEmail
-		from Flows.PersonalAssistant.AssistantTools import get_all_tools
+		from Flows.PersonalAssistant.assistant_tools import get_all_tools
 
 		systemPromptFile = "TaskCalendarMailAssistant.md"
 		systemPrompt = AgentDefinition.get_system_prompt_from_file(systemPromptFile)

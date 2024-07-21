@@ -4,7 +4,7 @@ def read_web_page_text(data):
 	return read_web_page_text(url)
 
 def read_web_page_text_tool():
-	from Flows.PersonalAssistant.AssistantTools import AssistantTool, AssistantToolParameter
+	from Flows.PersonalAssistant.assistant_tools import AssistantTool, AssistantToolParameter
 	return AssistantTool(read_web_page_text, "Read the text from a web page", [
 		AssistantToolParameter("url", "The url of the web page")
 	])
@@ -15,7 +15,7 @@ def read_web_page_markdown(data):
 	return read_web_page_markdown(url)
 
 def read_web_page_markdown_tool():
-	from Flows.PersonalAssistant.AssistantTools import AssistantTool, AssistantToolParameter
+	from Flows.PersonalAssistant.assistant_tools import AssistantTool, AssistantToolParameter
 	return AssistantTool(read_web_page_markdown, "Read the text and links and images from a web page, as markdown; this can be useful for diving deeper into links or for reusing images.", [
 		AssistantToolParameter("url", "The url of the web page")
 	])

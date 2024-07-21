@@ -19,8 +19,10 @@ class BlogWriterAgent(AgentDefinition):
 		from Flows.PersonalAssistant.Functions.search_wikipedia import search_wikipedia_tool
 		from Flows.PersonalAssistant.Functions.search_internet import search_internet_tool
 		from Flows.PersonalAssistant.Functions.searchArxiv import search_arxiv_tool
+		from Flows.PersonalAssistant.Functions.ask_user import ask_user_tool
 
 		return [
+			ask_user_tool(),
 			get_latest_news_tool(),
 			get_news_details_tool(),
 			read_web_page_tool(),

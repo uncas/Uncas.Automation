@@ -16,6 +16,10 @@ Follow these steps:
 
 - Then research more deeply about the content for each part of the outline.
 
+- Then ask me for input on questions that you may be in doubt about what I think or feel about them.
+
+- Then feel free to do further research based on my answers.
+
 - Then fill in the details in each part of the outline, to finally have a full blog post.
 
 # OUTPUT INSTRUCTIONS

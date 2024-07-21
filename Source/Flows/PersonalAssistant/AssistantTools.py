@@ -47,7 +47,7 @@ def getAllTools():
 	from Flows.PersonalAssistant.Functions.findInfoInDocs import findInfoInDocsTool
 	from Flows.PersonalAssistant.Functions.getLatestNews import get_latest_news_tool, get_news_details_tool
 	from Flows.PersonalAssistant.Functions.readEmail import readEmailTool, writeEmailTool
-	from Flows.PersonalAssistant.Functions.readWebPage import read_web_page_tool
+	from Flows.PersonalAssistant.Functions.read_web_page import read_web_page_text_tool, read_web_page_markdown_tool
 	from Flows.PersonalAssistant.Functions.searchArxiv import search_arxiv_tool
 	from Flows.PersonalAssistant.Functions.theMovieDb import getWatchProvidersTool, getUnwatchedGoodWatchableMoviesTool
 	from Flows.PersonalAssistant.Resources.ResourceTools import getResourceTools
@@ -70,7 +70,8 @@ def getAllTools():
 		getUnwatchedGoodWatchableMoviesTool(),
 		getWatchProvidersTool(),
 		readEmailTool(),
-		read_web_page_tool(),
+		read_web_page_markdown_tool(),
+		read_web_page_text_tool(),
 		search_internet_tool(),
 		search_wikipedia_tool(),
 		search_arxiv_tool(),

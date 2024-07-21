@@ -15,7 +15,7 @@ class BlogWriterAgent(AgentDefinition):
 
 	def get_tools(self):
 		from Flows.PersonalAssistant.Functions.getLatestNews import get_latest_news_tool, get_news_details_tool
-		from Flows.PersonalAssistant.Functions.readWebPage import read_web_page_tool
+		from Flows.PersonalAssistant.Functions.read_web_page import read_web_page_text_tool, read_web_page_markdown_tool
 		from Flows.PersonalAssistant.Functions.search_wikipedia import search_wikipedia_tool
 		from Flows.PersonalAssistant.Functions.search_internet import search_internet_tool
 		from Flows.PersonalAssistant.Functions.searchArxiv import search_arxiv_tool
@@ -25,7 +25,8 @@ class BlogWriterAgent(AgentDefinition):
 			ask_user_tool(),
 			get_latest_news_tool(),
 			get_news_details_tool(),
-			read_web_page_tool(),
+			read_web_page_markdown_tool(),
+			read_web_page_text_tool(),
 			search_arxiv_tool(),
 			search_wikipedia_tool(),
 			search_internet_tool()

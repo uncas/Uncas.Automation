@@ -25,7 +25,7 @@ class ActivityPlannerAgent(AgentDefinition):
 		from Flows.PersonalAssistant.Functions.getLocation import getLocationTool
 		from Flows.PersonalAssistant.Functions.getTravelDirections import getTravelDirectionsTool
 		from Flows.PersonalAssistant.Functions.getLatestNews import get_latest_news_tool, get_news_details_tool
-		from Flows.PersonalAssistant.Functions.readWebPage import read_web_page_tool
+		from Flows.PersonalAssistant.Functions.read_web_page import read_web_page_text_tool
 		from Flows.PersonalAssistant.Functions.search_wikipedia import search_wikipedia_tool
 		from Flows.PersonalAssistant.Functions.search_internet import search_internet_tool
 
@@ -36,7 +36,7 @@ class ActivityPlannerAgent(AgentDefinition):
 			getLocationTool(),
 			get_news_details_tool(),
 			getTravelDirectionsTool(),
-			read_web_page_tool(),
+			read_web_page_text_tool(),
 			search_wikipedia_tool(),
 			search_internet_tool()
 		]

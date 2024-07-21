@@ -20,6 +20,8 @@ Follow these steps:
 
 - Then feel free to do further research based on my answers.
 
+- Find some nice images from the research to include as markdown in the output.
+
 - Then fill in the details in each part of the outline, to finally have a full blog post.
 
 # OUTPUT INSTRUCTIONS

@@ -26,3 +26,13 @@ def getNewsDetails(input):
 	content = article.find('div', itemprop = itemprop)
 	text = content.get_text()
 	return text
+
+def getLatestNewsTool():
+	from Flows.PersonalAssistant.AssistantTools import AssistantTool
+	return AssistantTool(getLatestNews, "Get the latest news")
+
+def getNewsDetailsTool():
+	from Flows.PersonalAssistant.AssistantTools import AssistantTool, AssistantToolParameter
+	return AssistantTool(getNewsDetails, "Get details about news in the provided link", [
+		AssistantToolParameter("newsLink", "The link to the news")
+	])

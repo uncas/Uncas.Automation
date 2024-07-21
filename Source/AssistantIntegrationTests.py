@@ -10,3 +10,9 @@ class AssistantIntegrationTests(unittest.TestCase):
 		testDocId = "16dKNw3t1YTIpYiypDDZ-_eYgWbEovSxxyhfzJml98YE"
 		content = downloadDocumentContent(testDocId)["content"]
 		writeText(getFilePath("Tests"), "GoogleDocContent.json", json.dumps(content, indent = 4))
+
+	def test_GoogleMapsDirections(self):
+		from Services.Google.GoogleMapsService import GoogleMapsService
+		result = GoogleMapsService.GetDirections("Berlin, Germany", "Paris, France")
+		self.assertGreater(result["distanceInKm"], 1000)
+		self.assertGreater(result["durationInMinutes"], 500)

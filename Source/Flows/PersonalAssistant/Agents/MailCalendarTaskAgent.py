@@ -11,8 +11,10 @@ class MailCalendarTaskAgent(AgentDefinition):
 		from Flows.PersonalAssistant.Functions.getCalendarEvents import getTodaysCalendarEvents
 		from Flows.PersonalAssistant.Functions.createJiraIssue import getMyJiraIssues, createJiraIssue
 		from Flows.PersonalAssistant.Functions.readEmail import readEmail
+		from Flows.PersonalAssistant.AssistantTools import getAllTools
 
 		systemPromptFile = "TaskCalendarMailAssistant.md"
+		systemPrompt = AgentDefinition.getSystemPromptFromFile(systemPromptFile)
 
 		inputTasks = []
 		inputTasks.append({ "task": lambda: getTodaysCalendarEvents(), "prompt": "Today's calendar events" })
@@ -21,5 +23,4 @@ class MailCalendarTaskAgent(AgentDefinition):
 
 		taskSummary = "Task/Calendar/Mail assistant summary, " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 		actionOnResult = lambda result : createJiraIssue({"summary": taskSummary, "description": result})
-
-		super().__init__(systemPromptFile, inputTasks, actionOnResult)
+		super().__init__(systemPrompt, inputTasks, actionOnResult, tools = getAllTools())

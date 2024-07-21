@@ -42,3 +42,6 @@ jira
 
 # For converting Google Docs -> Html -> Markdown:
 html2text
+
+# For route planning and driving directions:
+googlemaps

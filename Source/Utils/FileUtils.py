@@ -1,4 +1,4 @@
-def writeText(folder, file, text):
+def writeText(folder : str, file : str, text : str):
 	writeOrAppendText(folder, file, text, "w")
 
 def appendText(folder, file, text):

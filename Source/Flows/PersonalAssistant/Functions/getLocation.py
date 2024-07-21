@@ -8,3 +8,7 @@ def getLocation():
 		"state": data["region"],
 		"country": data["country_name"]
 	}
+
+def getLocationTool():
+	from Flows.PersonalAssistant.AssistantTools import AssistantTool
+	return AssistantTool(getLocation, "Get the user's current location")

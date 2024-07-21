@@ -2,44 +2,40 @@ from dotenv import load_dotenv
 from Flows.PersonalAssistant.Logger import foreground, background, style
 from Flows.PersonalAssistant.Utility.AiLog import AiLog
 from Flows.PersonalAssistant.Agents.AgentDefinition import AgentDefinition
+from openai import OpenAI
 
 defaultModel = "gpt-4o-mini"
 load_dotenv(override = True)
 aiLog = AiLog()
 
-def runTaskedAgent(agentDefinition: AgentDefinition, model : str = defaultModel):
-	from openai import OpenAI
-	from Flows.PersonalAssistant.AssistantTools import getTools
+def runTaskedAgent(agent: AgentDefinition, model: str = defaultModel):
 	import json
 
-	toolList = getTools()
 	client = OpenAI()
-	messages = []
-	messages.append(getSystemPrompt(agentDefinition.systemPromptFile))
+	messages = [getSystemPrompt(agent.systemPrompt)]
 	userMessageContent = ""
-	for inputTask in agentDefinition.inputTasks:
+	for inputTask in agent.inputTasks:
 		taskResult = json.dumps(inputTask["task"]())
 		userMessageContent += inputTask["prompt"] + ": " + taskResult + "\n\n"
 	messages.append(getUserPrompt(userMessageContent))
-	messages = runToolLoop(client, model, toolList, messages)
+	messages = runToolLoop(client, model, agent.tools, messages)
 	assistantMessage = messages[-1].content
-	agentDefinition.actionOnResult(assistantMessage)
+	agent.actionOnResult(assistantMessage)
 
 def runInteractiveChatLoop(model = defaultModel):
 	import os
 	from openai import OpenAI
-	from Flows.PersonalAssistant.AssistantTools import getTools
+	from Flows.PersonalAssistant.AssistantTools import getAllTools
 	from Utils.Settings import getSetting
-	toolList = getTools()
 	if not os.getenv("OPENAI_API_KEY"):
 		import logging
 		logger = logging.getLogger(__name__)
 		logger.critical('FATAL ERROR: OPENAI_API_KEY needed. Set the value in a .env file: echo "OPENAI_API_KEY=YOUR_API_KEY_VALUE" >> .env')
 		exit(1)
 	client = OpenAI()
-	messages = []
-	messages.append(getSystemPrompt("InteractiveAssistantLoop.md"))
+	messages = [getSystemPromptFromFile("InteractiveAssistantLoop.md")]
 	callName = getSetting("assistant", {}).get("callName", "You")
+	tools = getAllTools()
 	while True:
 		prompt = input(background.BLUE + foreground.WHITE + getRoleConsoleLine(callName) + " ")
 		print()
@@ -47,7 +43,7 @@ def runInteractiveChatLoop(model = defaultModel):
 			printAssistantMessage("Good bye!")
 			return
 		messages.append(getUserPrompt(prompt))
-		messages = runToolLoop(client, model, toolList, messages)
+		messages = runToolLoop(client, model, tools, messages)
 
 def getRoleConsoleLine(role : str):
 	return "  " + role.ljust(11) + style.RESET_ALL + " : "
@@ -67,10 +63,13 @@ def limitMessageContent(content):
 		return content[:maxMessageContentLength] + "..."
 	return content
 
-def getSystemPrompt(fileName):
+def getSystemPrompt(systemPrompt):
+	return { "role": "system", "content": limitMessageContent(systemPrompt) }
+
+def getSystemPromptFromFile(fileName):
 	with open("Source/Flows/PersonalAssistant/Prompts/" + fileName, "r") as file:
 		systemPrompt = file.read()
-		return { "role": "system", "content": limitMessageContent(systemPrompt) }
+		return getSystemPrompt(systemPrompt)
 
 def printAssistantMessage(content):
 	print(background.GREEN + foreground.WHITE + getRoleConsoleLine("Assistant"), content)
@@ -80,17 +79,17 @@ def printToolMessage(content):
 	print(background.YELLOW + foreground.WHITE + getRoleConsoleLine("Tool"), content)
 	print()
 
-def runToolLoop(client, model, toolList, messages):
+def runToolLoop(client: OpenAI, model: str, tools: list, messages):
 	import json
-	tools = [tool.mapToOpenAiTool() for tool in toolList]
-	toolMethods = {tool.name: tool.method for tool in toolList}
+	openAiTools = [tool.mapToOpenAiTool() for tool in tools]
+	toolMethods = {tool.name: tool.method for tool in tools}
 	maxIterations = 5
 	messageCountAtLastLog = len(messages) - 1
 	for _ in range(maxIterations):
 		chatCompletion = client.chat.completions.create(
 			messages = messages,
 			model = model,
-			tools = tools
+			tools = openAiTools
 		)
 		choice = chatCompletion.choices[0]
 		finishReason = choice.finish_reason
@@ -128,5 +127,10 @@ def runPersonalAssistant():
 	initLogger()
 	logger = logging.getLogger(__name__)
 	logger.info("Running Personal Assistant")
-	runInteractiveChatLoop()
+	mode = input("How can I help you? Select: 1 = Chat, 2 = Holiday planner : ")
+	if mode == "1":
+		runInteractiveChatLoop()
+	elif mode == "2":
+		from Flows.PersonalAssistant.Agents.ActivityPlannerAgent import ActivityPlannerAgent
+		runTaskedAgent(ActivityPlannerAgent())
 	logger.info("Exiting Personal Assistant")

@@ -16,3 +16,12 @@ def searchArxiv(data):
 	results = client.results(search)
 	# https://info.arxiv.org/help/api/user-manual.html#52-details-of-atom-results-returned
 	return [{"summary": r.summary, "title": r.title} for r in results]
+
+def searchArxivTool():
+	from Flows.PersonalAssistant.AssistantTools import AssistantTool, AssistantToolParameter
+	return AssistantTool(searchArxiv, "Search arXiv.org for articles on physics, mathematics, computer science, quantitative biology, quantitative finance, statistics, electrical engineering and systems science, and economics", [
+		AssistantToolParameter("query", "The query to search for"),
+		AssistantToolParameter("maxResults", "The maximum number of results to return", type = "integer"),
+		AssistantToolParameter("sortBy", "The field to sort by", enum = ["relevance", "lastUpdatedDate", "submittedDate"]),
+		AssistantToolParameter("sortOrder", "The order to sort by", enum = ["ascending", "descending"])
+	])

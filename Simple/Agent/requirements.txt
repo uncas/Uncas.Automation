@@ -9,6 +9,7 @@ openai
 langchain
 langchain_community
 langchainhub
+langchain-openai
 
 # Tools:
 wikipedia

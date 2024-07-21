@@ -4,7 +4,7 @@ def getTravelDirections(data):
 	from Services.Google.GoogleMapsService import GoogleMapsService
 	return GoogleMapsService.GetDirections(fromLocation, toLocation)
 
-def getTravelDirectionsTool():
+def get_travel_directions_tool():
 	from Flows.PersonalAssistant.AssistantTools import AssistantTool, AssistantToolParameter
 	return AssistantTool(getTravelDirections, "Get travel directions", [
 		AssistantToolParameter("fromLocation", "The location to start from"),

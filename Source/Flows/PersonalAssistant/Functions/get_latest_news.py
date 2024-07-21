@@ -27,11 +27,11 @@ def getNewsDetails(input):
 	text = content.get_text()
 	return text
 
-def getLatestNewsTool():
+def get_latest_news_tool():
 	from Flows.PersonalAssistant.AssistantTools import AssistantTool
 	return AssistantTool(getLatestNews, "Get the latest news")
 
-def getNewsDetailsTool():
+def get_news_details_tool():
 	from Flows.PersonalAssistant.AssistantTools import AssistantTool, AssistantToolParameter
 	return AssistantTool(getNewsDetails, "Get details about news in the provided link", [
 		AssistantToolParameter("newsLink", "The link to the news")

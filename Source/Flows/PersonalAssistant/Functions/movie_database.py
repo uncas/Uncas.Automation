@@ -37,11 +37,11 @@ def getUnwatchedGoodWatchableMovies():
 	tmdb = TmdbService()
 	return list(tmdb.getUnwatchedGoodWatchableMovies())
 
-def getUnwatchedGoodWatchableMoviesTool():
+def get_unwatched_good_watchable_movies_tool():
 	from Flows.PersonalAssistant.AssistantTools import AssistantTool
 	return AssistantTool(getUnwatchedGoodWatchableMovies, "Get unwatched good watchable movies")
 
-def getWatchProvidersTool():
+def get_watch_providers_tool():
 	from Flows.PersonalAssistant.AssistantTools import AssistantTool, AssistantToolParameter
 	return AssistantTool(getWatchProviders, "Gets watch providers for a given movie", [
 		AssistantToolParameter("movieTitle", "The title of the movie")

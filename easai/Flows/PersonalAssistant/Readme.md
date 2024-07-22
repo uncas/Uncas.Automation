@@ -121,7 +121,7 @@ If you have already performed the first-time configuration below,
 then you can run the AI assistant by:
 - Open a terminal window in the root folder of the repository.
 - Run this in the terminal:
-  - Mac: `./run.sh`
+  - Mac: `make run`
   - Windows: `run.cmd`
 
 

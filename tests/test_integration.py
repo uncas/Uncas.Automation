@@ -9,7 +9,7 @@ class AssistantIntegrationTests(unittest.TestCase):
 		# https://docs.google.com/document/d/16dKNw3t1YTIpYiypDDZ-_eYgWbEovSxxyhfzJml98YE/edit
 		testDocId = "16dKNw3t1YTIpYiypDDZ-_eYgWbEovSxxyhfzJml98YE"
 		content = downloadDocumentContent(testDocId)["content"]
-		write_text(getFilePath("Tests"), "GoogleDocContent.json", json.dumps(content, indent = 4))
+		write_text(getFilePath("../tests/data"), "GoogleDocContent.json", json.dumps(content, indent = 4))
 
 	def test_GoogleMapsDirections(self):
 		from easai.Services.Google.GoogleMapsService import GoogleMapsService
@@ -50,3 +50,12 @@ class AssistantIntegrationTests(unittest.TestCase):
 		from easai.Utils.FileUtils import write_text
 		write_text("Output", "google_com.txt", read_web_page_text("https://www.google.com"))
 		write_text("Output", "google_com.md", read_web_page_markdown("https://www.google.com"))
+
+	def test_find_images(self):
+		import json
+		from easai.Services.internet_search_service import find_images
+		from easai.Utils.FileUtils import write_text
+
+		images = list(find_images("python", top_results_to_return = 5))
+		self.assertEqual(len(images), 5)
+		write_text("Output", "images.json", json.dumps(images, indent = 4))

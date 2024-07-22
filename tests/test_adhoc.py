@@ -38,5 +38,5 @@ load_dotenv(override = True)
 #from easai.Services.Google.GoogleDriveServiceTests import test_exportDocumentAsMarkdown
 #test_exportDocumentAsMarkdown()
 
-from easai.Services.Google.GoogleDocsServiceTests import test_readDocument
+from tests.test_GoogleDocsService_integration import test_readDocument
 test_readDocument()

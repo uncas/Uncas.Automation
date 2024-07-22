@@ -26,3 +26,5 @@ test-integration: venv
 test-new: venv
 	. .venv/bin/activate
 	python -m unittest discover -s tests -p test_new_integration.py
+
+test-all: test test-integration test-new

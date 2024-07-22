@@ -1,5 +1,4 @@
 import unittest
-#from .context import easai
 
 class AssistantUnitTests(unittest.TestCase):
 	def test_getFilePath(self):

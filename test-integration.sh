@@ -1,5 +1,5 @@
 #!/bin/bash
 
-source init.sh
+#source init.sh
 
-python -m unittest discover -s easai -p *IntegrationTests.py
+python -m unittest discover -s tests -p test*_integration.py

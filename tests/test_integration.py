@@ -20,30 +20,30 @@ class AssistantIntegrationTests(unittest.TestCase):
 	def test_getMails(self):
 		from easai.Services.Google.GmailService import getInboxMessages
 		messages = getInboxMessages()
-		for message in messages:
-			print("From " + message["sender"] + ": " + message["subject"])
+		#for message in messages:
+		#	print("From " + message["sender"] + ": " + message["subject"])
 	
 	def test_get_electric_cars_in_denmark(self):
 		from easai.Services.eletric_cars_service import get_electric_cars_in_denmark
 		cars = get_electric_cars_in_denmark()
-		print(cars[:1000])
+		#print(cars[:1000])
 		self.assertGreater(len(cars), 0)
 
 	def test_wikipedia(self):
 		from easai.Services.wikipedia_service import search_wikipedia
 		result = search_wikipedia("Covid-19")
-		print("wikipedia: " + result)
+		#print("wikipedia: " + result)
 
 	def test_wikipedia_langchain(self):
 		from easai.Services.wikipedia_service import search_wikipedia_langchain
 		result = search_wikipedia_langchain("Covid-19")
-		print("wikipedia_langchain: " + result)
+		#print("wikipedia_langchain: " + result)
 
 	def test_search_internet(self):
 		from easai.Services.internet_search_service import search_internet
 		result = search_internet("Covid-19", top_results_to_return = 10, country_code = "dk", language_code = "da")
-		for item in result:
-			print(item["title"], item["href"])
+		#for item in result:
+		#	print(item["title"], item["href"])
 
 	def test_read_web_page(self):
 		from easai.Services.web_page_reader import read_web_page_text, read_web_page_markdown

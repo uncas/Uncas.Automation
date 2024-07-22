@@ -11,6 +11,6 @@ class NewAssistantIntegrationTests(unittest.TestCase):
 
 		images = list(find_images("python", top_results_to_return = 5))
 		self.assertEqual(len(images), 5)
-		for image in images:
-			print(image)
+		#for image in images:
+		#	print(image)
 		write_text("Output", "images.json", json.dumps(images, indent = 4))

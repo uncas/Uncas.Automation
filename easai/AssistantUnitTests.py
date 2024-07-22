@@ -4,7 +4,7 @@ class AssistantUnitTests(unittest.TestCase):
 	def test_getFilePath(self):
 		from Utils.FileUtils import getFilePath
 		path = getFilePath("../Data/test.db")
-		self.assertIn("Source/Utils/../../Data/test.db", path)
+		self.assertIn("easai/Utils/../../Data/test.db", path)
 
 	def test_getListOfTextContent(self):
 		items = self.getListOfTexts()

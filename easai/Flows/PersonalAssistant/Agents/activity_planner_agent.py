@@ -7,7 +7,7 @@ class ActivityPlannerAgent(AgentDefinition):
 		if not os.path.exists(user_prompt_file):
 			import logging
 			logger = logging.getLogger(__name__)
-			user_prompt_example_file = "Source/Flows/PersonalAssistant/Prompts/HolidayActivityPlanner-user.md"
+			user_prompt_example_file = "easai/Flows/PersonalAssistant/Prompts/HolidayActivityPlanner-user.md"
 			logger.critical("User prompt file not found at " + user_prompt_file + 
 				   ". You can see an example prompt file here, that you could copy and modify: " + user_prompt_example_file)
 			exit(1)

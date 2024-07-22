@@ -2,4 +2,4 @@
 
 source init.sh
 
-python Source/Scheduled.py
+python easai/Scheduled.py

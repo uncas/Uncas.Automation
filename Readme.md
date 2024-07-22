@@ -6,8 +6,8 @@ This repository contains various automations scripts.
 ## Personal AI Assistant
 
 - Personal AI Assistant: The main automation scripts.
-  - [Open folder](Source/Flows/PersonalAssistant)
-  - [View the readme](Source/Flows/PersonalAssistant/Readme.md)
+  - [Open folder](easai/Flows/PersonalAssistant)
+  - [View the readme](easai/Flows/PersonalAssistant/Readme.md)
 
 
 ## Style guide
@@ -22,7 +22,7 @@ but will change to the Python style along the way.)
 
 Besides the personal AI assistant, there are various experiments and minor scripts (finished, unfinished, or abandoned), primarily located in the following folders:
 
-- [Source](Source): Organized as modules that can call each other.
+- [easai](easai): Organized as modules that can call each other.
 
 - [Simple](Simple): Stand-alone experiments, not linked to the other modules.
 

@@ -8,6 +8,6 @@ IF NOT EXIST .venv (
 call .venv\Scripts\activate
 py -m pip install --upgrade pip -q
 pip install -r requirements.txt -q
-REM py Source/Run.py
-py Source/RunPersonalAssistant.py
+REM py easai/Run.py
+py easai/RunPersonalAssistant.py
 

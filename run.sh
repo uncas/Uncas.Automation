@@ -2,5 +2,5 @@
 
 source init.sh
 
-#python Source/Run.py
-python Source/RunPersonalAssistant.py
+#python easai/Run.py
+python easai/RunPersonalAssistant.py

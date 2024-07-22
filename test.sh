@@ -2,4 +2,4 @@
 
 #source init.sh
 
-python -m unittest discover -s Source -p *UnitTests.py
+python -m unittest discover -s easai -p *UnitTests.py

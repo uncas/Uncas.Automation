@@ -70,7 +70,7 @@ def getSystemPrompt(systemPrompt):
 	return { "role": "system", "content": limitMessageContent(systemPrompt) }
 
 def getSystemPromptFromFile(fileName):
-	with open("Source/Flows/PersonalAssistant/Prompts/" + fileName, "r") as file:
+	with open("easai/Flows/PersonalAssistant/Prompts/" + fileName, "r") as file:
 		systemPrompt = file.read()
 		return getSystemPrompt(systemPrompt)
 

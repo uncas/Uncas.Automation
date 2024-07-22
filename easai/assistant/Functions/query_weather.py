@@ -60,7 +60,7 @@ def getCurrentWeather(data):
 	}
 
 def get_current_weather_tool():
-	from easai.Flows.PersonalAssistant.assistant_tools import AssistantTool, AssistantToolParameter
+	from easai.assistant.assistant_tools import AssistantTool, AssistantToolParameter
 	return AssistantTool(getCurrentWeather, "Gets the current weather", [
 		AssistantToolParameter("countryCode", "The country code of the country where to get the weather"),
 		AssistantToolParameter("city", "The city from where to get the weather")

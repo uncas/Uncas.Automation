@@ -3,11 +3,11 @@
 This repository contains various automations scripts.
 
 
-## Personal AI Assistant
+## Assistant
 
-- Personal AI Assistant: The main automation scripts.
-  - [Open folder](easai/Flows/PersonalAssistant)
-  - [View the readme](easai/Flows/PersonalAssistant/Readme.md)
+-Assistant: The main automation scripts.
+  - [Open folder](easai/assistant)
+  - [View the readme](easai/assistant/Readme.md)
 
 
 ## Style guide

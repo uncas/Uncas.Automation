@@ -1,3 +1,3 @@
-from easai.Flows.PersonalAssistant.scheduled_agents import runScheduledAgents
+from easai.assistant.scheduled_agents import runScheduledAgents
 
 runScheduledAgents()

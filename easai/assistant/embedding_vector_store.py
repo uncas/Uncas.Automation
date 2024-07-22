@@ -2,7 +2,7 @@
 
 class EmbeddingVectorStore:
     def __init__(self, directory):
-        from easai.Flows.PersonalAssistant.old_logger import Logger
+        from easai.assistant.old_logger import Logger
         self.directory = directory
         self.textSplitter = None
         self.embeddingFunction = None

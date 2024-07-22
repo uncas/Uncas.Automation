@@ -1,4 +1,4 @@
-from easai.Flows.PersonalAssistant.Agents.agent_definition import AgentDefinition
+from easai.assistant.Agents.agent_definition import AgentDefinition
 
 class ActivityPlannerAgent(AgentDefinition):
 	def __init__(self):
@@ -7,7 +7,7 @@ class ActivityPlannerAgent(AgentDefinition):
 		if not os.path.exists(user_prompt_file):
 			import logging
 			logger = logging.getLogger(__name__)
-			user_prompt_example_file = "easai/Flows/PersonalAssistant/Prompts/HolidayActivityPlanner-user.md"
+			user_prompt_example_file = "easai/assistant/Prompts/HolidayActivityPlanner-user.md"
 			logger.critical("User prompt file not found at " + user_prompt_file + 
 				   ". You can see an example prompt file here, that you could copy and modify: " + user_prompt_example_file)
 			exit(1)
@@ -20,14 +20,14 @@ class ActivityPlannerAgent(AgentDefinition):
 		super().__init__(system_prompt, input_tasks, action_on_result, tools = self.getTools())
 
 	def getTools(self):
-		from easai.Flows.PersonalAssistant.Functions.query_weather import get_current_weather_tool
-		from easai.Flows.PersonalAssistant.Functions.query_date_and_time import get_date_and_time_tool
-		from easai.Flows.PersonalAssistant.Functions.query_location import get_location_tool
-		from easai.Flows.PersonalAssistant.Functions.get_travel_directions import get_travel_directions_tool
-		from easai.Flows.PersonalAssistant.Functions.get_latest_news import get_latest_news_tool, get_news_details_tool
-		from easai.Flows.PersonalAssistant.Functions.read_web_page import read_web_page_text_tool
-		from easai.Flows.PersonalAssistant.Functions.search_wikipedia import search_wikipedia_tool
-		from easai.Flows.PersonalAssistant.Functions.search_internet import search_internet_tool
+		from easai.assistant.Functions.query_weather import get_current_weather_tool
+		from easai.assistant.Functions.query_date_and_time import get_date_and_time_tool
+		from easai.assistant.Functions.query_location import get_location_tool
+		from easai.assistant.Functions.get_travel_directions import get_travel_directions_tool
+		from easai.assistant.Functions.get_latest_news import get_latest_news_tool, get_news_details_tool
+		from easai.assistant.Functions.read_web_page import read_web_page_text_tool
+		from easai.assistant.Functions.search_wikipedia import search_wikipedia_tool
+		from easai.assistant.Functions.search_internet import search_internet_tool
 
 		return [
 			get_current_weather_tool(),

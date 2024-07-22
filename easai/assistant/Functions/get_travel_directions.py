@@ -5,7 +5,7 @@ def getTravelDirections(data):
 	return GoogleMapsService.GetDirections(fromLocation, toLocation)
 
 def get_travel_directions_tool():
-	from easai.Flows.PersonalAssistant.assistant_tools import AssistantTool, AssistantToolParameter
+	from easai.assistant.assistant_tools import AssistantTool, AssistantToolParameter
 	return AssistantTool(getTravelDirections, "Get travel directions", [
 		AssistantToolParameter("fromLocation", "The location to start from"),
 		AssistantToolParameter("toLocation", "The location to go to")

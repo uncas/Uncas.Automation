@@ -3,9 +3,9 @@ from dotenv import load_dotenv
 
 from openai import OpenAI
 
-from easai.Flows.PersonalAssistant.old_logger import foreground, background, style
-from easai.Flows.PersonalAssistant.Utility.ai_log import AiLog
-from easai.Flows.PersonalAssistant.Agents.agent_definition import AgentDefinition
+from easai.assistant.old_logger import foreground, background, style
+from easai.assistant.Utility.ai_log import AiLog
+from easai.assistant.Agents.agent_definition import AgentDefinition
 
 defaultModel = "gpt-4o-mini"
 load_dotenv(override = True)
@@ -28,7 +28,7 @@ def runTaskedAgent(agent: AgentDefinition, model: str = defaultModel):
 def runInteractiveChatLoop(model = defaultModel):
 	import os
 	from openai import OpenAI
-	from easai.Flows.PersonalAssistant.assistant_tools import get_all_tools
+	from easai.assistant.assistant_tools import get_all_tools
 	from easai.Utils.Settings import getSetting
 	if not os.getenv("OPENAI_API_KEY"):
 		import logging
@@ -70,7 +70,7 @@ def getSystemPrompt(systemPrompt):
 	return { "role": "system", "content": limitMessageContent(systemPrompt) }
 
 def getSystemPromptFromFile(fileName):
-	with open("easai/Flows/PersonalAssistant/Prompts/" + fileName, "r") as file:
+	with open("easai/assistant/Prompts/" + fileName, "r") as file:
 		systemPrompt = file.read()
 		return getSystemPrompt(systemPrompt)
 
@@ -129,7 +129,7 @@ def runToolLoop(client: OpenAI, model: str, tools: list, messages):
 
 def runPersonalAssistant():
 	import logging
-	from easai.Flows.PersonalAssistant.logger_setup import initLogger
+	from easai.assistant.logger_setup import initLogger
 	initLogger()
 	logger = logging.getLogger(__name__)
 	logger.info("Running Personal Assistant")
@@ -137,9 +137,9 @@ def runPersonalAssistant():
 	if mode == "1":
 		runInteractiveChatLoop()
 	elif mode == "2":
-		from easai.Flows.PersonalAssistant.Agents.activity_planner_agent import ActivityPlannerAgent
+		from easai.assistant.Agents.activity_planner_agent import ActivityPlannerAgent
 		runTaskedAgent(ActivityPlannerAgent())
 	elif mode == "3":
-		from easai.Flows.PersonalAssistant.Agents.blog_writer_agent import BlogWriterAgent
+		from easai.assistant.Agents.blog_writer_agent import BlogWriterAgent
 		runTaskedAgent(BlogWriterAgent())
 	logger.info("Exiting Personal Assistant")

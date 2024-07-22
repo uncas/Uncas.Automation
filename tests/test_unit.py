@@ -2,7 +2,7 @@ import datetime
 import json
 import unittest
 
-from easai.Flows.PersonalAssistant.Resources.resource_tools import mapListOfTextContentToDatedEntries
+from easai.assistant.Resources.resource_tools import mapListOfTextContentToDatedEntries
 from easai.Services.Google.GoogleDocsService import read_structural_elements, getListOfTextContent
 from easai.Utils.FileUtils import getFilePath
 

@@ -38,22 +38,22 @@ class AssistantTool:
 		}
 
 def get_all_tools():
-	from easai.Flows.PersonalAssistant.Functions.manage_jira import create_jira_issue_tool, get_my_jira_issues_tool
-	from easai.Flows.PersonalAssistant.Functions.manage_calendar import get_todays_calendar_events_tool
-	from easai.Flows.PersonalAssistant.Functions.query_weather import get_current_weather_tool
-	from easai.Flows.PersonalAssistant.Functions.query_date_and_time import get_date_and_time_tool
-	from easai.Flows.PersonalAssistant.Functions.query_location import get_location_tool
-	from easai.Flows.PersonalAssistant.Functions.get_travel_directions import get_travel_directions_tool
-	from easai.Flows.PersonalAssistant.Functions.find_info_in_docs import find_info_in_docs_tool
-	from easai.Flows.PersonalAssistant.Functions.get_latest_news import get_latest_news_tool, get_news_details_tool
-	from easai.Flows.PersonalAssistant.Functions.read_email import read_email_tool, write_email_tool
-	from easai.Flows.PersonalAssistant.Functions.read_web_page import read_web_page_text_tool, read_web_page_markdown_tool
-	from easai.Flows.PersonalAssistant.Functions.search_arxiv import search_arxiv_tool
-	from easai.Flows.PersonalAssistant.Functions.movie_database import get_watch_providers_tool, get_unwatched_good_watchable_movies_tool
-	from easai.Flows.PersonalAssistant.Resources.resource_tools import get_resource_tools
-	from easai.Flows.PersonalAssistant.Functions.search_wikipedia import search_wikipedia_tool
-	from easai.Flows.PersonalAssistant.Functions.search_internet import search_internet_tool, find_images_tool
-	from easai.Flows.PersonalAssistant.Functions.ask_user import ask_user_tool
+	from easai.assistant.Functions.manage_jira import create_jira_issue_tool, get_my_jira_issues_tool
+	from easai.assistant.Functions.manage_calendar import get_todays_calendar_events_tool
+	from easai.assistant.Functions.query_weather import get_current_weather_tool
+	from easai.assistant.Functions.query_date_and_time import get_date_and_time_tool
+	from easai.assistant.Functions.query_location import get_location_tool
+	from easai.assistant.Functions.get_travel_directions import get_travel_directions_tool
+	from easai.assistant.Functions.find_info_in_docs import find_info_in_docs_tool
+	from easai.assistant.Functions.get_latest_news import get_latest_news_tool, get_news_details_tool
+	from easai.assistant.Functions.read_email import read_email_tool, write_email_tool
+	from easai.assistant.Functions.read_web_page import read_web_page_text_tool, read_web_page_markdown_tool
+	from easai.assistant.Functions.search_arxiv import search_arxiv_tool
+	from easai.assistant.Functions.movie_database import get_watch_providers_tool, get_unwatched_good_watchable_movies_tool
+	from easai.assistant.Resources.resource_tools import get_resource_tools
+	from easai.assistant.Functions.search_wikipedia import search_wikipedia_tool
+	from easai.assistant.Functions.search_internet import search_internet_tool, find_images_tool
+	from easai.assistant.Functions.ask_user import ask_user_tool
 
 	tools = [
 		ask_user_tool(),

@@ -6,7 +6,7 @@ class AgentDefinition:
 		self.tools = tools
 
 	def get_system_prompt_from_file(file_name):
-		with open("easai/Flows/PersonalAssistant/Prompts/" + file_name, "r") as file:
+		with open("easai/assistant/Prompts/" + file_name, "r") as file:
 			return file.read()
 
 	def write_output_to_file(self, file_prefix, output):

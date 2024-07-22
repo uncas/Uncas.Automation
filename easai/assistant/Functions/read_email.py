@@ -19,7 +19,7 @@ def writeEmail(data):
 	createDraft(recipient, subject, body, internalMessageId)
 
 def write_email_tool():
-	from easai.Flows.PersonalAssistant.assistant_tools import AssistantTool, AssistantToolParameter
+	from easai.assistant.assistant_tools import AssistantTool, AssistantToolParameter
 	return AssistantTool(writeEmail, "Write an email", [
 		AssistantToolParameter("recipient", "The recipient of the email"),
 		AssistantToolParameter("subject", "The subject of the email"),
@@ -28,5 +28,5 @@ def write_email_tool():
 	])
 
 def read_email_tool():
-	from easai.Flows.PersonalAssistant.assistant_tools import AssistantTool
+	from easai.assistant.assistant_tools import AssistantTool
 	return AssistantTool(read_email, "Read email")

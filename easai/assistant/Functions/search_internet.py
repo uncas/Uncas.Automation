@@ -7,7 +7,7 @@ def search_internet(data):
 	return list(search_internet(query, top_results_to_return, country_code, language_code))
 
 def search_internet_tool():
-	from easai.Flows.PersonalAssistant.assistant_tools import AssistantTool, AssistantToolParameter
+	from easai.assistant.assistant_tools import AssistantTool, AssistantToolParameter
 	return AssistantTool(search_internet, "Query a search engine for matching web pages", [
 		AssistantToolParameter("query", "The thing to find pages about"),
 		AssistantToolParameter("top_results_to_return", "The number of results to return (optional, defaults to 5)", type = "integer"),
@@ -25,7 +25,7 @@ def find_images(data):
 	return list(find_images(query, top_results_to_return, country_code, language_code))
 
 def find_images_tool():
-	from easai.Flows.PersonalAssistant.assistant_tools import AssistantTool, AssistantToolParameter
+	from easai.assistant.assistant_tools import AssistantTool, AssistantToolParameter
 	return AssistantTool(find_images, "Query a search engine for matching images", [
 		AssistantToolParameter("query", "The thing to find images about"),
 		AssistantToolParameter("top_results_to_return", "The number of results to return (optional, defaults to 5)", type = "integer"),

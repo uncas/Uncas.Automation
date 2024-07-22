@@ -18,7 +18,7 @@ def searchArxiv(data):
 	return [{"summary": r.summary, "title": r.title} for r in results]
 
 def search_arxiv_tool():
-	from easai.Flows.PersonalAssistant.assistant_tools import AssistantTool, AssistantToolParameter
+	from easai.assistant.assistant_tools import AssistantTool, AssistantToolParameter
 	return AssistantTool(searchArxiv, "Search arXiv.org for articles on physics, mathematics, computer science, quantitative biology, quantitative finance, statistics, electrical engineering and systems science, and economics", [
 		AssistantToolParameter("query", "The query to search for"),
 		AssistantToolParameter("maxResults", "The maximum number of results to return", type = "integer"),

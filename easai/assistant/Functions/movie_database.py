@@ -38,11 +38,11 @@ def getUnwatchedGoodWatchableMovies():
 	return list(tmdb.getUnwatchedGoodWatchableMovies())
 
 def get_unwatched_good_watchable_movies_tool():
-	from easai.Flows.PersonalAssistant.assistant_tools import AssistantTool
+	from easai.assistant.assistant_tools import AssistantTool
 	return AssistantTool(getUnwatchedGoodWatchableMovies, "Get unwatched good watchable movies")
 
 def get_watch_providers_tool():
-	from easai.Flows.PersonalAssistant.assistant_tools import AssistantTool, AssistantToolParameter
+	from easai.assistant.assistant_tools import AssistantTool, AssistantToolParameter
 	return AssistantTool(getWatchProviders, "Gets watch providers for a given movie", [
 		AssistantToolParameter("movieTitle", "The title of the movie")
 	])

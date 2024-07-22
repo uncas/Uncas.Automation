@@ -14,7 +14,6 @@ def run():
 			{"id": "1", "name": "Ask question"},
 			{"id": "2", "name": "Chat"},
 			{"id": "3", "name": "Question docs from sheet list"},
-			{"id": "4", "name": "Assist with emails"},
 			{"id": "5", "name": "Ask ChatGpt"},
 			{"id": "6", "name": "Create image with huggingface"},
 			{"id": "7", "name": "Generate text with huggingface"},
@@ -42,9 +41,6 @@ def run():
 		elif task == "3":
 			from easai.Flows.QuestionGoogleDocsFromSheetList import runQuestionGoogleDocsFromSheetList
 			runQuestionGoogleDocsFromSheetList()
-		elif task == "4":
-			from easai.Flows.MailAssistant import assistWithMails
-			assistWithMails()
 		elif task == "5":
 			from easai.Services.OpenAi.ChatGptService import runChatGpt
 			runChatGpt()
@@ -79,7 +75,7 @@ def run():
 			from easai.Services.Embeddings.Embeddor import runEmbed
 			runEmbed()
 		elif task == "t":
-			from easai.Services.Google.GmailServiceTests import testGmailService
+			from tests.test_GmailService_adhoc import testGmailService
 			testGmailService()
 
 			return

@@ -1,4 +1,4 @@
-from Flows.QuestionGoogleDocsFromSheetList import questionGoogleDocsFromSheetList
+from easai.Flows.QuestionGoogleDocsFromSheetList import questionGoogleDocsFromSheetList
 
 def testQuestionGoogleDocsFromSheetList():
 	sheetId = "xx"

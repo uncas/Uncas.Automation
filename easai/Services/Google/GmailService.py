@@ -2,8 +2,8 @@
 
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-from Services.Google.GoogleAuth import getCredentials
-from Utils.FileUtils import write_text
+from easai.Services.Google.GoogleAuth import getCredentials
+from easai.Utils.FileUtils import write_text
 import json
 
 QUERY_INBOX = "in:inbox"

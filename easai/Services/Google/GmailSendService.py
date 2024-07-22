@@ -4,8 +4,8 @@ import base64
 from email.message import EmailMessage
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-from Services.Google.GoogleAuth import getCredentials
-from Services.Google.GmailService import getMessageContent
+from easai.Services.Google.GoogleAuth import getCredentials
+from easai.Services.Google.GmailService import getMessageContent
 
 def createDraft(recipient, subject, body, internalMessageId = None):
 	print("Should I create a draft with the following parameters: " + recipient + ", " + subject)

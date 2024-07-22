@@ -3,7 +3,7 @@
 
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-from Services.Google.GoogleAuth import getCredentials
+from easai.Services.Google.GoogleAuth import getCredentials
 
 def readPresentation(presentationId):
   creds = getCredentials()

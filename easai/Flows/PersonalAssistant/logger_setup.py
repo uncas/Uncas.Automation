@@ -1,7 +1,7 @@
 def initLogger():
 	import logging
-	from Utils.SQLiteLoggingHandler import SQLiteLoggingHandler
-	from Utils.ColoredLoggingFormatter import ColoredLoggingFormatter
+	from easai.Utils.SQLiteLoggingHandler import SQLiteLoggingHandler
+	from easai.Utils.ColoredLoggingFormatter import ColoredLoggingFormatter
 
 	# 1. Create root logger
 	logger = logging.getLogger()

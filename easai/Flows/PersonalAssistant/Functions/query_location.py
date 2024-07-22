@@ -10,5 +10,5 @@ def getLocation():
 	}
 
 def get_location_tool():
-	from Flows.PersonalAssistant.assistant_tools import AssistantTool
+	from easai.Flows.PersonalAssistant.assistant_tools import AssistantTool
 	return AssistantTool(getLocation, "Get the user's current location")

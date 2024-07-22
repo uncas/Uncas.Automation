@@ -1,5 +1,5 @@
 def read_email():
-	from Services.Google.GmailService import getInboxMessages
+	from easai.Services.Google.GmailService import getInboxMessages
 	messages = getInboxMessages()
 	result = [{
 		"sender": message["sender"], 
@@ -11,7 +11,7 @@ def read_email():
 	return result
 
 def writeEmail(data):
-	from Services.Google.GmailSendService import createDraft
+	from easai.Services.Google.GmailSendService import createDraft
 	body = data["body"]
 	subject = data["subject"]
 	recipient = data["recipient"]
@@ -19,7 +19,7 @@ def writeEmail(data):
 	createDraft(recipient, subject, body, internalMessageId)
 
 def write_email_tool():
-	from Flows.PersonalAssistant.assistant_tools import AssistantTool, AssistantToolParameter
+	from easai.Flows.PersonalAssistant.assistant_tools import AssistantTool, AssistantToolParameter
 	return AssistantTool(writeEmail, "Write an email", [
 		AssistantToolParameter("recipient", "The recipient of the email"),
 		AssistantToolParameter("subject", "The subject of the email"),
@@ -28,5 +28,5 @@ def write_email_tool():
 	])
 
 def read_email_tool():
-	from Flows.PersonalAssistant.assistant_tools import AssistantTool
+	from easai.Flows.PersonalAssistant.assistant_tools import AssistantTool
 	return AssistantTool(read_email, "Read email")

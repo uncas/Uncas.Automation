@@ -1,4 +1,4 @@
-from Tools.Ai.QueryLM import generateResponse, getModel, getTokenizer
+from easai.Tools.Ai.QueryLM import generateResponse, getModel, getTokenizer
 
 def testQueryLM():
 	modelFolder = "../../public/LLMs/dolly-v2-3b/"

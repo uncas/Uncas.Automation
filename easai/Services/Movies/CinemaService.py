@@ -20,7 +20,7 @@ def getMovies():
 			yield movie
 
 def getMoviesInCinema(cinema):
-	from Utils.LocalCache import LocalCache
+	from easai.Utils.LocalCache import LocalCache
 	cache = LocalCache()
 	key = "getMoviesInCinema: " + cinema["name"]
 	lifetimeSeconds = 3600 * 3

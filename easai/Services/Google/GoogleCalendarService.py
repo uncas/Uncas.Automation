@@ -3,7 +3,7 @@
 import datetime
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-from Services.Google.GoogleAuth import getCredentials
+from easai.Services.Google.GoogleAuth import getCredentials
 
 def getTodaysCalendarEvents(maxResults = 20):
 	fromDaysInFuture = 0
@@ -15,7 +15,7 @@ def getTodaysCalendarEvents(maxResults = 20):
 
 def getCalendarEvents(maxResults = 20, fromDaysInFuture = 0, toDaysInFuture = 1):
 	import json
-	from Utils.FileUtils import write_text
+	from easai.Utils.FileUtils import write_text
 	creds = getCredentials()
 	try:
 		service = build("calendar", "v3", credentials=creds)

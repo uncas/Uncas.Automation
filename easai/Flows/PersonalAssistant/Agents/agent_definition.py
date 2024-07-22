@@ -10,7 +10,7 @@ class AgentDefinition:
 			return file.read()
 
 	def write_output_to_file(self, file_prefix, output):
-		from Utils.FileUtils import write_text
+		from easai.Utils.FileUtils import write_text
 		import datetime
 		date_string = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
 		file_name = file_prefix + "_" + date_string + ".md"

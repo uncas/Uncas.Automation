@@ -1,6 +1,6 @@
 def get_resource_tools():
 	import re
-	from Flows.PersonalAssistant.assistant_tools import AssistantTool, AssistantToolParameter
+	from easai.Flows.PersonalAssistant.assistant_tools import AssistantTool, AssistantToolParameter
 	resources = getResources()
 	idPattern = re.compile("^[a-zA-Z0-9_-]+$")
 	for resource in resources:
@@ -28,7 +28,7 @@ def get_resource_tools():
 				name = "getDatedEntries_" + id)
 
 def getResources():
-	from Utils.Settings import getSetting
+	from easai.Utils.Settings import getSetting
 	assistant = getSetting("assistant")
 	return assistant.get("resources", []) if assistant else []
 
@@ -39,7 +39,7 @@ def getResourceData(resourceId):
 	
 	resource = resources[0]
 	if resource["sourceType"] == "Google Doc" and resource["resourceType"] == "OneText":
-		from Services.Google.GoogleDocsService import readDocument
+		from easai.Services.Google.GoogleDocsService import readDocument
 		return readDocument(resource["sourceDetails"]["docId"])
 	else:
 		return None
@@ -53,7 +53,7 @@ def getDatedEntries(resourceId, inputParams = None):
 
 	resource = resources[0]
 	if resource["sourceType"] == "Google Doc" and resource["resourceType"] == "DatedEntries":
-		from Services.Google.GoogleDocsService import getDocumentTexts
+		from easai.Services.Google.GoogleDocsService import getDocumentTexts
 		sourceDetails = resource["sourceDetails"]
 		texts = getDocumentTexts(sourceDetails["docId"])["texts"]
 		entries = mapListOfTextContentToDatedEntries(

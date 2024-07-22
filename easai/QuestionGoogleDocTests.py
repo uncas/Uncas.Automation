@@ -1,4 +1,4 @@
-from Flows.QuestionGoogleDoc import questionGoogleDoc
+from easai.Flows.QuestionGoogleDoc import questionGoogleDoc
 
 def testQuestionGoogleDoc():
 	id = "xx"

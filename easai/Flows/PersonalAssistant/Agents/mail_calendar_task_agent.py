@@ -1,4 +1,4 @@
-from Flows.PersonalAssistant.Agents.agent_definition import AgentDefinition
+from easai.Flows.PersonalAssistant.Agents.agent_definition import AgentDefinition
 
 class MailCalendarTaskAgent(AgentDefinition):
 	# Read mail, calendar, tasks
@@ -8,10 +8,10 @@ class MailCalendarTaskAgent(AgentDefinition):
 
 	def __init__(self):
 		import datetime
-		from Flows.PersonalAssistant.Functions.manage_calendar import get_todays_calendar_events
-		from Flows.PersonalAssistant.Functions.manage_jira import get_my_jira_issues, create_jira_issue
-		from Flows.PersonalAssistant.Functions.read_email import read_email
-		from Flows.PersonalAssistant.assistant_tools import get_all_tools
+		from easai.Flows.PersonalAssistant.Functions.manage_calendar import get_todays_calendar_events
+		from easai.Flows.PersonalAssistant.Functions.manage_jira import get_my_jira_issues, create_jira_issue
+		from easai.Flows.PersonalAssistant.Functions.read_email import read_email
+		from easai.Flows.PersonalAssistant.assistant_tools import get_all_tools
 
 		system_prompt_file = "TaskCalendarMailAssistant.md"
 		system_prompt = AgentDefinition.get_system_prompt_from_file(system_prompt_file)

@@ -34,66 +34,66 @@ def run():
 		task = input(menu + "\nEnter your choice: ").lower()
 
 		if task == "1":
-			from Tools.Ai.CompletionApis.ChatCompletion import askQuestion
+			from easai.Tools.Ai.CompletionApis.ChatCompletion import askQuestion
 			askQuestion()
 		elif task == "2":
-			from Tools.Ai.CompletionApis.ChatCompletion import chat
+			from easai.Tools.Ai.CompletionApis.ChatCompletion import chat
 			chat()
 		elif task == "3":
-			from Flows.QuestionGoogleDocsFromSheetList import runQuestionGoogleDocsFromSheetList
+			from easai.Flows.QuestionGoogleDocsFromSheetList import runQuestionGoogleDocsFromSheetList
 			runQuestionGoogleDocsFromSheetList()
 		elif task == "4":
-			from Flows.MailAssistant import assistWithMails
+			from easai.Flows.MailAssistant import assistWithMails
 			assistWithMails()
 		elif task == "5":
-			from Services.OpenAi.ChatGptService import runChatGpt
+			from easai.Services.OpenAi.ChatGptService import runChatGpt
 			runChatGpt()
 		elif task == "6":
-			from Services.HuggingFace.HuggingFaceService import runCreateImage
+			from easai.Services.HuggingFace.HuggingFaceService import runCreateImage
 			runCreateImage()
 		elif task == "7":
-			from Services.HuggingFace.HuggingFaceService import generateText
+			from easai.Services.HuggingFace.HuggingFaceService import generateText
 			generateText()
 		elif task == "8":
-			from Services.HuggingFace.HuggingFaceService import classifyText
+			from easai.Services.HuggingFace.HuggingFaceService import classifyText
 			classifyText()
 		elif task == "9":
-			from Services.HuggingFace.HuggingFaceService import translate
+			from easai.Services.HuggingFace.HuggingFaceService import translate
 			translate()
 		elif task == "10":
-			from Services.HuggingFace.HuggingFaceService import runSpeak
+			from easai.Services.HuggingFace.HuggingFaceService import runSpeak
 			runSpeak()
 		elif task == "11":
-			from Services.HuggingFace.HuggingFaceService import search
+			from easai.Services.HuggingFace.HuggingFaceService import search
 			search()
 		elif task == "12":
-			from Services.eletric_cars_service import get_electric_cars_in_denmark
+			from easai.Services.eletric_cars_service import get_electric_cars_in_denmark
 			get_electric_cars_in_denmark()
 		elif task == "13":
-			from Services.OpenAi.EmbeddingService import runGetEmbedding
+			from easai.Services.OpenAi.EmbeddingService import runGetEmbedding
 			runGetEmbedding()
 		elif task == "14":
-			from Services.LangChain.TextSplitter import runSplitText
+			from easai.Services.LangChain.TextSplitter import runSplitText
 			runSplitText()
 		elif task == "15":
-			from Services.Embeddings.Embeddor import runEmbed
+			from easai.Services.Embeddings.Embeddor import runEmbed
 			runEmbed()
 		elif task == "t":
-			from Services.Google.GmailServiceTests import testGmailService
+			from easai.Services.Google.GmailServiceTests import testGmailService
 			testGmailService()
 
 			return
 			from QuestionGoogleDocsFromSheetListTests import testQuestionGoogleDocsFromSheetList
 			testQuestionGoogleDocsFromSheetList()
 	
-			from Services.Google.GooglePresentationsServiceTests import testGooglePresentationsService
+			from easai.Services.Google.GooglePresentationsServiceTests import testGooglePresentationsService
 			testGooglePresentationsService()
 
 			from QuestionGoogleDocTests import testQuestionGoogleDoc
-			from Services.Google.GoogleDocsServiceTests import test_readDocument
-			from Services.Google.GoogleSheetsServiceTests import testGoogleSheetsService
-			from Tools.Ai.QaPipelineTests import testQaPipeline
-			from Tools.Ai.QueryLMTests import testQueryLM
+			from easai.Services.Google.GoogleDocsServiceTests import test_readDocument
+			from easai.Services.Google.GoogleSheetsServiceTests import testGoogleSheetsService
+			from easai.Tools.Ai.QaPipelineTests import testQaPipeline
+			from easai.Tools.Ai.QueryLMTests import testQueryLM
 			test_readDocument()
 			testGoogleSheetsService()
 			testQueryLM()

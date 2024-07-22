@@ -1,9 +1,9 @@
-from Services.Google.GoogleSheetsService import readSheet
-from Services.Google.GoogleDocsService import readDocument
-from Services.Google.GooglePresentationsService import readPresentation
-from Utils.Settings import getSetting
-from Tools.Ai.QaPipeline import questionDocuments
-from Utils.FileUtils import write_text
+from easai.Services.Google.GoogleSheetsService import readSheet
+from easai.Services.Google.GoogleDocsService import readDocument
+from easai.Services.Google.GooglePresentationsService import readPresentation
+from easai.Utils.Settings import getSetting
+from easai.Tools.Ai.QaPipeline import questionDocuments
+from easai.Utils.FileUtils import write_text
 
 def runQuestionGoogleDocsFromSheetList():
 	sheets = getSheetsFromSettings()
@@ -28,7 +28,7 @@ def questionGoogleDocsFromSheetList(sheetId, rangeWithDocLinks, question):
 	downloadLinksToFiles(sheetId, rangeWithDocLinks, folder)
 	content = questionDocuments(folder, question)
 
-	from Tools.Ai.CompletionApis.ChatCompletion import getSingleChatCompletion
+	from easai.Tools.Ai.CompletionApis.ChatCompletion import getSingleChatCompletion
 	relevantContent = "\n".join(map(lambda doc: doc["context"], content))
 	prompt = relevantContent + "\n\n Based on the previous content. What is the answer to this question: " + question
 	print(prompt)

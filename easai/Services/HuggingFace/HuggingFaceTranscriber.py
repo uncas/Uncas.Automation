@@ -1,5 +1,5 @@
 def transcribe(inputAudioFileName, language = "da"):
-	from Utils.AudioUtils import sliceInto1MinuteChunks
+	from easai.Utils.AudioUtils import sliceInto1MinuteChunks
 	chunks = sliceInto1MinuteChunks(inputAudioFileName)
 	from transformers import pipeline
 	pipe = pipeline("automatic-speech-recognition", model="openai/whisper-large-v2")

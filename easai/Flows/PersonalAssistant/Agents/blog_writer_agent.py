@@ -1,4 +1,4 @@
-from Flows.PersonalAssistant.Agents.agent_definition import AgentDefinition
+from easai.Flows.PersonalAssistant.Agents.agent_definition import AgentDefinition
 
 class BlogWriterAgent(AgentDefinition):
 	def __init__(self):
@@ -14,13 +14,13 @@ class BlogWriterAgent(AgentDefinition):
 		super().write_output_to_file("BlogPost", output)
 
 	def get_tools(self):
-		from Flows.PersonalAssistant.Functions.get_latest_news import get_latest_news_tool, get_news_details_tool
-		from Flows.PersonalAssistant.Functions.read_web_page import read_web_page_text_tool, read_web_page_markdown_tool
-		from Flows.PersonalAssistant.Functions.search_internet import find_images_tool
-		from Flows.PersonalAssistant.Functions.search_internet import search_internet_tool
-		from Flows.PersonalAssistant.Functions.search_wikipedia import search_wikipedia_tool
-		from Flows.PersonalAssistant.Functions.search_arxiv import search_arxiv_tool
-		from Flows.PersonalAssistant.Functions.ask_user import ask_user_tool
+		from easai.Flows.PersonalAssistant.Functions.get_latest_news import get_latest_news_tool, get_news_details_tool
+		from easai.Flows.PersonalAssistant.Functions.read_web_page import read_web_page_text_tool, read_web_page_markdown_tool
+		from easai.Flows.PersonalAssistant.Functions.search_internet import find_images_tool
+		from easai.Flows.PersonalAssistant.Functions.search_internet import search_internet_tool
+		from easai.Flows.PersonalAssistant.Functions.search_wikipedia import search_wikipedia_tool
+		from easai.Flows.PersonalAssistant.Functions.search_arxiv import search_arxiv_tool
+		from easai.Flows.PersonalAssistant.Functions.ask_user import ask_user_tool
 
 		return [
 			ask_user_tool(),

@@ -1,5 +1,5 @@
 def getClient():
-	from Utils.Settings import getSetting
+	from easai.Utils.Settings import getSetting
 	from huggingface_hub import InferenceClient
 	huggingFaceToken = getSetting("huggingFace")["token"]
 	return InferenceClient(token = huggingFaceToken)

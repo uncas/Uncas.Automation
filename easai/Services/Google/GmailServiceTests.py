@@ -1,4 +1,4 @@
-from Services.Google.GmailService import getInboxMessages
+from easai.Services.Google.GmailService import getInboxMessages
 
 def testGmailService():
 	messages = getInboxMessages()

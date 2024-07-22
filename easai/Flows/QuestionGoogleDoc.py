@@ -1,5 +1,5 @@
-from Services.Google.GoogleDocsService import readDocument
-from Utils.FileUtils import write_text
+from easai.Services.Google.GoogleDocsService import readDocument
+from easai.Utils.FileUtils import write_text
 import Tools.Ai.QaPipeline
 
 def questionGoogleDoc(id, question):

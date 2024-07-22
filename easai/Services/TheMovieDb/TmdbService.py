@@ -10,7 +10,7 @@
 
 import os
 import tmdbsimple as tmdb
-from Utils.LocalCache import LocalCache
+from easai.Utils.LocalCache import LocalCache
 
 class TmdbService:
 

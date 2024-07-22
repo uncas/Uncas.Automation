@@ -1,4 +1,4 @@
-from Services.Google.GoogleDocsService import readDocument, read_structural_elements, getListOfTextContent
+from easai.Services.Google.GoogleDocsService import readDocument, read_structural_elements, getListOfTextContent
 
 def test_readDocument():
 	# Here's a test docoment that I have used for testing a certain structure:

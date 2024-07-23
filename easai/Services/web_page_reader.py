@@ -1,7 +1,7 @@
 def read_web_page_text(url):
 	import bs4
 	soup = bs4.BeautifulSoup(read_web_page_html(url), 'html.parser')
-	return soup.body.get_text(' ', strip = True)
+	return soup.get_text(' ', strip = True)
 
 def read_web_page_html(url):
 	import requests

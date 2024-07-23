@@ -59,3 +59,8 @@ class AssistantIntegrationTests(unittest.TestCase):
 		images = list(find_images("python", top_results_to_return = 5))
 		self.assertEqual(len(images), 5)
 		write_text("Output", "images.json", json.dumps(images, indent = 4))
+
+	def test_read_webpage_text(self):
+		from easai.Services.web_page_reader import read_web_page_text
+		text = read_web_page_text("https://raw.githubusercontent.com/uncas/Uncas.Automation/main/easai/assistant/Readme.md")
+		self.assertIn("Personal assistant", text)

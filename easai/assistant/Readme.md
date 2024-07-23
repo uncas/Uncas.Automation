@@ -3,21 +3,38 @@
 This folder contains the script for an AI assistant that can do various actions based on the user's input.
 
 The assistant can perform the following actions:
+
+Generic:
+- Get the current location (based on IP address)
+- Get the current date and time
+- Save text content to a file (useful when asking it to create a HTML page, for example)
+- Ask the user for more information
+
+Research:
+- Search the internet (duckduckgo)
+- Read the text of a web page
+- Find images (duckduckgo)
+- Search wikipedia
+- Get the news (**NB! Limitation: From Danish news site [DR](https://www.dr.dk/nyheder)**)
+- Search research articles ([arXiv.org](https://www.arxiv.org))
+
+Travel:
+- Get the weather at a given location ([Open Weather Map](https://openweathermap.org/api/))
+- Get travel directions between two locations (Google Maps)
+
+Office:
 - Check mail (gmail)
 - Create mail drafts (gmail)
 - Check calendar (Google Calendar)
-- Get the current date and time
 - Retrieve Jira issues
 - Create Jira issues
 - Search documents (**NB! Limitation: Hard-coded to my locally cached documents**)
-- Search research articles ([arXiv.org](https://www.arxiv.org))
-- Get the news (**NB! Limitation: From Danish news site [DR](https://www.dr.dk/nyheder)**)
-- Get the current location (based on IP address)
-- Get the weather at a given location ([Open Weather](https://openweathermap.org/api/))
+
+Movies:
 - Find out where a certain movie can be streamed
 ([The Movie Db](https://developer.themoviedb.org/docs/getting-started);
 **NB! Limitation: Hard-coded to Denmark and my streaming providers**)
-- Read the text of a web page
+- Get a list of unwatched movies that can be streamed (using list of watched movies from The Movie Db)
 
 The assistant can reason about how to do a sequence of actions, for example if I ask about the weather it will first find my location and then find the weather at that location. (See example conversation + more in the Examples section below.)
 

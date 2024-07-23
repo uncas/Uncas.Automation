@@ -54,6 +54,7 @@ def get_all_tools():
 	from easai.assistant.Functions.search_wikipedia import search_wikipedia_tool
 	from easai.assistant.Functions.search_internet import search_internet_tool, find_images_tool
 	from easai.assistant.Functions.ask_user import ask_user_tool
+	from easai.assistant.Functions.save_to_file import save_to_file_tool
 
 	tools = [
 		ask_user_tool(),
@@ -73,6 +74,7 @@ def get_all_tools():
 		read_email_tool(),
 		read_web_page_markdown_tool(),
 		read_web_page_text_tool(),
+		save_to_file_tool(),
 		search_internet_tool(),
 		search_wikipedia_tool(),
 		search_arxiv_tool(),

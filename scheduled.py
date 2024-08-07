@@ -1,3 +1,3 @@
-from easai.assistant.scheduled_agents import runScheduledAgents
+from easai.assistant.scheduled_agents import run_scheduled_agents
 
-runScheduledAgents()
+run_scheduled_agents()

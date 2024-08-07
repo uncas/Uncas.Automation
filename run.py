@@ -1,3 +1,3 @@
-from easai.assistant.personal_assistant import runPersonalAssistant
+from easai.assistant.personal_assistant import run_personal_assistant
 
-runPersonalAssistant()
+run_personal_assistant()

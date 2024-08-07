@@ -1,41 +1,62 @@
+import json
 import logging
-from dotenv import load_dotenv
+import os
 
+from dotenv import load_dotenv
 from openai import OpenAI
 
+from easai.assistant.assistant_tools import get_all_tools
+from easai.assistant.logger_setup import init_logger
 from easai.assistant.old_logger import foreground, background, style
-from easai.assistant.Utility.ai_log import AiLog
+from easai.assistant.Agents.activity_planner_agent import ActivityPlannerAgent
 from easai.assistant.Agents.agent_definition import AgentDefinition
+from easai.assistant.Agents.blog_writer_agent import BlogWriterAgent
+from easai.assistant.Utility.ai_log import AiLog
+from easai.Utils.Settings import getSetting
 
-defaultModel = "gpt-4o-mini"
 load_dotenv(override = True)
 aiLog = AiLog()
 
-def runTaskedAgent(agent: AgentDefinition, model: str = defaultModel):
-	import json
+def get_llm_type() -> str:
+	value = os.getenv("LlmType")
+	if not value:
+		return "Ollama"
+	return value
 
-	client = OpenAI()
+def get_llm_client() -> OpenAI:
+	llmType = get_llm_type()
+	if llmType == "OpenAi":
+		return OpenAI()
+	return OpenAI(base_url='http://localhost:11434/v1/', api_key='ollama')
+
+def get_llm_model() -> str:
+	model = os.getenv("LlmModel")
+	if model and len(model) > 0:
+		return model
+	
+	llmType = get_llm_type()
+	if llmType == "OpenAi":
+		return "gpt-4o-mini"
+	return "sam4096/qwen2tools:1.5b"
+
+def run_tasked_agent(agent: AgentDefinition):
+	client = get_llm_client()
 	messages = [getSystemPrompt(agent.system_prompt)]
-	userMessageContent = ""
+	user_message_content = ""
 	for inputTask in agent.input_tasks:
 		taskResult = json.dumps(inputTask["task"]())
-		userMessageContent += inputTask["prompt"] + ": " + taskResult + "\n\n"
-	messages.append(getUserPrompt(userMessageContent))
-	messages = runToolLoop(client, model, agent.tools, messages)
+		user_message_content += inputTask["prompt"] + ": " + taskResult + "\n\n"
+	messages.append(getUserPrompt(user_message_content))
+	messages = runToolLoop(client, agent.tools, messages)
 	assistantMessage = messages[-1].content
 	agent.action_on_result(assistantMessage)
 
-def runInteractiveChatLoop(model = defaultModel):
-	import os
-	from openai import OpenAI
-	from easai.assistant.assistant_tools import get_all_tools
-	from easai.Utils.Settings import getSetting
+def runInteractiveChatLoop():
 	if not os.getenv("OPENAI_API_KEY"):
-		import logging
 		logger = logging.getLogger(__name__)
 		logger.critical('FATAL ERROR: OPENAI_API_KEY needed. Set the value in a .env file: echo "OPENAI_API_KEY=YOUR_API_KEY_VALUE" >> .env')
 		exit(1)
-	client = OpenAI()
+	client = get_llm_client()
 	messages = [getSystemPromptFromFile("InteractiveAssistantLoop.md")]
 	callName = getSetting("assistant", {}).get("callName", "You")
 	tools = get_all_tools()
@@ -46,7 +67,7 @@ def runInteractiveChatLoop(model = defaultModel):
 			printAssistantMessage("Good bye!")
 			return
 		messages.append(getUserPrompt(prompt))
-		messages = runToolLoop(client, model, tools, messages)
+		messages = runToolLoop(client, tools, messages)
 
 def getRoleConsoleLine(role : str):
 	return "  " + role.ljust(11) + style.RESET_ALL + " : "
@@ -57,7 +78,6 @@ def getUserPrompt(content):
 def limitMessageContent(content):
 	maxMessageContentLength = 100 * 1000
 	if len(content) > maxMessageContentLength:
-		import logging
 		logger = logging.getLogger(__name__)
 		logger.warning(
 			"Message content %s was too long, truncating to %d characters.",
@@ -82,12 +102,12 @@ def printToolMessage(content):
 	print(background.YELLOW + foreground.WHITE + getRoleConsoleLine("Tool"), content)
 	print()
 
-def runToolLoop(client: OpenAI, model: str, tools: list, messages):
-	import json
+def runToolLoop(client: OpenAI, tools: list, messages):
 	openAiTools = [tool.map_to_open_ai_tool() for tool in tools]
 	toolMethods = {tool.name: tool.method for tool in tools}
 	maxIterations = 10
 	messageCountAtLastLog = len(messages) - 1
+	model = get_llm_model()
 	for _ in range(maxIterations):
 		chatCompletion = client.chat.completions.create(
 			messages = messages,
@@ -128,18 +148,14 @@ def runToolLoop(client: OpenAI, model: str, tools: list, messages):
 	return messages
 
 def runPersonalAssistant():
-	import logging
-	from easai.assistant.logger_setup import initLogger
-	initLogger()
+	init_logger()
 	logger = logging.getLogger(__name__)
 	logger.info("Running Personal Assistant")
 	mode = input("How can I help you? Select: 1 = Chat, 2 = Holiday planner, 3 = Blog writer : ")
 	if mode == "1":
 		runInteractiveChatLoop()
 	elif mode == "2":
-		from easai.assistant.Agents.activity_planner_agent import ActivityPlannerAgent
-		runTaskedAgent(ActivityPlannerAgent())
+		run_tasked_agent(ActivityPlannerAgent())
 	elif mode == "3":
-		from easai.assistant.Agents.blog_writer_agent import BlogWriterAgent
-		runTaskedAgent(BlogWriterAgent())
+		run_tasked_agent(BlogWriterAgent())
 	logger.info("Exiting Personal Assistant")

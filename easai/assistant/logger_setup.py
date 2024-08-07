@@ -1,4 +1,4 @@
-def initLogger():
+def init_logger():
 	import logging
 	from easai.Utils.SQLiteLoggingHandler import SQLiteLoggingHandler
 	from easai.Utils.ColoredLoggingFormatter import ColoredLoggingFormatter

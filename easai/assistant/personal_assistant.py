@@ -11,6 +11,7 @@ from easai.assistant.old_logger import foreground, background, style
 from easai.assistant.Agents.activity_planner_agent import ActivityPlannerAgent
 from easai.assistant.Agents.agent_definition import AgentDefinition
 from easai.assistant.Agents.blog_writer_agent import BlogWriterAgent
+from easai.assistant.Agents.coding_agent import CodingAgent
 from easai.assistant.Utility.ai_log import AiLog
 from easai.Utils.Settings import getSetting
 
@@ -151,11 +152,13 @@ def run_personal_assistant():
 	init_logger()
 	logger = logging.getLogger(__name__)
 	logger.info("Running Personal Assistant")
-	mode = input("How can I help you? Select: 1 = Chat, 2 = Holiday planner, 3 = Blog writer : ")
+	mode = input("How can I help you? Select: 1 = Chat, 2 = Holiday planner, 3 = Blog writer, 4 = Coder : ")
 	if mode == "1":
 		run_chat_loop()
 	elif mode == "2":
 		run_tasked_agent(ActivityPlannerAgent())
 	elif mode == "3":
 		run_tasked_agent(BlogWriterAgent())
+	elif mode == "4":
+		run_tasked_agent(CodingAgent())
 	logger.info("Exiting Personal Assistant")

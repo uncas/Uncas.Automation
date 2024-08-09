@@ -51,3 +51,6 @@ wikipedia
 
 # For finding web pages on the internet:
 duckduckgo_search
+
+# For the flask websites:
+flask

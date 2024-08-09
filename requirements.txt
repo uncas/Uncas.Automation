@@ -55,4 +55,4 @@ duckduckgo_search
 # For the flask websites:
 flask
 
-easai
+easai > 0.0.3

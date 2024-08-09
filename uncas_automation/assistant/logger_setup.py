@@ -1,7 +1,7 @@
 def init_logger():
 	import logging
 	from easai.utils.sqlite_logging_handler import SQLiteLoggingHandler
-	from uncas_automation.Utils.ColoredLoggingFormatter import ColoredLoggingFormatter
+	from easai.utils.colored_logging_formatter import ColoredLoggingFormatter
 
 	# 1. Create root logger
 	logger = logging.getLogger()

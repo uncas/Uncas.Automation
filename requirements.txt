@@ -54,3 +54,5 @@ duckduckgo_search
 
 # For the flask websites:
 flask
+
+easai

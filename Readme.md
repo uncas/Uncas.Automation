@@ -6,8 +6,8 @@ This repository contains various automations scripts.
 ## Assistant
 
 -Assistant: The main automation scripts.
-  - [Open folder](easai/assistant)
-  - [View the readme](easai/assistant/Readme.md)
+  - [Open folder](uncas_automation/assistant)
+  - [View the readme](uncas_automation/assistant/Readme.md)
 
 
 ## Style guide
@@ -22,7 +22,7 @@ but will change to the Python style along the way.)
 
 Besides the personal AI assistant, there are various experiments and minor scripts (finished, unfinished, or abandoned), primarily located in the following folders:
 
-- [easai](easai): Organized as modules that can call each other.
+- [uncas_automation](uncas_automation): Organized as modules that can call each other.
 
 - [Simple](Simple): Stand-alone experiments, not linked to the other modules.
 

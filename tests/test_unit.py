@@ -2,14 +2,14 @@ import datetime
 import json
 import unittest
 
-from easai.assistant.Resources.resource_tools import mapListOfTextContentToDatedEntries
-from easai.Services.Google.GoogleDocsService import read_structural_elements, getListOfTextContent
-from easai.Utils.FileUtils import getFilePath
+from uncas_automation.assistant.Resources.resource_tools import mapListOfTextContentToDatedEntries
+from uncas_automation.Services.Google.GoogleDocsService import read_structural_elements, getListOfTextContent
+from uncas_automation.Utils.FileUtils import getFilePath
 
 class AssistantUnitTests(unittest.TestCase):
 	def test_getFilePath(self):
 		path = getFilePath("../Data/test.db")
-		self.assertIn("easai/Utils/../../Data/test.db", path)
+		self.assertIn("uncas_automation/Utils/../../Data/test.db", path)
 
 	def test_getListOfTextContent(self):
 		items = self.getListOfTexts()

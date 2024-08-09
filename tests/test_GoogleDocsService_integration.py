@@ -1,6 +1,6 @@
 import unittest
 
-from easai.Services.Google.GoogleDocsService import readDocument
+from uncas_automation.Services.Google.GoogleDocsService import readDocument
 
 class GoogleDocsServiceTests(unittest.TestCase):
 	def test_readDocument(self):

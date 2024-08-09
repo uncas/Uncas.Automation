@@ -33,46 +33,46 @@ def run():
 		task = input(menu + "\nEnter your choice: ").lower()
 
 		if task == "1":
-			from easai.Tools.Ai.CompletionApis.ChatCompletion import askQuestion
+			from uncas_automation.Tools.Ai.CompletionApis.ChatCompletion import askQuestion
 			askQuestion()
 		elif task == "2":
-			from easai.Tools.Ai.CompletionApis.ChatCompletion import chat
+			from uncas_automation.Tools.Ai.CompletionApis.ChatCompletion import chat
 			chat()
 		elif task == "3":
-			from easai.Flows.QuestionGoogleDocsFromSheetList import runQuestionGoogleDocsFromSheetList
+			from uncas_automation.Flows.QuestionGoogleDocsFromSheetList import runQuestionGoogleDocsFromSheetList
 			runQuestionGoogleDocsFromSheetList()
 		elif task == "5":
-			from easai.Services.OpenAi.ChatGptService import runChatGpt
+			from uncas_automation.Services.OpenAi.ChatGptService import runChatGpt
 			runChatGpt()
 		elif task == "6":
-			from easai.Services.HuggingFace.HuggingFaceService import runCreateImage
+			from uncas_automation.Services.HuggingFace.HuggingFaceService import runCreateImage
 			runCreateImage()
 		elif task == "7":
-			from easai.Services.HuggingFace.HuggingFaceService import generateText
+			from uncas_automation.Services.HuggingFace.HuggingFaceService import generateText
 			generateText()
 		elif task == "8":
-			from easai.Services.HuggingFace.HuggingFaceService import classifyText
+			from uncas_automation.Services.HuggingFace.HuggingFaceService import classifyText
 			classifyText()
 		elif task == "9":
-			from easai.Services.HuggingFace.HuggingFaceService import translate
+			from uncas_automation.Services.HuggingFace.HuggingFaceService import translate
 			translate()
 		elif task == "10":
-			from easai.Services.HuggingFace.HuggingFaceService import runSpeak
+			from uncas_automation.Services.HuggingFace.HuggingFaceService import runSpeak
 			runSpeak()
 		elif task == "11":
-			from easai.Services.HuggingFace.HuggingFaceService import search
+			from uncas_automation.Services.HuggingFace.HuggingFaceService import search
 			search()
 		elif task == "12":
-			from easai.Services.eletric_cars_service import get_electric_cars_in_denmark
+			from uncas_automation.Services.eletric_cars_service import get_electric_cars_in_denmark
 			get_electric_cars_in_denmark()
 		elif task == "13":
-			from easai.Services.OpenAi.EmbeddingService import runGetEmbedding
+			from uncas_automation.Services.OpenAi.EmbeddingService import runGetEmbedding
 			runGetEmbedding()
 		elif task == "14":
-			from easai.Services.LangChain.TextSplitter import runSplitText
+			from uncas_automation.Services.LangChain.TextSplitter import runSplitText
 			runSplitText()
 		elif task == "15":
-			from easai.Services.Embeddings.Embeddor import runEmbed
+			from uncas_automation.Services.Embeddings.Embeddor import runEmbed
 			runEmbed()
 		elif task == "t":
 			from tests.test_GmailService_adhoc import testGmailService
@@ -82,14 +82,14 @@ def run():
 			from QuestionGoogleDocsFromSheetListTests import testQuestionGoogleDocsFromSheetList
 			testQuestionGoogleDocsFromSheetList()
 	
-			from easai.Services.Google.GooglePresentationsServiceTests import testGooglePresentationsService
+			from uncas_automation.Services.Google.GooglePresentationsServiceTests import testGooglePresentationsService
 			testGooglePresentationsService()
 
 			from QuestionGoogleDocTests import testQuestionGoogleDoc
-			from easai.Services.Google.GoogleDocsServiceTests import test_readDocument
-			from easai.Services.Google.GoogleSheetsServiceTests import testGoogleSheetsService
-			from easai.Tools.Ai.QaPipelineTests import testQaPipeline
-			from easai.Tools.Ai.QueryLMTests import testQueryLM
+			from uncas_automation.Services.Google.GoogleDocsServiceTests import test_readDocument
+			from uncas_automation.Services.Google.GoogleSheetsServiceTests import testGoogleSheetsService
+			from uncas_automation.Tools.Ai.QaPipelineTests import testQaPipeline
+			from uncas_automation.Tools.Ai.QueryLMTests import testQueryLM
 			test_readDocument()
 			testGoogleSheetsService()
 			testQueryLM()

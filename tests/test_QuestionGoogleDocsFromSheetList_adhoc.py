@@ -1,4 +1,4 @@
-from easai.Flows.QuestionGoogleDocsFromSheetList import questionGoogleDocsFromSheetList
+from uncas_automation.Flows.QuestionGoogleDocsFromSheetList import questionGoogleDocsFromSheetList
 
 def testQuestionGoogleDocsFromSheetList():
 	sheetId = "xx"

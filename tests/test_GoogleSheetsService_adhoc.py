@@ -1,4 +1,4 @@
-from easai.Services.Google.GoogleSheetsService import readSheet
+from uncas_automation.Services.Google.GoogleSheetsService import readSheet
 
 def testGoogleSheetsService():
 	id = "xx"

@@ -1,5 +1,5 @@
 import ssl
-from easai.Tools.Ai.QaPipeline import questionDocuments
+from uncas_automation.Tools.Ai.QaPipeline import questionDocuments
 from haystack.utils import fetch_archive_from_http
 
 def testQaPipeline():

@@ -1,4 +1,4 @@
-from easai.Services.Google.GooglePresentationsService import readPresentation
+from uncas_automation.Services.Google.GooglePresentationsService import readPresentation
 
 def testGooglePresentationsService():
 	id = "xx"

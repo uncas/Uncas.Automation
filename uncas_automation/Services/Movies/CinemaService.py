@@ -20,11 +20,11 @@ def getMovies():
 			yield movie
 
 def getMoviesInCinema(cinema):
-	from uncas_automation.Utils.LocalCache import LocalCache
-	cache = LocalCache()
+	from easai.utils.local_cache import LocalCache
+	cache = LocalCache("Data/LocalCache.db")
 	key = "getMoviesInCinema: " + cinema["name"]
 	lifetimeSeconds = 3600 * 3
-	return cache.getOrAddWithLifetime(key, lambda: getMoviesInCinema_NonCached(cinema), lifetimeSeconds)
+	return cache.get_or_add_with_lifetime(key, lambda: getMoviesInCinema_NonCached(cinema), lifetimeSeconds)
 
 def getMoviesInCinema_NonCached(cinema):
 	import urllib.request

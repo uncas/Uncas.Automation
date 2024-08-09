@@ -10,13 +10,13 @@
 
 import os
 import tmdbsimple as tmdb
-from uncas_automation.Utils.LocalCache import LocalCache
+from easai.utils.local_cache import LocalCache
 
 class TmdbService:
 
 	def __init__(self):
 		tmdb.API_KEY = os.getenv('THEMOVIEDB_API_KEY')
-		self.cache = LocalCache()
+		self.cache = LocalCache("Data/LocalCache.db")
 
 	def getBestMatchingMovieId(self, movieTitle):
 		search = tmdb.Search()
@@ -52,7 +52,7 @@ class TmdbService:
 							options.append(providerName)
 			return options
 
-		return self.cache.getOrAddWithLifetime("TheMovieDb_WatchProvidersByMovieId_" + str(movieId), _get, 3600 * 24 * 7)
+		return self.cache.get_or_add_with_lifetime("TheMovieDb_WatchProvidersByMovieId_" + str(movieId), _get, 3600 * 24 * 7)
 
 	def getRecommendedMoviesByMovieTitle(self, movieTitle):
 		movieId = self.getBestMatchingMovieId(movieTitle)
@@ -78,7 +78,7 @@ class TmdbService:
 		movie.rating(session_id = sessionId, value = rating)
 
 	def getSessionId(self):
-		return self.cache.getOrAdd("TheMovieDb_SessionId", self.createSessionId)
+		return self.cache.get_or_add("TheMovieDb_SessionId", self.createSessionId)
 
 	def createSessionId(self):
 		import requests
@@ -112,7 +112,7 @@ class TmdbService:
 			account = tmdb.Account(sessionId)
 			account.info()
 			return account.favorite_movies(page = page)["results"]
-		return self.cache.getOrAddWithLifetime("TheMovieDb_MyFavoriteMovies-page" + str(page), _get, 60 * 5)
+		return self.cache.get_or_add_with_lifetime("TheMovieDb_MyFavoriteMovies-page" + str(page), _get, 60 * 5)
 
 	def getAllMoviesIHaveWatched(self):
 		for page in range(1, 100):
@@ -131,27 +131,27 @@ class TmdbService:
 			account = tmdb.Account(sessionId)
 			account.info()
 			return account.rated_movies(page = page)["results"]
-		return self.cache.getOrAddWithLifetime("TheMovieDb_MoviesIHaveRated-page" + str(page), _get, 60 * 5)
+		return self.cache.get_or_add_with_lifetime("TheMovieDb_MoviesIHaveRated-page" + str(page), _get, 60 * 5)
 
 	def getMoviesPlayingNow(self):
 		def _get():
 			return tmdb.Movies().now_playing(region = "DK")["results"]
-		return self.cache.getOrAddWithLifetime("TheMovieDb_MoviesNowPlaying", _get, 3600 * 24 * 3)
+		return self.cache.get_or_add_with_lifetime("TheMovieDb_MoviesNowPlaying", _get, 3600 * 24 * 3)
 
 	def getPopularMovies(self):
 		def _get():
 			return tmdb.Movies().popular()["results"]
-		return self.cache.getOrAddWithLifetime("TheMovieDb_PopularMovies", _get, 3600 * 24)
+		return self.cache.get_or_add_with_lifetime("TheMovieDb_PopularMovies", _get, 3600 * 24)
 
 	def getTopRatedMovies(self, page = 1):
 		def _get():
 			return tmdb.Movies().top_rated(page = page)["results"]
-		return self.cache.getOrAddWithLifetime("TheMovieDb_TopRatedMovies-page-" + str(page), _get, 3600 * 24 * 3)
+		return self.cache.get_or_add_with_lifetime("TheMovieDb_TopRatedMovies-page-" + str(page), _get, 3600 * 24 * 3)
 
 	def getTrendingMovies(self):
 		def _get():
 			return tmdb.Trending(media_type = "movie", time_window = "week").info()["results"]
-		return self.cache.getOrAddWithLifetime("TheMovieDb_TrendingMovies", _get, 3600 * 24 * 7)
+		return self.cache.get_or_add_with_lifetime("TheMovieDb_TrendingMovies", _get, 3600 * 24 * 7)
 	
 	def getWatchableMovies(self, minRating = 7, minVoteCount = 10):
 		movies = self.getTrendingMovies() + self.getMoviesPlayingNow() + self.getPopularMovies()
@@ -183,7 +183,7 @@ class TmdbService:
 	def getGenres(self):
 		def _get():
 			return tmdb.Genres().movie_list()
-		return self.cache.getOrAddWithLifetime("TheMovieDb_Genres", _get, 3600 * 24 * 7)["genres"]
+		return self.cache.get_or_add_with_lifetime("TheMovieDb_Genres", _get, 3600 * 24 * 7)["genres"]
 
 def test_getMoviesPlayingNow():
 	import json

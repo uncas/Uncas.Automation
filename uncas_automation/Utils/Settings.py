@@ -1,9 +1,4 @@
 def getSetting(key, defaultValue = None):
-	import json
-	import os.path
+	from easai.utils.json_key_value_fetcher import fetch_json_key_value
 	fileName = "Config/Settings.json"
-	if not os.path.isfile(fileName):
-		return defaultValue
-	with open(fileName) as settingsFile:
-		settings = json.load(settingsFile)
-		return settings.get(key, defaultValue)
+	return fetch_json_key_value(fileName, key, defaultValue)

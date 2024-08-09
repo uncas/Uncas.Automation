@@ -1,6 +1,6 @@
 import os
 
-from uncas_automation.Utils.FileUtils import write_text
+from easai.utils.file_utils import write_text
 
 code_base_path = "Output/assistant_code"
 

@@ -3,7 +3,7 @@
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from uncas_automation.Services.Google.GoogleAuth import getCredentials
-from uncas_automation.Utils.FileUtils import write_text
+from easai.utils.file_utils import write_text
 import json
 
 QUERY_INBOX = "in:inbox"

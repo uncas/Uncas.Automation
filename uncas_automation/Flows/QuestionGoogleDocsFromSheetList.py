@@ -3,7 +3,7 @@ from uncas_automation.Services.Google.GoogleDocsService import readDocument
 from uncas_automation.Services.Google.GooglePresentationsService import readPresentation
 from uncas_automation.Utils.Settings import getSetting
 from uncas_automation.Tools.Ai.QaPipeline import questionDocuments
-from uncas_automation.Utils.FileUtils import write_text
+from easai.utils.file_utils import write_text
 
 def runQuestionGoogleDocsFromSheetList():
 	sheets = getSheetsFromSettings()

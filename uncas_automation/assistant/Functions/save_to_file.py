@@ -1,5 +1,5 @@
 def save_to_file(data):
-	from uncas_automation.Utils.FileUtils import write_text
+	from easai.utils.file_utils import write_text
 	import datetime
 	text = data["text"]
 	file_name = data["file_name"]

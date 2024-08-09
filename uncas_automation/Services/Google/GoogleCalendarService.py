@@ -15,7 +15,7 @@ def getTodaysCalendarEvents(maxResults = 20):
 
 def getCalendarEvents(maxResults = 20, fromDaysInFuture = 0, toDaysInFuture = 1):
 	import json
-	from uncas_automation.Utils.FileUtils import write_text
+	from easai.utils.file_utils import write_text
 	creds = getCredentials()
 	try:
 		service = build("calendar", "v3", credentials=creds)

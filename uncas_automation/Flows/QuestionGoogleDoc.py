@@ -1,5 +1,5 @@
 from uncas_automation.Services.Google.GoogleDocsService import readDocument
-from uncas_automation.Utils.FileUtils import write_text
+from easai.utils.file_utils import write_text
 import Tools.Ai.QaPipeline
 
 def questionGoogleDoc(id, question):

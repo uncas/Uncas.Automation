@@ -3,17 +3,28 @@ import logging
 
 from openai import OpenAI
 
+from uncas_automation.assistant.assistant_tools import AssistantTool
 from uncas_automation.assistant.Utility.ai_log import AiLogBase, LoggingAiLog
 
 def run_tool_loop(
 		client: OpenAI,
-		tools: list,
+		tools: list[AssistantTool],
 		messages: list,
 		model: str,
 		max_iterations: int = 10,
 		assistant_message_callback = None,
 		tool_message_callback = None,
 		ai_logger: AiLogBase = LoggingAiLog()) -> list:
+	"""Run assistant tool loop, calling tools until the assistant is satisfied.
+
+	Args:
+		client (OpenAI): OpenAI client
+		tools (list): List of tools
+		messages (list): List of messages
+		model (str): LLM model
+		max_iterations (int, optional): Maximum number of iterations. Defaults to 10.
+		assistant_message_callback (function, optional): Function to call when the assistant message is received. Defaults to None.
+	"""
 	client_tools = [tool.map_to_open_ai_tool() for tool in tools]
 	tool_methods = {tool.name: tool.method for tool in tools}
 	message_count_at_last_log = len(messages) - 1

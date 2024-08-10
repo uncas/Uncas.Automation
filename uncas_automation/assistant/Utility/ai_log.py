@@ -1,6 +1,12 @@
+import json
+import logging
+import sqlite3
+from datetime import datetime
+
+from openai.types.chat.chat_completion_message import ChatCompletionMessage
+
 class AiLogBase:
 	def log(self, model, promptTokens, completionTokens, messages):
-		import json
 		messagesString = json.dumps([self.extract_message_values(message) for message in messages])
 		self.do_log(model, promptTokens, completionTokens, messagesString)
 
@@ -8,7 +14,6 @@ class AiLogBase:
 		pass
 
 	def extract_message_values(self, message):
-		from openai.types.chat.chat_completion_message import ChatCompletionMessage
 		if isinstance(message, ChatCompletionMessage):
 			return {
 				"role": message.role, 
@@ -31,7 +36,6 @@ class AiLogBase:
 
 class LoggingAiLog(AiLogBase):
 	def __init__(self):
-		import logging
 		self.logger = logging.getLogger(__name__)
 
 	def do_log(self, model, promptTokens, completionTokens, messages_string):
@@ -39,12 +43,10 @@ class LoggingAiLog(AiLogBase):
 
 class SqliteAiLog(AiLogBase):
 	def __init__(self):
-		import sqlite3
 		self.db = sqlite3.connect("Data/AiLog.db")
 		self.db.execute("CREATE TABLE IF NOT EXISTS AiLog (AiLogId INTEGER PRIMARY KEY, Date TEXT, Model TEXT, PromptTokens INTEGER, CompletionTokens INTEGER, Messages TEXT, TimeStamp INTEGER)")
 
 	def do_log(self, model, promptTokens, completionTokens, messages_string):
-		from datetime import datetime
 		now = datetime.now()
 		timeStamp = int(now.timestamp())
 		isoString = now.isoformat()

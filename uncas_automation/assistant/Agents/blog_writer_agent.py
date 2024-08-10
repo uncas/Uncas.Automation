@@ -1,4 +1,5 @@
 from uncas_automation.assistant.Agents.agent_definition import AgentDefinition
+from uncas_automation.assistant.assistant_tools import AssistantTool
 
 class BlogWriterAgent(AgentDefinition):
 	def __init__(self):
@@ -13,7 +14,7 @@ class BlogWriterAgent(AgentDefinition):
 	def write_blog_post_to_file(self, output):
 		super().write_output_to_file("BlogPost", output)
 
-	def get_tools(self):
+	def get_tools(self) -> list[AssistantTool]:
 		from uncas_automation.assistant.Functions.get_latest_news import get_latest_news_tool, get_news_details_tool
 		from uncas_automation.assistant.Functions.read_web_page import read_web_page_text_tool, read_web_page_markdown_tool
 		from uncas_automation.assistant.Functions.search_internet import find_images_tool

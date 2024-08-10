@@ -1,9 +1,5 @@
-def search_internet(data):
+def search_internet(query, top_results_to_return = 5, country_code = "dk", language_code = "da"):
 	from uncas_automation.Services.internet_search_service import search_internet
-	query = data["query"]
-	top_results_to_return = data["top_results_to_return"] if "top_results_to_return" in data else 5
-	country_code = data["country_code"] if "country_code" in data else "dk"
-	language_code = data["language_code"] if "language_code" in data else "da"
 	return list(search_internet(query, top_results_to_return, country_code, language_code))
 
 def search_internet_tool():
@@ -16,12 +12,8 @@ def search_internet_tool():
 	]
 )
 
-def find_images(data):
+def find_images(query, top_results_to_return = 5, country_code = "dk", language_code = "da"):
 	from uncas_automation.Services.internet_search_service import find_images
-	query = data["query"]
-	top_results_to_return = data["top_results_to_return"] if "top_results_to_return" in data else 5
-	country_code = data["country_code"] if "country_code" in data else "dk"
-	language_code = data["language_code"] if "language_code" in data else "da"
 	return list(find_images(query, top_results_to_return, country_code, language_code))
 
 def find_images_tool():

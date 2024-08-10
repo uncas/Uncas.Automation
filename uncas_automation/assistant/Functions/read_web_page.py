@@ -1,6 +1,5 @@
-def read_web_page_text(data):
+def read_web_page_text(url):
 	from uncas_automation.Services.web_page_reader import read_web_page_text
-	url = data["url"]
 	return read_web_page_text(url)
 
 def read_web_page_text_tool():
@@ -9,9 +8,8 @@ def read_web_page_text_tool():
 		AssistantToolParameter("url", "The url of the web page")
 	])
 
-def read_web_page_markdown(data):
+def read_web_page_markdown(url):
 	from uncas_automation.Services.web_page_reader import read_web_page_markdown
-	url = data["url"]
 	return read_web_page_markdown(url)
 
 def read_web_page_markdown_tool():

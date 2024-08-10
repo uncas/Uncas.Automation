@@ -10,12 +10,8 @@ def read_email():
 	} for message in messages]
 	return result
 
-def writeEmail(data):
+def writeEmail(body, subject, recipient, internalMessageId = None):
 	from uncas_automation.Services.Google.GmailSendService import createDraft
-	body = data["body"]
-	subject = data["subject"]
-	recipient = data["recipient"]
-	internalMessageId = data["internalMessageId"] if "internalMessageId" in data else None
 	createDraft(recipient, subject, body, internalMessageId)
 
 def write_email_tool():

@@ -12,8 +12,7 @@ def sync_docs():
 		print("Storing file ", file)
 		store.save(file)
 
-def find_info_in_docs(input):
-	query = input["query"]
+def find_info_in_docs(query):
 	# TODO: Check when docs were last synced
 	# TODO: If sync was more than X days ago, then sync again
 	store = get_store()

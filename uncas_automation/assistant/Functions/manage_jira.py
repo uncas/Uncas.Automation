@@ -30,9 +30,7 @@ def get_my_jira_issues():
 def getFieldValue(issue, fieldName):
 	return issue.raw['fields'][fieldName]
 
-def create_jira_issue(data):
-	summary = data["summary"]
-	description = data["description"]
+def create_jira_issue(summary, description):
 	jira = initJira()
 	jiraProject = os.getenv("JIRA_PROJECT")
 	issue = jira.create_issue(

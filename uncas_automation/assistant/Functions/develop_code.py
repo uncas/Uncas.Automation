@@ -4,10 +4,7 @@ from easai.utils.file_utils import write_text
 
 code_base_path = "Output/assistant_code"
 
-def save_code(data):
-	code = data["code"]
-	folder_path = data["folder_path"]
-	file_name = data["file_name"]
+def save_code(code, folder_path, file_name):
 	full_folder_path = os.path.join(code_base_path, folder_path)
 	write_text(full_folder_path, file_name, code)
 

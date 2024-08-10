@@ -1,17 +1,17 @@
-def searchArxiv(data):
-	import arxiv
+import arxiv
+from arxiv import SortOrder, SortCriterion
+
+def searchArxiv(query, maxResults = 5, 
+				sortBy = SortCriterion.SubmittedDate, 
+				sortOrder = SortOrder.Descending):
 	# https://github.com/lukasschwab/arxiv.py
-	query = data["query"]
-	maxResults = data["maxResults"] if "maxResults" in data else 5
-	sortBy = arxiv.SortCriterion(data["sortBy"]) if "sortBy" in data else arxiv.SortCriterion.SubmittedDate
-	sortOrder = arxiv.SortOrder(data["sortOrder"]) if "sortOrder" in data else arxiv.SortOrder.Descending
 	client = arxiv.Client()
 	search = arxiv.Search(
 		query = query,
 		max_results = maxResults,
 		# https://info.arxiv.org/help/api/user-manual.html#3113-sort-order-for-return-results
-		sort_by = sortBy,
-		sort_order = sortOrder
+		sort_by = arxiv.SortCriterion(sortBy),
+		sort_order = arxiv.SortOrder(sortOrder)
 	)
 	results = client.results(search)
 	# https://info.arxiv.org/help/api/user-manual.html#52-details-of-atom-results-returned

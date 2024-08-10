@@ -1,5 +1,4 @@
-def ask_user(data):
-	question = data["question"]
+def ask_user(question):
 	return input(question)
 
 def ask_user_tool():

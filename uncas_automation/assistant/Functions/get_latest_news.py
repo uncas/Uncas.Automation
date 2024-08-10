@@ -7,11 +7,10 @@ def get_latest_news():
 	rss = RSSParser.parse(response.text)
 	return [{"title": item.title.content, "news_link": item.link.content} for item in rss.channel.items]
 
-def get_news_details(input):
+def get_news_details(news_link):
 	from requests import get
 	from bs4 import BeautifulSoup 
 
-	news_link = input["news_link"]
 	response = get(news_link)
 	html = response.text
 

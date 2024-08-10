@@ -39,12 +39,10 @@ def mapWeatherObjectToMyDesiredOutput(weather):
 		"cloudCoveragePercentage": weather.clouds
 	}
 
-def getCurrentWeather(data):
+def getCurrentWeather(countryCode = "", city = ""):
 	import os
 	from pyowm import OWM
 
-	countryCode = data["countryCode"] if "countryCode" in data else ""
-	city = data["city"] if "city" in data else ""
 	owm = OWM(os.getenv('OpenWeatherMap_Api_Key'))
 	mgr = owm.weather_manager()
 	place = city + ',' + countryCode

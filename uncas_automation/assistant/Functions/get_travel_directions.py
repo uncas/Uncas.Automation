@@ -1,6 +1,4 @@
-def getTravelDirections(data):
-	fromLocation = data["fromLocation"]
-	toLocation = data["toLocation"]
+def getTravelDirections(fromLocation, toLocation):
 	from uncas_automation.Services.Google.GoogleMapsService import GoogleMapsService
 	return GoogleMapsService.GetDirections(fromLocation, toLocation)
 

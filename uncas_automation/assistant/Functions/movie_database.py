@@ -1,8 +1,7 @@
 from uncas_automation.Services.TheMovieDb.TmdbService import TmdbService
 
-def getWatchProviders(movieInfo):
+def getWatchProviders(movieTitle):
 	tmdbService = TmdbService()
-	movieTitle = movieInfo["movieTitle"]
 	return tmdbService.getWatchProvidersByMovieTitle(movieTitle)
 
 def getRecommendedMoviesThatIHaveAccessToWatch():

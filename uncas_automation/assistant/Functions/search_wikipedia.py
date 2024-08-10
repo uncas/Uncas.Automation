@@ -1,6 +1,5 @@
-def search_wikipedia(data):
+def search_wikipedia(query):
 	from uncas_automation.Services.wikipedia_service import search_wikipedia_langchain
-	query = data["query"]
 	return search_wikipedia_langchain(query)
 
 def search_wikipedia_tool():

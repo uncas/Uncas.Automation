@@ -19,7 +19,8 @@ def get_resource_tools():
 				name = "getResourceData_" + id)
 		elif resourceType == "DatedEntries":
 			yield AssistantTool(
-				lambda inputParams = None, res = resource: getDatedEntries(res["id"], inputParams),
+				lambda maxNumberOfJournalEntries = None, lastNDays = None, res = resource:
+					getDatedEntries(res["id"], maxNumberOfJournalEntries, lastNDays),
 				resource["description"],
 				[
 					AssistantToolParameter("maxNumberOfJournalEntries", "The maximum number of journal entries to return (optional parameter)", type = "integer"),
@@ -44,9 +45,7 @@ def getResourceData(resourceId):
 	else:
 		return None
 
-def getDatedEntries(resourceId, inputParams = None):
-	maxCount = inputParams["maxNumberOfJournalEntries"] if inputParams and "maxNumberOfJournalEntries" in inputParams else None
-	lastNDays = inputParams["lastNDays"] if inputParams and "lastNDays" in inputParams else None
+def getDatedEntries(resourceId, maxNumberOfJournalEntries = None, lastNDays = None):
 	resources = [resource for resource in getResources() if resource["id"] == resourceId]
 	if len(resources) == 0:
 		return None
@@ -60,7 +59,7 @@ def getDatedEntries(resourceId, inputParams = None):
 			texts, 
 			sourceDetails["headingLevel"], 
 			sourceDetails["headingText"],
-			maxCount,
+			maxNumberOfJournalEntries,
 			lastNDays)
 		return entries
 	else:

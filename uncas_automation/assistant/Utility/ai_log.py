@@ -1,20 +1,11 @@
-class AiLog:
-	def __init__(self):
-		import sqlite3
-		self.db = sqlite3.connect("Data/AiLog.db")
-		self.db.execute("CREATE TABLE IF NOT EXISTS AiLog (AiLogId INTEGER PRIMARY KEY, Date TEXT, Model TEXT, PromptTokens INTEGER, CompletionTokens INTEGER, Messages TEXT, TimeStamp INTEGER)")
-
+class AiLogBase:
 	def log(self, model, promptTokens, completionTokens, messages):
 		import json
-		from datetime import datetime
-		now = datetime.now()
-		timeStamp = int(now.timestamp())
-		isoString = now.isoformat()
 		messagesString = json.dumps([self.extract_message_values(message) for message in messages])
-		self.db.execute(
-			"INSERT INTO AiLog (AiLogId, Date, Model, PromptTokens, CompletionTokens, Messages, TimeStamp) VALUES (?, ?, ?, ?, ?, ?, ?)", 
-			(None, isoString, model, promptTokens, completionTokens, messagesString, timeStamp))
-		self.db.commit()
+		self.do_log(model, promptTokens, completionTokens, messagesString)
+
+	def do_log(self, model, promptTokens, completionTokens, messagesString):
+		pass
 
 	def extract_message_values(self, message):
 		from openai.types.chat.chat_completion_message import ChatCompletionMessage
@@ -37,3 +28,27 @@ class AiLog:
 			"functionName": toolCall.function.name, 
 		  	"arguments": toolCall.function.arguments
 		}
+
+class LoggingAiLog(AiLogBase):
+	def __init__(self):
+		import logging
+		self.logger = logging.getLogger(__name__)
+
+	def do_log(self, model, promptTokens, completionTokens, messages_string):
+		self.logger.debug("Model: %s. Prompt Tokens: %d. Completion Tokens: %d. Messages: %s", model, promptTokens, completionTokens, messages_string)
+
+class SqliteAiLog(AiLogBase):
+	def __init__(self):
+		import sqlite3
+		self.db = sqlite3.connect("Data/AiLog.db")
+		self.db.execute("CREATE TABLE IF NOT EXISTS AiLog (AiLogId INTEGER PRIMARY KEY, Date TEXT, Model TEXT, PromptTokens INTEGER, CompletionTokens INTEGER, Messages TEXT, TimeStamp INTEGER)")
+
+	def do_log(self, model, promptTokens, completionTokens, messages_string):
+		from datetime import datetime
+		now = datetime.now()
+		timeStamp = int(now.timestamp())
+		isoString = now.isoformat()
+		self.db.execute(
+			"INSERT INTO AiLog (AiLogId, Date, Model, PromptTokens, CompletionTokens, Messages, TimeStamp) VALUES (?, ?, ?, ?, ?, ?, ?)", 
+			(None, isoString, model, promptTokens, completionTokens, messages_string, timeStamp))
+		self.db.commit()

@@ -12,11 +12,11 @@ from uncas_automation.assistant.Agents.activity_planner_agent import ActivityPla
 from uncas_automation.assistant.Agents.agent_definition import AgentDefinition
 from uncas_automation.assistant.Agents.blog_writer_agent import BlogWriterAgent
 from uncas_automation.assistant.Agents.coding_agent import CodingAgent
-from uncas_automation.assistant.Utility.ai_log import AiLog
+from uncas_automation.assistant.Utility.ai_log import SqliteAiLog
 from uncas_automation.Utils.Settings import getSetting
 
 load_dotenv(override = True)
-ai_log = AiLog()
+ai_log = SqliteAiLog()
 
 def get_llm_type() -> str:
 	value = os.getenv("LlmType")
@@ -103,50 +103,17 @@ def print_tool_message(content):
 	print(background.YELLOW + foreground.WHITE + get_role_console_line("Tool"), content)
 	print()
 
-def run_tool_loop(client: OpenAI, tools: list, messages):
-	client_tools = [tool.map_to_open_ai_tool() for tool in tools]
-	tool_methods = {tool.name: tool.method for tool in tools}
-	max_iterations = 10
-	message_count_at_last_log = len(messages) - 1
-	model = get_llm_model()
-	for _ in range(max_iterations):
-		chat_completion = client.chat.completions.create(
-			messages = messages,
-			model = model,
-			tools = client_tools
-		)
-		choice = chat_completion.choices[0]
-		finish_reason = choice.finish_reason
-		message = choice.message
-		messages.append(message)
-		ai_log.log(model, chat_completion.usage.prompt_tokens, chat_completion.usage.completion_tokens, messages[message_count_at_last_log:])
-		message_count_at_last_log = len(messages)
-		if finish_reason == "stop":
-			print_assistant_message(message.content)
-			return messages
-		elif finish_reason == "tool_calls":
-			for tool_call in message.tool_calls:
-				call_function = tool_call.function
-				if call_function.name in tool_methods:
-					function_name = call_function.name
-					function_args = json.loads(call_function.arguments)
-					function_response = None
-					tool_method = tool_methods[function_name]
-					if function_args:
-						print_tool_message("Calling function " + function_name + " with " + str(function_args))
-						function_response = tool_method(function_args)
-					else:
-						print_tool_message("Calling function " + function_name)
-						function_response = tool_method()
-					messages.append({
-						"role": "tool",
-						"name": function_name,
-						"tool_call_id": tool_call.id,
-						"content": get_limited_message_content(json.dumps(function_response))
-					})
-	logger = logging.getLogger(__name__)
-	logger.error("ERROR: Tool loop exited without stop reason, most likely due to too many iterations.")
-	return messages
+def run_tool_loop(client: OpenAI, tools: list, messages: list):
+	from uncas_automation.assistant.tool_loop import run_tool_loop as run_tool_loop_with_callback
+	return run_tool_loop_with_callback(
+		client,
+		tools,
+		messages,
+		model = get_llm_model(),
+		max_iterations = 10,
+		assistant_message_callback = print_assistant_message,
+		tool_message_callback = print_tool_message,
+		ai_logger = ai_log)
 
 def run_personal_assistant():
 	init_logger()

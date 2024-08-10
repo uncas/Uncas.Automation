@@ -75,17 +75,6 @@ def run_chat_loop():
 def get_role_console_line(role : str):
 	return "  " + role.ljust(11) + style.RESET_ALL + " : "
 
-def get_limited_message_content(content):
-	maxMessageContentLength = 100 * 1000
-	if len(content) > maxMessageContentLength:
-		logger = logging.getLogger(__name__)
-		logger.warning(
-			"Message content %s was too long, truncating to %d characters.",
-			content[:50] + " ... " + content[-50:],
-			maxMessageContentLength)
-		return content[:maxMessageContentLength] + "..."
-	return content
-
 def read_system_prompt_file(file_name):
 	with open("uncas_automation/assistant/Prompts/" + file_name, "r") as file:
 		system_prompt = file.read()

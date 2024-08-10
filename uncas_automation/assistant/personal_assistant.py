@@ -7,10 +7,10 @@ from openai import OpenAI
 
 from easai.assistant.log import SqliteAiLog
 from easai.assistant.loop import run_tool_loop, get_system_prompt, get_user_prompt
+from easai.assistant.chat_console import run_chat_console, print_assistant_message, print_tool_message
 
 from uncas_automation.assistant.assistant_tools import get_all_tools
 from uncas_automation.assistant.logger_setup import init_logger
-from uncas_automation.assistant.old_logger import foreground, background, style
 from uncas_automation.assistant.Agents.activity_planner_agent import ActivityPlannerAgent
 from uncas_automation.assistant.Agents.agent_definition import AgentDefinition
 from uncas_automation.assistant.Agents.blog_writer_agent import BlogWriterAgent
@@ -36,7 +36,6 @@ def get_llm_model() -> str:
 	model = os.getenv("LlmModel")
 	if model and len(model) > 0:
 		return model
-	
 	llmType = get_llm_type()
 	if llmType == "OpenAi":
 		return "gpt-4o-mini"
@@ -59,34 +58,17 @@ def run_chat_loop():
 		logger = logging.getLogger(__name__)
 		logger.critical('FATAL ERROR: OPENAI_API_KEY needed. Set the value in a .env file: echo "OPENAI_API_KEY=YOUR_API_KEY_VALUE" >> .env')
 		exit(1)
-	client = get_llm_client()
-	messages = [read_system_prompt_file("InteractiveAssistantLoop.md")]
-	callName = getSetting("assistant", {}).get("callName", "You")
-	tools = get_all_tools()
-	while True:
-		prompt = input(background.BLUE + foreground.WHITE + get_role_console_line(callName) + " ")
-		print()
-		if prompt == "bye":
-			print_assistant_message("Good bye!")
-			return
-		messages.append(get_user_prompt(prompt))
-		messages = run_tool_loop_here(client, tools, messages)
-
-def get_role_console_line(role : str):
-	return "  " + role.ljust(11) + style.RESET_ALL + " : "
+	run_chat_console(
+		client = get_llm_client(), 
+		model = get_llm_model(),
+		system_prompt = read_system_prompt_file("InteractiveAssistantLoop.md"),
+		your_name = getSetting("assistant", {}).get("callName", "You"),
+		tools = get_all_tools(),
+		ai_logger = ai_log)
 
 def read_system_prompt_file(file_name):
 	with open("uncas_automation/assistant/Prompts/" + file_name, "r") as file:
-		system_prompt = file.read()
-		return get_system_prompt(system_prompt)
-
-def print_assistant_message(content):
-	print(background.GREEN + foreground.WHITE + get_role_console_line("Assistant"), content)
-	print()
-
-def print_tool_message(content):
-	print(background.YELLOW + foreground.WHITE + get_role_console_line("Tool"), content)
-	print()
+		return file.read()
 
 def run_tool_loop_here(client: OpenAI, tools: list, messages: list):
 	return run_tool_loop(

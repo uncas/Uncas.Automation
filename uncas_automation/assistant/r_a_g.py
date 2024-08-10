@@ -1,10 +1,10 @@
 # RAG = Retrieval-Augmented Generation
 
-from uncas_automation.assistant.old_logger import Logger
+import logging
 from dotenv import load_dotenv # type: ignore
 load_dotenv()
 import os
-logger = Logger()
+logger = logging.getLogger(__name__)
 
 def getLlm():
 	llmType = os.getenv('LlmType')

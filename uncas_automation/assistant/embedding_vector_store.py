@@ -2,11 +2,11 @@
 
 class EmbeddingVectorStore:
     def __init__(self, directory):
-        from uncas_automation.assistant.old_logger import Logger
+        import logging
         self.directory = directory
         self.textSplitter = None
         self.embeddingFunction = None
-        self.logger = Logger()
+        self.logger = logging.getLogger(__name__)
     
     def getEmbeddingFunction(self):
         if not self.embeddingFunction:

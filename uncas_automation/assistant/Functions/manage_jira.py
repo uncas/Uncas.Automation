@@ -43,12 +43,12 @@ def create_jira_issue(data):
 	return {"key": issue.key, "summary": issue.fields.summary, "description": issue.fields.description}
 
 def create_jira_issue_tool():
-	from uncas_automation.assistant.assistant_tools import AssistantTool, AssistantToolParameter
+	from easai.assistant.tool import AssistantTool, AssistantToolParameter
 	return AssistantTool(create_jira_issue, "Create a Jira issue", [
 		AssistantToolParameter("summary", "The summary of the issue"),
 		AssistantToolParameter("description", "The description of the issue")
 	])
 
 def get_my_jira_issues_tool():
-	from uncas_automation.assistant.assistant_tools import AssistantTool
+	from easai.assistant.tool import AssistantTool
 	return AssistantTool(get_my_jira_issues, "Get all my Jira issues")

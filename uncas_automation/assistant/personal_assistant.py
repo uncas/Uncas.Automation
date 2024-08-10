@@ -5,6 +5,9 @@ import os
 from dotenv import load_dotenv
 from openai import OpenAI
 
+from easai.assistant.log import SqliteAiLog
+from easai.assistant.loop import run_tool_loop, get_system_prompt, get_user_prompt
+
 from uncas_automation.assistant.assistant_tools import get_all_tools
 from uncas_automation.assistant.logger_setup import init_logger
 from uncas_automation.assistant.old_logger import foreground, background, style
@@ -12,11 +15,10 @@ from uncas_automation.assistant.Agents.activity_planner_agent import ActivityPla
 from uncas_automation.assistant.Agents.agent_definition import AgentDefinition
 from uncas_automation.assistant.Agents.blog_writer_agent import BlogWriterAgent
 from uncas_automation.assistant.Agents.coding_agent import CodingAgent
-from uncas_automation.assistant.Utility.ai_log import SqliteAiLog
 from uncas_automation.Utils.Settings import getSetting
 
 load_dotenv(override = True)
-ai_log = SqliteAiLog()
+ai_log = SqliteAiLog("Data/AiLog.db")
 
 def get_llm_type() -> str:
 	value = os.getenv("LlmType")
@@ -48,7 +50,7 @@ def run_tasked_agent(agent: AgentDefinition):
 		taskResult = json.dumps(inputTask["task"]())
 		user_message_content += inputTask["prompt"] + ": " + taskResult + "\n\n"
 	messages.append(get_user_prompt(user_message_content))
-	messages = run_tool_loop(client, agent.tools, messages)
+	messages = run_tool_loop_here(client, agent.tools, messages)
 	assistantMessage = messages[-1].content
 	agent.action_on_result(assistantMessage)
 
@@ -68,13 +70,10 @@ def run_chat_loop():
 			print_assistant_message("Good bye!")
 			return
 		messages.append(get_user_prompt(prompt))
-		messages = run_tool_loop(client, tools, messages)
+		messages = run_tool_loop_here(client, tools, messages)
 
 def get_role_console_line(role : str):
 	return "  " + role.ljust(11) + style.RESET_ALL + " : "
-
-def get_user_prompt(content):
-	return { "role": "user", "content": get_limited_message_content(content) }
 
 def get_limited_message_content(content):
 	maxMessageContentLength = 100 * 1000
@@ -86,9 +85,6 @@ def get_limited_message_content(content):
 			maxMessageContentLength)
 		return content[:maxMessageContentLength] + "..."
 	return content
-
-def get_system_prompt(systemPrompt):
-	return { "role": "system", "content": get_limited_message_content(systemPrompt) }
 
 def read_system_prompt_file(file_name):
 	with open("uncas_automation/assistant/Prompts/" + file_name, "r") as file:
@@ -103,9 +99,8 @@ def print_tool_message(content):
 	print(background.YELLOW + foreground.WHITE + get_role_console_line("Tool"), content)
 	print()
 
-def run_tool_loop(client: OpenAI, tools: list, messages: list):
-	from uncas_automation.assistant.tool_loop import run_tool_loop as run_tool_loop_with_callback
-	return run_tool_loop_with_callback(
+def run_tool_loop_here(client: OpenAI, tools: list, messages: list):
+	return run_tool_loop(
 		client,
 		tools,
 		messages,

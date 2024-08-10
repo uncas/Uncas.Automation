@@ -1,3 +1,9 @@
+# My own lib:
+
+easai > 0.0.4
+
+# OTHER:
+
 google-api-python-client
 google-auth-httplib2
 google-auth-oauthlib
@@ -54,5 +60,3 @@ duckduckgo_search
 
 # For the flask websites:
 flask
-
-easai > 0.0.3

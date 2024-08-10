@@ -28,11 +28,11 @@ def get_news_details(input):
 	return text
 
 def get_latest_news_tool():
-	from uncas_automation.assistant.assistant_tools import AssistantTool
+	from easai.assistant.tool import AssistantTool
 	return AssistantTool(get_latest_news, "Get the latest news")
 
 def get_news_details_tool():
-	from uncas_automation.assistant.assistant_tools import AssistantTool, AssistantToolParameter
+	from easai.assistant.tool import AssistantTool, AssistantToolParameter
 	return AssistantTool(get_news_details, "Get details about news in the provided link", [
 		AssistantToolParameter("news_link", "The link to the news")
 	])

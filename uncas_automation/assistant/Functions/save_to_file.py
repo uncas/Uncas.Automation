@@ -7,7 +7,7 @@ def save_to_file(data):
 	write_text("Output", file_name, text)
 
 def save_to_file_tool():
-	from uncas_automation.assistant.assistant_tools import AssistantTool, AssistantToolParameter
+	from easai.assistant.tool import AssistantTool, AssistantToolParameter
 	return AssistantTool(save_to_file, "Save text content to a file", [
 		AssistantToolParameter("text", "The text content to save"),
 		AssistantToolParameter("file_name", "The name of the file to save to, for example 'plan.html'.")

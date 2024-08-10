@@ -22,7 +22,7 @@ def find_info_in_docs(input):
 	return result
 
 def find_info_in_docs_tool():
-	from uncas_automation.assistant.assistant_tools import AssistantTool, AssistantToolParameter
+	from easai.assistant.tool import AssistantTool, AssistantToolParameter
 	return AssistantTool(find_info_in_docs, "Find info in work-related documentation", [
 		AssistantToolParameter("query", "The thing to search for in the documentation")
 	])

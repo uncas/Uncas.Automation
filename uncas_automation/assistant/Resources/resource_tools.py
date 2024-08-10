@@ -1,6 +1,6 @@
 def get_resource_tools():
 	import re
-	from uncas_automation.assistant.assistant_tools import AssistantTool, AssistantToolParameter
+	from easai.assistant.tool import AssistantTool, AssistantToolParameter
 	resources = getResources()
 	idPattern = re.compile("^[a-zA-Z0-9_-]+$")
 	for resource in resources:

@@ -23,7 +23,7 @@ def read_code():
 	return code
 
 def save_code_tool():
-	from uncas_automation.assistant.assistant_tools import AssistantTool, AssistantToolParameter
+	from easai.assistant.tool import AssistantTool, AssistantToolParameter
 	return AssistantTool(save_code, "Save code", [
 		AssistantToolParameter("code", "The code"),
 		AssistantToolParameter("folder_path", "The path to the folder where the code should be saved."),
@@ -31,5 +31,5 @@ def save_code_tool():
 	])
 
 def read_code_tool():
-	from uncas_automation.assistant.assistant_tools import AssistantTool
+	from easai.assistant.tool import AssistantTool
 	return AssistantTool(read_code, "Read code")

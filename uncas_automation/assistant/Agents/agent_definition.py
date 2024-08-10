@@ -1,4 +1,4 @@
-from uncas_automation.assistant.assistant_tools import AssistantTool
+from easai.assistant.tool import AssistantTool
 
 class AgentDefinition:
 	def __init__(self, system_prompt: str, input_tasks, action_on_result, tools: list[AssistantTool] = []):

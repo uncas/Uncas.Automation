@@ -10,5 +10,5 @@ def getLocation():
 	}
 
 def get_location_tool():
-	from uncas_automation.assistant.assistant_tools import AssistantTool
+	from easai.assistant.tool import AssistantTool
 	return AssistantTool(getLocation, "Get the user's current location")

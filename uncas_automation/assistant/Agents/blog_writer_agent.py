@@ -1,5 +1,5 @@
 from uncas_automation.assistant.Agents.agent_definition import AgentDefinition
-from uncas_automation.assistant.assistant_tools import AssistantTool
+from easai.assistant.tool import AssistantTool
 
 class BlogWriterAgent(AgentDefinition):
 	def __init__(self):

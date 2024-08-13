@@ -1,6 +1,6 @@
 # My own lib:
 
-easai > 0.0.7
+easai > 0.0.8
 
 # OTHER:
 

@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from openai import OpenAI
 
 from easai.assistant.log import SqliteAiLog
-from easai.assistant.loop import run_assistant_loop, get_user_prompt, AssistantLoop
+from easai.assistant.assistant import run_assistant, get_user_prompt, Assistant
 from easai.assistant.chat_console import run_chat_console, print_assistant_message, print_tool_message
 
 from uncas_automation.assistant.assistant_tools import get_all_tools
@@ -47,15 +47,15 @@ def run_tasked_agent(agent: AgentDefinition):
 		taskResult = json.dumps(inputTask["task"]())
 		user_message_content += inputTask["prompt"] + ": " + taskResult + "\n\n"
 	messages = [get_user_prompt(user_message_content)]
-	loop = AssistantLoop(
+	assistant = Assistant(
 		client = get_llm_client(), 
 		model = get_llm_model(),
 		system_prompt = agent.system_prompt,
 		tools = agent.tools,
 		max_iterations = 10)
-	messages = run_assistant_loop(
+	messages = run_assistant(
 		messages = messages,
-		assistant_loop = loop,
+		assistant = assistant,
 		assistant_message_callback = print_assistant_message,
 		tool_message_callback = print_tool_message,
 		ai_logger = ai_log)
@@ -67,13 +67,13 @@ def run_chat_loop():
 		logger = logging.getLogger(__name__)
 		logger.critical('FATAL ERROR: OPENAI_API_KEY needed. Set the value in a .env file: echo "OPENAI_API_KEY=YOUR_API_KEY_VALUE" >> .env')
 		exit(1)
-	assistant_loop = AssistantLoop(
+	assistant = Assistant(
 		client = get_llm_client(), 
 		model = get_llm_model(),
 		system_prompt = read_system_prompt_file("InteractiveAssistantLoop.md"),
 		tools = get_all_tools())
 	run_chat_console(
-		assistant_loop = assistant_loop,
+		assistant = assistant,
 		your_name = getSetting("assistant", {}).get("callName", "You"),
 		ai_logger = ai_log)
 

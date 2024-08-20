@@ -8,6 +8,7 @@ from openai import OpenAI
 from easai.assistant.log import SqliteAiLog
 from easai.assistant.assistant import run_assistant, get_user_prompt, Assistant
 from easai.assistant.chat_console import run_chat_console, print_assistant_message, print_tool_message
+from easai.assistant.tools.coding_tool import CodingTool
 
 from uncas_automation.assistant.assistant_tools import get_all_tools
 from uncas_automation.assistant.logger_setup import init_logger
@@ -77,6 +78,19 @@ def run_chat_loop():
 		your_name = getSetting("assistant", {}).get("callName", "You"),
 		ai_logger = ai_log)
 
+def run_repo_coding_loop(path_to_code: str):
+	coding_tools = CodingTool(path_to_code, approve_execution = True).get_all_tools()
+	system_prompt="You are a good software developer working a repository to which you have access to the files. You make small changes at a time, respecting the existing functionality of the project."
+	assistant = Assistant(
+		client = get_llm_client(), 
+		model = get_llm_model(),
+		system_prompt = system_prompt,
+		tools = coding_tools)
+	run_chat_console(
+		assistant = assistant,
+		your_name = getSetting("assistant", {}).get("callName", "You"),
+		ai_logger = ai_log)
+
 def read_system_prompt_file(file_name):
 	with open("uncas_automation/assistant/Prompts/" + file_name, "r") as file:
 		return file.read()
@@ -85,7 +99,7 @@ def run_personal_assistant():
 	init_logger()
 	logger = logging.getLogger(__name__)
 	logger.info("Running Personal Assistant")
-	mode = input("How can I help you? Select: 1 = Chat, 2 = Holiday planner, 3 = Blog writer, 4 = Coder : ")
+	mode = input("How can I help you? Select: 1 = Chat, 2 = Holiday planner, 3 = Blog writer, 4 = Coder, 5 = Code on uncas.dk, 6 = Code on easai : ")
 	if mode == "1":
 		run_chat_loop()
 	elif mode == "2":
@@ -94,4 +108,8 @@ def run_personal_assistant():
 		run_tasked_agent(BlogWriterAgent())
 	elif mode == "4":
 		run_tasked_agent(CodingAgent())
+	elif mode == "5":
+		run_repo_coding_loop("../uncas.dk")
+	elif mode == "6":
+		run_repo_coding_loop("../easai")
 	logger.info("Exiting Personal Assistant")

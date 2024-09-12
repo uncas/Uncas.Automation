@@ -1,0 +1,6 @@
+import unittest
+
+#from tests.test_cars_in_dk_integration import CarsInDkIntegrationTests
+from tests.test_bilbasen_searcher_integration import CarsInDkIntegrationTests
+
+unittest.main()

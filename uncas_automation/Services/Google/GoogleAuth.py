@@ -6,10 +6,12 @@ from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 
-def getCredentials():
-  scopes = ["documents.readonly", "spreadsheets.readonly", "presentations.readonly", "gmail.readonly", "gmail.compose", "calendar.readonly", "drive.readonly"]
-  tokenFile = "Config/GoogleToken_" + "-".join(scopes) + ".json"
-  credentialsFile = "Config/GoogleCredentials.json"
+def getCredentials(account = None):
+  scopes = ["documents.readonly", "spreadsheets", "presentations.readonly", "gmail.readonly", "gmail.compose", "calendar.readonly", "drive.readonly", "drive.file"]
+  if account is None:
+    account = os.getenv("GOOGLE_ACCOUNT_ALIAS")
+  credentialsFile = "Config/GoogleCredentials_" + account + ".json"
+  tokenFile = "Config/GoogleToken_" + account + "_" + "-".join(scopes) + ".json"
   if not os.path.exists(credentialsFile):
      raise Exception("No Google credentials file exists. \
 Follow guideline here https://developers.google.com/docs/api/quickstart/python \

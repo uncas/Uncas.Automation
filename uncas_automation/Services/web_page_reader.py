@@ -5,7 +5,9 @@ def read_web_page_text(url):
 
 def read_web_page_html(url):
 	import requests
-	response = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
+	response = requests.get(url, headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36'})
+	if response.status_code != 200:
+		print("Error: ", response.status_code, response.headers)
 	return response.text
 
 def read_web_page_markdown(url):

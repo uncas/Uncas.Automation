@@ -10,6 +10,8 @@ from easai.assistant.assistant import run_assistant, get_user_prompt, Assistant
 from easai.assistant.chat_console import run_chat_console, print_assistant_message, print_tool_message
 from easai.assistant.tools.coding_tool import CodingTool
 
+from uncas_automation.assistant.Functions.read_web_page import read_web_page_text_tool
+from uncas_automation.assistant.Functions.search_internet import search_internet_tool
 from uncas_automation.assistant.assistant_tools import get_all_tools
 from uncas_automation.assistant.logger_setup import init_logger
 from uncas_automation.assistant.Agents.activity_planner_agent import ActivityPlannerAgent
@@ -79,13 +81,15 @@ def run_chat_loop():
 		ai_logger = ai_log)
 
 def run_repo_coding_loop(path_to_code: str):
-	coding_tools = CodingTool(path_to_code, approve_execution = True).get_all_tools()
+	tools = CodingTool(path_to_code, approve_execution = True).get_all_tools()
+	tools.append(read_web_page_text_tool())
+	tools.append(search_internet_tool())
 	system_prompt="You are a good software developer working a repository to which you have access to the files. You make small changes at a time, respecting the existing functionality of the project."
 	assistant = Assistant(
 		client = get_llm_client(), 
 		model = get_llm_model(),
 		system_prompt = system_prompt,
-		tools = coding_tools)
+		tools = tools)
 	run_chat_console(
 		assistant = assistant,
 		your_name = getSetting("assistant", {}).get("callName", "You"),

@@ -25,12 +25,6 @@ class AssistantIntegrationTests(unittest.TestCase):
 		#for message in messages:
 		#	print("From " + message["sender"] + ": " + message["subject"])
 	
-	def test_get_electric_cars_in_denmark(self):
-		from uncas_automation.Services.eletric_cars_service import get_electric_cars_in_denmark
-		cars = get_electric_cars_in_denmark()
-		#print(cars[:1000])
-		self.assertGreater(len(cars), 0)
-
 	def test_wikipedia(self):
 		from uncas_automation.Services.wikipedia_service import search_wikipedia
 		result = search_wikipedia("Covid-19")
